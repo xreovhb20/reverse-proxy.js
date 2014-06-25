@@ -1,0 +1,58 @@
+{
+  "author": "Cédric Belin <cedric@belin.io>",
+  "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
+  "description": "Simple reverse proxy server supporting WebSockets and host-based routing tables.",
+  "homepage": "https://github.com/cedx/reverse-proxy.js",
+  "license": "MIT",
+  "main": "./lib/core",
+  "name": "reverse-proxy-js",
+  "preferGlobal": true,
+  "private": false,
+  "version": "0.1.0",
+  "bin": {
+    "reverse-proxy": "./bin/cli.js"
+  },
+  "dependencies": {
+    "commander": "^2.2.0",
+    "http-proxy": "^1.1.4"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.1",
+    "yuidocjs": "^0.3.50"
+  },
+  "engines": {
+    "node": "^0.10.29"
+  },
+  "jshintConfig": {
+    "camelcase": true,
+    "freeze": true,
+    "indent": 2,
+    "latedef": true,
+    "loopfunc": true,
+    "newcap": true,
+    "node": true,
+    "nonew": true,
+    "quotmark": "single",
+    "strict": true,
+    "trailing": true,
+    "undef": true,
+    "unused": true
+  },
+  "keywords": [
+    "http",
+    "reverse",
+    "routing",
+    "proxy",
+    "server",
+    "websocket"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cedx/reverse-proxy.js.git"
+  },
+  "scripts": {
+    "doc": "yuidoc --lint && yuidoc --no-code",
+    "lint": "jshint --verbose lib",
+    "start": "node bin/cli.js"
+  }
+}

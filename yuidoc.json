@@ -1,0 +1,11 @@
+{
+  "logo": "http://dev.belin.io/reverse-proxy.js/api/favicon.ico",
+  "name": "Reverse-Proxy.js",
+  "url": "https://github.com/cedx/reverse-proxy.js",
+  "options": {
+    "linkNatives": true,
+    "outdir": "doc/api",
+    "paths": "lib",
+    "tabtospace": 2
+  }
+}
