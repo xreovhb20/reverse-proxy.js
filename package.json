@@ -1,7 +1,7 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
-  "description": "Simple reverse proxy server supporting WebSockets and host-based routing tables.",
+  "description": "Simple reverse proxy server supporting WebSockets and hostname-based routing tables.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "MIT",
   "main": "./lib/core",
@@ -21,7 +21,7 @@
     "yuidocjs": "^0.3.50"
   },
   "engines": {
-    "node": "^0.10.29"
+    "node": ">=0.10.29"
   },
   "jshintConfig": {
     "camelcase": true,
