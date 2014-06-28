@@ -4,7 +4,7 @@
   "description": "Simple reverse proxy server supporting WebSockets and hostname-based routing tables.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "MIT",
-  "main": "./lib/core",
+  "main": "./index",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
   "private": false,
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "commander": "^2.2.0",
-    "http-proxy": "^1.1.4"
+    "http-proxy": "^1.1.4",
+    "when": "^3.2.3"
   },
   "devDependencies": {
     "jshint": "^2.5.1",
@@ -52,7 +53,7 @@
   },
   "scripts": {
     "doc": "yuidoc --lint && yuidoc --no-code",
-    "lint": "jshint --verbose lib",
-    "start": "node bin/cli.js"
+    "lint": "jshint --verbose bin lib",
+    "start": "node bin/cli.js --help"
   }
 }
