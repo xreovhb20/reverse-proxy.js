@@ -39,7 +39,7 @@ var Application={
    * @param {Array} [args] The command line arguments.
    */
   run: function() {
-    process.chdir(__dirname+'/../..');
+    process.chdir(__dirname+'/..');
     process.title=this.name+'.js';
 
     var servers=[];
