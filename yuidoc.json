@@ -5,7 +5,7 @@
   "options": {
     "linkNatives": true,
     "outdir": "doc/api",
-    "paths": [ "bin", "lib" ],
+    "paths": "lib",
     "tabtospace": 2
   }
 }
