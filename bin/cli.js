@@ -5,12 +5,12 @@
 'use strict';
 
 // Module dependencies.
+var async=require('async');
 var fs=require('fs');
 var path=require('path');
 var program=require('commander');
 var reverseProxy=require('../index');
 var util=require('util');
-var when=require('when');
 
 /**
  * Represents an application providing functionalities specific to console requests.
@@ -64,7 +64,6 @@ var Application={
       // Parse reverse proxy configuration.
       var config=this._loadConfig();
       if(!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
-
       config.forEach(function(options) {
         servers.push(new reverseProxy.Server(options));
       });
@@ -77,35 +76,39 @@ var Application={
 
     // Start the reverse proxy instances.
     var self=this;
-    var promises=servers.map(function(server) {
-      server.on('request', function(req) {
-        self._log(util.format(
-          '%s - %s - "%s %s HTTP/%s" "%s"',
-          req.connection.remoteAddress,
-          req.headers.host,
-          req.method,
-          req.url,
-          req.httpVersion,
-          req.headers['user-agent']
-        ));
-      });
+    async.each(
+      servers,
+      function(server, callback) {
+        server.on('request', function(req) {
+          self._log(util.format(
+            '%s - %s - "%s %s HTTP/%s" "%s"',
+            req.connection.remoteAddress,
+            req.headers.host,
+            req.method,
+            req.url,
+            req.httpVersion,
+            req.headers['user-agent']
+          ));
+        });
 
-      var deferred=when.defer();
-      server.listen(function() {
-        self._log(util.format('Reverse proxy instance listening on %s:%d', server.host, server.port));
-        deferred.resolve();
-      });
+        server.listen(function() {
+          self._log(util.format('Reverse proxy instance listening on %s:%d', server.host, server.port));
+          callback();
+        });
+      },
+      function(err) {
+        if(err) {
+          console.log('\n  ERROR: %s', err.message);
+          process.exit(1);
+        }
 
-      return deferred.promise;
-    });
-
-    // Drop privileges.
-    when.all(promises).then(function() {
-      if(program.user) {
-        self._log('Drop user privileges to: '+program.user);
-        process.setuid(program.user);
+        // Drop privileges.
+        if(program.user && ('setuid' in process)) {
+          self._log('Drop user privileges to: '+program.user);
+          process.setuid(program.user);
+        }
       }
-    });
+    );
   },
 
   /**

@@ -13,9 +13,9 @@
     "reverse-proxy": "./bin/cli.js"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "commander": "^2.2.0",
-    "http-proxy": "^1.1.4",
-    "when": "^3.2.3"
+    "http-proxy": "^1.1.4"
   },
   "devDependencies": {
     "jshint": "^2.5.1",
