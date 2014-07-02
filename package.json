@@ -52,7 +52,7 @@
     "url": "https://github.com/cedx/reverse-proxy.js.git"
   },
   "scripts": {
-    "doc": "yuidoc --lint && yuidoc --no-code --no-color",
+    "doc": "yuidoc --lint && yuidoc --no-code",
     "lint": "jshint --verbose bin lib",
     "start": "node bin/cli.js"
   }

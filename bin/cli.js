@@ -29,13 +29,6 @@ var Application={
   name: 'reverse-proxy',
 
   /**
-   * Value indicating whether to silence the log output from the reverse proxy.
-   * @property silenceOutput
-   * @type Boolean
-   */
-  silenceOutput: false,
-
-  /**
    * Runs the application.
    * @method run
    * @param {Array} [args] The command line arguments.
@@ -44,26 +37,25 @@ var Application={
     process.chdir(__dirname+'/..');
     process.title=this.name+'.js';
 
+    // Parse command line arguments.
+    program._name=this.name;
+    program
+      .version(require('../package.json').version)
+      .option('-p, --port <port>', 'port that the reverse proxy should run on [80]', function(value) { return parseInt(value, 10); }, 80)
+      .option('-h, --host <host>', 'hostname that the reverse proxy should run on [127.0.0.1]', '127.0.0.1')
+      .option('-t, --target <target>', 'location of the server the proxy will target', function(value) {
+        return /^\d+$/.test(value) ? parseInt(value, 10) : value;
+      })
+      .option('-c, --config <path>', 'location of the configuration file(s) for the reverse proxy')
+      .option('--silent', 'silence the log output from the reverse proxy')
+      .option('-u, --user <user>', 'user to drop privileges to once server socket is bound')
+      .parse(process.argv);
+
+    if(!program.config && !program.target) program.help();
+
+    // Parse reverse proxy configuration.
     var servers=[];
     try {
-      // Parse command line arguments.
-      program._name=this.name;
-      program
-        .version(require('../package.json').version)
-        .option('-p, --port <port>', 'port that the reverse proxy should run on [80]', function(value) { return parseInt(value, 10); }, 80)
-        .option('-h, --host <host>', 'hostname that the reverse proxy should run on [127.0.0.1]', '127.0.0.1')
-        .option('-t, --target <target>', 'location of the server the proxy will target', function(value) {
-          return /^\d+$/.test(value) ? parseInt(value, 10) : value;
-        })
-        .option('-c, --config <path>', 'location of the configuration file(s) for the reverse proxy')
-        .option('--silent', 'silence the log output from the reverse proxy')
-        .option('-u, --user <user>', 'user to drop privileges to once server socket is bound')
-        .parse(process.argv);
-
-      if(!program.config && !program.target) throw new Error('You must provide at least a target or a configuration file.');
-      this.silenceOutput=program.silent;
-
-      // Parse reverse proxy configuration.
       var config=this._loadConfig();
       if(!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
       config.forEach(function(options) {
@@ -72,8 +64,8 @@ var Application={
     }
 
     catch(err) {
-      console.log('\n  ERROR: %s', err.message);
-      program.help();
+      console.log(err.message);
+      process.exit(1);
     }
 
     // Start the reverse proxy instances.
@@ -100,8 +92,8 @@ var Application={
       },
       function(err) {
         if(err) {
-          console.log('\n  ERROR: %s', err.message);
-          process.exit(1);
+          console.log(err.message);
+          process.exit(2);
         }
 
         // Drop privileges.
@@ -160,7 +152,7 @@ var Application={
    * @private
    */
   _log: function(message) {
-    if(!this.silenceOutput) console.log('[%s] %s', new Date().toUTCString(), message instanceof Function ? message() : message);
+    if(!program.silent) console.log('[%s] %s', new Date().toUTCString(), message instanceof Function ? message() : message);
   }
 };
 
