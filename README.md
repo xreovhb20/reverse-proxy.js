@@ -15,7 +15,7 @@ From a command prompt:
     -h, --help             output usage information
     -V, --version          output the version number
     -p, --port <port>      port that the reverse proxy should run on [80]
-    -h, --host <host>      hostname that the reverse proxy should run on [127.0.0.1]
+    -h, --host <host>      host that the reverse proxy should run on [127.0.0.1]
     -t, --target <target>  location of the server the proxy will target
     -c, --config <path>    location of the configuration file(s) for the reverse proxy
     --silent               silence the log output from the reverse proxy

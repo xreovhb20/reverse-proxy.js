@@ -42,7 +42,7 @@ var Application={
     program
       .version(require('../package.json').version)
       .option('-p, --port <port>', 'port that the reverse proxy should run on [80]', function(value) { return parseInt(value, 10); }, 80)
-      .option('-h, --host <host>', 'hostname that the reverse proxy should run on [0.0.0.0]', '0.0.0.0')
+      .option('-h, --host <host>', 'host that the reverse proxy should run on [0.0.0.0]', '0.0.0.0')
       .option('-t, --target <target>', 'location of the server the proxy will target', function(value) {
         return /^\d+$/.test(value) ? parseInt(value, 10) : value;
       })
