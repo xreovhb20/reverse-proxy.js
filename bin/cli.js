@@ -42,7 +42,7 @@ var Application={
     program
       .version(require('../package.json').version)
       .option('-p, --port <port>', 'port that the reverse proxy should run on [80]', function(value) { return parseInt(value, 10); }, 80)
-      .option('-h, --host <host>', 'hostname that the reverse proxy should run on [127.0.0.1]', '127.0.0.1')
+      .option('-h, --host <host>', 'hostname that the reverse proxy should run on [0.0.0.0]', '0.0.0.0')
       .option('-t, --target <target>', 'location of the server the proxy will target', function(value) {
         return /^\d+$/.test(value) ? parseInt(value, 10) : value;
       })
@@ -113,7 +113,7 @@ var Application={
    */
   _loadConfig: function() {
     if(!program.config) return [ {
-      host: program.host ? program.host : '127.0.0.1',
+      host: program.host ? program.host : '0.0.0.1',
       port: program.port ? program.port : 80,
       target: program.target
     } ];
@@ -135,7 +135,7 @@ var Application={
       if(path.extname(file)!='.json') return;
 
       var options=require(file);
-      if(!('host' in options)) options.host=(program.host ? program.host : '127.0.0.1');
+      if(!('host' in options)) options.host=(program.host ? program.host : '0.0.0.1');
       if(!('port' in options)) options.port=(program.port ? program.port : 80);
       if(!('router' in options) && !('target' in options)) throw new Error(util.format('You must provide at least a target or a router in "%s"', file));
 
