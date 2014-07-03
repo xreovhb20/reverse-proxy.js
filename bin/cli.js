@@ -113,8 +113,8 @@ var Application={
    */
   _loadConfig: function() {
     if(!program.config) return [ {
-      host: program.host ? program.host : '0.0.0.1',
-      port: program.port ? program.port : 80,
+      host: program.host,
+      port: program.port,
       target: program.target
     } ];
 
@@ -135,9 +135,14 @@ var Application={
       if(path.extname(file)!='.json') return;
 
       var options=require(file);
-      if(!('host' in options)) options.host=(program.host ? program.host : '0.0.0.1');
-      if(!('port' in options)) options.port=(program.port ? program.port : 80);
+      if(!('host' in options)) options.host=program.host;
+      if(!('port' in options)) options.port=program.port;
       if(!('router' in options) && !('target' in options)) throw new Error(util.format('You must provide at least a target or a router in "%s"', file));
+
+      if('ssl' in options) {
+        if('cert' in options.ssl) options.ssl.cert=fs.readFileSync(options.ssl.cert);
+        if('key' in options.ssl) options.ssl.key=fs.readFileSync(options.ssl.key);
+      }
 
       config.push(options);
     });
