@@ -1,5 +1,5 @@
 # Reverse-Proxy.js
-Simple reverse proxy server supporting [WebSockets](https://en.wikipedia.org/wiki/WebSocket) and hostname-based routing tables,
+Simple reverse proxy server supporting [WebSockets](https://en.wikipedia.org/wiki/WebSocket),
 implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 ## Command Line Interface

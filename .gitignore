@@ -1,5 +1,6 @@
 /*.komodoproject
 /doc/api/
+/etc/
 /node_modules/
 /npm-debug.log
 /var/
