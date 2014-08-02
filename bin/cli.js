@@ -2,7 +2,7 @@
 
 /**
  * Command line interface.
- * @module cli
+ * @module bin/cli
  */
 'use strict';
 
@@ -16,7 +16,7 @@ var util=require('util');
 
 /**
  * Represents an application providing functionalities specific to console requests.
- * @class Application
+ * @class cli.Application
  * @static
  */
 var Application={
@@ -31,7 +31,6 @@ var Application={
   /**
    * Runs the application.
    * @method run
-   * @param {Array} [args] The command line arguments.
    */
   run: function() {
     process.chdir(__dirname+'/..');
@@ -68,47 +67,26 @@ var Application={
       process.exit(1);
     }
 
-    // Start the reverse proxy instances.
+    // Start the server instances.
     var self=this;
-    async.each(
-      servers,
-      function(server, callback) {
-        server.on('request', function(req) {
-          self._log(util.format(
-            '%s - %s - "%s %s HTTP/%s" "%s"',
-            req.connection.remoteAddress,
-            req.headers.host,
-            req.method,
-            req.url,
-            req.httpVersion,
-            req.headers['user-agent']
-          ));
-        });
-
-        server.listen(function() {
-          self._log(util.format('Reverse proxy instance listening on %s:%d', server.host, server.port));
-          callback();
-        });
-      },
-      function(err) {
-        if(err) {
-          console.log(err.message);
-          process.exit(2);
-        }
-
-        // Drop privileges.
-        if(program.user && ('setuid' in process)) {
-          self._log('Drop user privileges to: '+program.user);
-          process.setuid(program.user);
-        }
+    this._start(servers, function(err) {
+      if(err) {
+        console.log(err.message);
+        process.exit(2);
       }
-    );
+
+      // Drop privileges.
+      if(program.user && ('setuid' in process)) {
+        self._log('Drop user privileges to: '+program.user);
+        process.setuid(program.user);
+      }
+    });
   },
 
   /**
-   * TODO Loads the configuration of the specified application from the file system.
+   * Loads the application configuration from the file system.
    * @method _loadConfig
-   * @return {Array} An array of objects containing the configuration of one or several reverse proxy instances.
+   * @return {Array} An array of objects containing the settings of one or several reverse proxy instances.
    * @private
    */
   _loadConfig: function() {
@@ -158,6 +136,40 @@ var Application={
    */
   _log: function(message) {
     if(!program.silent) console.log('[%s] %s', new Date().toUTCString(), message instanceof Function ? message() : message);
+  },
+
+  /**
+   * Starts the specified reverse proxy instances.
+   * @method _start
+   * @param {Array} servers The list of servers to start.
+   * @param {Function} [callback] The function to invoke when all servers are started.
+   * @async
+   * @private
+   */
+  _start: function(servers, callback) {
+    var self=this;
+    async.each(
+      servers,
+      function(server, next) {
+        server.on('request', function(req) {
+          self._log(util.format(
+            '%s - %s - "%s %s HTTP/%s" "%s"',
+            req.connection.remoteAddress,
+            req.headers.host,
+            req.method,
+            req.url,
+            req.httpVersion,
+            req.headers['user-agent']
+          ));
+        });
+
+        server.listen(function() {
+          self._log(util.format('Reverse proxy instance listening on %s:%d', server.host, server.port));
+          next();
+        });
+      },
+      callback
+    );
   }
 };
 
