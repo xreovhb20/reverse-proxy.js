@@ -37,4 +37,4 @@ This project was developed primarily with these libraries:
 - [YUIDoc](http://yui.github.io/yuidoc)
 
 ## License
-[Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the MIT License.
+[Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) is distributed under the MIT License.
