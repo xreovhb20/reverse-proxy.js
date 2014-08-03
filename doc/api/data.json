@@ -1,0 +1,559 @@
+{
+    "project": {
+        "logo": "http://dev.belin.io/reverse-proxy.js/api/favicon.ico",
+        "name": "Reverse-Proxy.js",
+        "url": "https://github.com/cedx/reverse-proxy.js",
+        "description": "Simple reverse proxy server supporting WebSockets.",
+        "version": "0.1.0"
+    },
+    "files": {
+        "bin\\cli.js": {
+            "name": "bin\\cli.js",
+            "modules": {
+                "bin/cli": 1
+            },
+            "classes": {
+                "cli.Application": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "bin\\make.js": {
+            "name": "bin\\make.js",
+            "modules": {
+                "bin/make": 1
+            },
+            "classes": {
+                "cli.Makefile": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib\\server.js": {
+            "name": "lib\\server.js",
+            "modules": {
+                "server": 1
+            },
+            "classes": {
+                "Server": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "bin/cli": {
+            "name": "bin/cli",
+            "submodules": {},
+            "classes": {
+                "cli.Application": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "bin\\cli.js",
+            "line": 17,
+            "description": "Command line interface."
+        },
+        "bin/make": {
+            "name": "bin/make",
+            "submodules": {},
+            "classes": {
+                "cli.Makefile": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "bin\\make.js",
+            "line": 13,
+            "description": "Build system."
+        },
+        "server": {
+            "name": "server",
+            "submodules": {},
+            "classes": {
+                "Server": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib\\server.js",
+            "line": 14,
+            "description": "Provides an implementation of a reverse proxy server."
+        }
+    },
+    "classes": {
+        "cli.Application": {
+            "name": "cli.Application",
+            "shortname": "cli.Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "bin/cli",
+            "namespace": "",
+            "file": "bin\\cli.js",
+            "line": 17,
+            "description": "Represents an application providing functionalities specific to console requests.",
+            "static": 1
+        },
+        "cli.Makefile": {
+            "name": "cli.Makefile",
+            "shortname": "cli.Makefile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "bin/make",
+            "namespace": "",
+            "file": "bin\\make.js",
+            "line": 13,
+            "description": "Provides tasks for [ShellJS](http://shelljs.org) make tool.",
+            "static": 1
+        },
+        "Server": {
+            "name": "Server",
+            "shortname": "Server",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "server",
+            "namespace": "",
+            "file": "lib\\server.js",
+            "line": 14,
+            "description": "Acts as an intermediary for requests from clients seeking resources from other servers.",
+            "extends": "events.EventEmitter",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "An object specifying the server settings.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "bin\\cli.js",
+            "line": 24,
+            "description": "The application name.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "cli.Application",
+            "module": "bin/cli"
+        },
+        {
+            "file": "bin\\cli.js",
+            "line": 31,
+            "description": "Runs the application.",
+            "itemtype": "method",
+            "name": "run",
+            "class": "cli.Application",
+            "module": "bin/cli"
+        },
+        {
+            "file": "bin\\cli.js",
+            "line": 86,
+            "description": "Loads the application configuration from the file system.",
+            "itemtype": "method",
+            "name": "_loadConfig",
+            "return": {
+                "description": "An array of objects containing the settings of one or several reverse proxy instances.",
+                "type": "Array"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "cli.Application",
+            "module": "bin/cli"
+        },
+        {
+            "file": "bin\\cli.js",
+            "line": 131,
+            "description": "Prints the specified message, with a timestamp and a new line, to the standard output.",
+            "itemtype": "method",
+            "name": "_log",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to be logged. If it's a function, the message is the result of the function call.",
+                    "type": "String|Function"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "cli.Application",
+            "module": "bin/cli"
+        },
+        {
+            "file": "bin\\cli.js",
+            "line": 141,
+            "description": "Starts the specified reverse proxy instances.",
+            "itemtype": "method",
+            "name": "_start",
+            "params": [
+                {
+                    "name": "servers",
+                    "description": "The list of servers to start.",
+                    "type": "Array"
+                },
+                {
+                    "name": "callback",
+                    "description": "The function to invoke when all servers are started.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "async": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "cli.Application",
+            "module": "bin/cli"
+        },
+        {
+            "file": "bin\\make.js",
+            "line": 20,
+            "description": "The application settings.",
+            "itemtype": "property",
+            "name": "config",
+            "type": "Object",
+            "class": "cli.Makefile",
+            "module": "bin/make"
+        },
+        {
+            "file": "bin\\make.js",
+            "line": 27,
+            "description": "Runs the default tasks.",
+            "itemtype": "method",
+            "name": "all",
+            "class": "cli.Makefile",
+            "module": "bin/make"
+        },
+        {
+            "file": "bin\\make.js",
+            "line": 38,
+            "description": "Builds the documentation.",
+            "itemtype": "method",
+            "name": "doc",
+            "class": "cli.Makefile",
+            "module": "bin/make"
+        },
+        {
+            "file": "bin\\make.js",
+            "line": 47,
+            "description": "Performs static analysis of source code.",
+            "itemtype": "method",
+            "name": "lint",
+            "class": "cli.Makefile",
+            "module": "bin/make"
+        },
+        {
+            "file": "bin\\make.js",
+            "line": 63,
+            "description": "Watches for file changes.",
+            "itemtype": "method",
+            "name": "watch",
+            "class": "cli.Makefile",
+            "module": "bin/make"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 23,
+            "description": "Emitted when the server closes.",
+            "itemtype": "event",
+            "name": "close",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 28,
+            "description": "Emitted each time the server experiences an error.",
+            "itemtype": "event",
+            "name": "error",
+            "params": [
+                {
+                    "name": "err",
+                    "description": "The emitted error event.",
+                    "type": "Error"
+                }
+            ],
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 34,
+            "description": "Emitted each time there is a request.",
+            "itemtype": "event",
+            "name": "request",
+            "params": [
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                },
+                {
+                    "name": "res",
+                    "description": "The response sent by the server.",
+                    "type": "http.ServerResponse"
+                }
+            ],
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 41,
+            "description": "Emitted each time a client requests an HTTP upgrade.",
+            "itemtype": "event",
+            "name": "upgrade",
+            "params": [
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                },
+                {
+                    "name": "socket",
+                    "description": "The network socket between the server and client.",
+                    "type": "net.Socket"
+                },
+                {
+                    "name": "head",
+                    "description": "The first packet of the upgraded stream.",
+                    "type": "Buffer"
+                }
+            ],
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 50,
+            "description": "The underlying HTTP(S) service listening for requests.",
+            "itemtype": "property",
+            "name": "_httpService",
+            "type": "{http.Server|https.Server}",
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 58,
+            "description": "The server settings.",
+            "itemtype": "property",
+            "name": "_options",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 68,
+            "description": "The underlying proxy service providing custom application logic.",
+            "itemtype": "property",
+            "name": "_proxyService",
+            "type": "httpProxy.Server",
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 89,
+            "description": "Gets the host that the server run on.",
+            "itemtype": "property",
+            "name": "host",
+            "type": "String",
+            "default": "'0.0.0.0'",
+            "final": 1,
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 102,
+            "description": "Gets the port that the server run on.",
+            "itemtype": "property",
+            "name": "port",
+            "type": "Number",
+            "default": "80",
+            "final": 1,
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 115,
+            "description": "Stops the server from accepting new connections.\nThe server is finally closed when all connections are ended and the server emits a `'close'` event.\nOptionally, you can pass a callback to listen for the `'close'` event.",
+            "itemtype": "method",
+            "name": "close",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "A callback to invoke when server is finally closed.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "async": 1,
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 134,
+            "description": "Begin accepting connections.",
+            "itemtype": "method",
+            "name": "listen",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "A callback to invoke when server is ready to process requests.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "async": 1,
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 151,
+            "description": "Gets the hostname contained in the headers of the specified request.",
+            "itemtype": "method",
+            "name": "_getHostname",
+            "params": [
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                }
+            ],
+            "return": {
+                "description": "The hostname provided by the specified request.",
+                "type": "String"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 166,
+            "description": "Handles the error emitted if a request to a target fail.",
+            "itemtype": "method",
+            "name": "_handleError",
+            "params": [
+                {
+                    "name": "err",
+                    "description": "The emitted error event.",
+                    "type": "Error"
+                },
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                },
+                {
+                    "name": "res",
+                    "description": "The response sent by the server.",
+                    "type": "http.ServerResponse"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 179,
+            "description": "Handles an HTTP request to a target.",
+            "itemtype": "method",
+            "name": "_handleHTTPRequest",
+            "params": [
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                },
+                {
+                    "name": "res",
+                    "description": "The response sent by the server.",
+                    "type": "http.ServerResponse"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 194,
+            "description": "Handles a WebSocket request to a target.",
+            "itemtype": "method",
+            "name": "_handleWebSocketRequest",
+            "params": [
+                {
+                    "name": "req",
+                    "description": "The request sent by the client.",
+                    "type": "http.IncomingMessage"
+                },
+                {
+                    "name": "socket",
+                    "description": "The network socket between the server and client.",
+                    "type": "net.Socket"
+                },
+                {
+                    "name": "head",
+                    "description": "The first packet of the upgraded stream.",
+                    "type": "Buffer"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        },
+        {
+            "file": "lib\\server.js",
+            "line": 208,
+            "description": "Sends an HTTP status code and terminates the specified server response.",
+            "itemtype": "method",
+            "name": "_sendStatus",
+            "params": [
+                {
+                    "name": "res",
+                    "description": "The server response.",
+                    "type": "http.ServerResponse"
+                },
+                {
+                    "name": "statusCode",
+                    "description": "The HTTP status code to send.",
+                    "type": "Number"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Server",
+            "module": "server"
+        }
+    ],
+    "warnings": []
+}
