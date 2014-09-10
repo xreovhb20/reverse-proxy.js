@@ -55,5 +55,16 @@
   "scripts": {
     "make": "node bin/make.js",
     "start": "node bin/cli.js"
+  },
+  "yuidoc": {
+    "logo": "http://dev.belin.io/reverse-proxy.js/favicon.ico",
+    "name": "Reverse-Proxy.js",
+    "url": "https://github.com/cedx/reverse-proxy.js",
+    "options": {
+      "linkNatives": true,
+      "outdir": "doc/api",
+      "paths": [ "bin", "lib" ],
+      "tabtospace": 2
+    }
   }
 }
