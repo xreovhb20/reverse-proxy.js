@@ -7,7 +7,6 @@
   "main": "./index",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
-  "private": false,
   "version": "0.1.0",
   "bin": {
     "reverse-proxy": "./bin/cli.js"
@@ -18,9 +17,9 @@
     "http-proxy": "^1.1.6"
   },
   "devDependencies": {
+    "docgen-js": "^0.1.0",
     "jshint": "^2.5.2",
-    "nodemon": "^1.2.1",
-    "yuidocjs": "^0.3.50"
+    "nodemon": "^1.2.1"
   },
   "engines": {
     "node": ">=0.10.30"
