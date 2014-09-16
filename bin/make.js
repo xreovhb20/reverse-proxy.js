@@ -3,7 +3,7 @@
 
 /**
  * Build system.
- * @module bin/make
+ * @module bin.make
  */
 'use strict';
 
@@ -51,7 +51,7 @@ target.doc=function() {
 target.lint=function() {
   config.fatal=false;
 
-  echo('Static analysis of client scripts...');
+  echo('Static analysis of source code...');
   exec('jshint --verbose bin lib');
 
   echo('Static analysis of documentation comments...');
