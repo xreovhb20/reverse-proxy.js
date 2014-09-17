@@ -14,11 +14,11 @@
   "dependencies": {
     "async": "^0.9.0",
     "commander": "^2.3.0",
-    "http-proxy": "^1.1.6"
+    "http-proxy": "^1.4.3"
   },
   "devDependencies": {
     "docgen-js": "^0.1.0",
-    "jshint": "^2.5.2",
+    "jshint": "^2.5.5",
     "nodemon": "^1.2.1"
   },
   "engines": {
@@ -63,7 +63,8 @@
       "linkNatives": true,
       "outdir": "doc/api",
       "paths": [ "bin", "lib" ],
-      "tabtospace": 2
+      "tabtospace": 2,
+      "theme": "default"
     }
   }
 }
