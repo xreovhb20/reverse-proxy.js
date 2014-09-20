@@ -7,7 +7,7 @@
   "main": "./index",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "reverse-proxy": "./bin/cli.js"
   },
@@ -22,7 +22,7 @@
     "nodemon": "^1.2.1"
   },
   "engines": {
-    "node": ">=0.10.30"
+    "node": ">=0.10.0"
   },
   "jshintConfig": {
     "camelcase": true,
