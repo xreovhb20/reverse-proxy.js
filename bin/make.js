@@ -41,7 +41,7 @@ target.all=function() {
  */
 target.doc=function() {
   echo('Build the documentation...');
-  exec('yuidoc --no-code --no-color');
+  exec('docgen');
 };
 
 /**
@@ -55,7 +55,7 @@ target.lint=function() {
   exec('jshint --verbose bin lib');
 
   echo('Static analysis of documentation comments...');
-  exec('yuidoc --lint --no-color');
+  exec('docgen --lint');
 
   config.fatal=true;
 };

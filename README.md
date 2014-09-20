@@ -14,7 +14,7 @@ From a command prompt:
 
     -h, --help             output usage information
     -V, --version          output the version number
-    -p, --port <port>      port that the reverse proxy should run on [80]
+    -p, --port <port>      port that the reverse proxy should run on [3000]
     -h, --host <host>      host that the reverse proxy should run on [0.0.0.0]
     -t, --target <target>  location of the server the proxy will target
     -c, --config <path>    location of the configuration file(s) for the reverse proxy
@@ -33,8 +33,8 @@ This project was developed primarily with these libraries:
 - [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)
 
 #### Development Tools
+- [DocGen.js](https://github.com/cedx/docgen.js)
 - [JSHint](http://jshint.com/about)
-- [YUIDoc](http://yui.github.io/yuidoc)
 
 ## License
 [Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) is distributed under the MIT License.
