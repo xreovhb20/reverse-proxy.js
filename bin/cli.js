@@ -151,6 +151,10 @@ var Application={
     async.each(
       servers,
       function(server, next) {
+        server.on('error', function(err) {
+          self._log(util.format('ERROR - %s', err));
+        });
+
         server.on('request', function(req) {
           self._log(util.format(
             '%s - %s - "%s %s HTTP/%s" "%s"',
@@ -163,7 +167,7 @@ var Application={
           ));
         });
 
-        server.listen(function() {
+        server.listen(server.port, server.host, function() {
           self._log(util.format('Reverse proxy instance listening on %s:%d', server.host, server.port));
           next();
         });
