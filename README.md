@@ -6,7 +6,7 @@ implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 From a command prompt:
 
 ```
-> reverse-proxy --help
+$ reverse-proxy --help
 
   Usage: reverse-proxy [options]
 
