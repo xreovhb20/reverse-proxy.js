@@ -1,5 +1,9 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) library.
+This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) package.
+
+#### Version 0.2.1
+- Added sample configuration files.
+- Updated the documentation.
 
 #### Version 0.2.0
 - The `Server` class and CLI now uses port 3000 as default.

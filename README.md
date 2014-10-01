@@ -1,9 +1,30 @@
 # Reverse-Proxy.js
-Simple reverse proxy server supporting [WebSockets](https://en.wikipedia.org/wiki/WebSocket),
-implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+Simple reverse proxy server based on [node-http-proxy](https://github.com/nodejitsu/node-http-proxy).
 
-## Command Line Interface
-From a command prompt:
+## Features
+- Reverse Proxy based on simple JSON configuration files.
+- Routing tables based on hostnames.
+- Multiple instances: allows to listen on several ports, with each one having its own target(s).
+- Supports HTTPS protocol.
+- Supports [WebSockets](https://en.wikipedia.org/wiki/WebSocket) requests.
+
+## When to use Reverse-Proxy.js
+Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet.
+You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests
+to locally running services which were not exposed to the outside network.
+
+## Documentation
+- [API Reference](http://dev.belin.io/reverse-proxy.js/api)
+
+## Installing via [npm](https://www.npmjs.org)
+From a command prompt, run:
+
+```shell
+$ npm install -g reverse-proxy-js
+```
+
+## Usage
+This application provides a command line interface:
 
 ```
 $ reverse-proxy --help
@@ -22,19 +43,52 @@ $ reverse-proxy --help
     -u, --user <user>      user to drop privileges to once server socket is bound
 ```
 
-## Documentation
-- [API Reference](http://dev.belin.io/reverse-proxy.js/api)
+#### Setup a basic stand-alone proxy server
+From a command prompt:
 
-## Technologies
-This project was developed primarily with these libraries:
+```shell
+$ reverse-proxy --port 80 --target 3000
+```
 
-#### Console Application
-- [Node.js](http://nodejs.org)
-- [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)
+This will proxy all HTTP requests on port 80 on all network interfaces (e.g. `0.0.0.0`)
+to port 3000 on the same host (e. g. `127.0.0.1`). For a different target host:
 
-#### Development Tools
-- [DocGen.js](https://github.com/cedx/docgen.js)
-- [JSHint](http://jshint.com/about)
+```shell
+$ reverse-proxy --port 80 --target 192.168.0.1:3000
+$ reverse-proxy --port 8080 --target http://another.host:8080 --user www-data
+```
+
+You can also use a configuration file for the same task.
+See the [`basic-standalone.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/basic-standalone.json)
+file in the `etc` folder of this package:
+
+```shell
+$ reverse-proxy --config etc/basic-standalone.json
+```
+
+For more advanced usages, you always need to use configuration files.
+
+#### Proxy requests using a routing table
+A routing table is a simple lookup table that maps incoming requests to proxy target locations.
+The mapping is based on the [HTTP `Host` header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+
+To use hostname routing, you need to provide a `router` key in your configuration file, instead of a `target` key.
+The value of this key is an object where keys are hostnames and values are target locations.
+
+See the [`routing-table.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/routing-table.json)
+file in the `etc` folder of this package for a concrete example.
+
+```shell
+$ reverse-proxy --config etc/routing-table.json
+```
+
+#### Using HTTPS
+If you want the proxy server to use HTTPS protocol, you need to provide a `ssl` key in your configuration file.
+
+This object will be used as the first argument to
+[`https.createServer`](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) function.
+Its structure is similar to the `options` parameter of
+[`tls.createServer`](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) function.
 
 ## License
 [Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) is distributed under the MIT License.
