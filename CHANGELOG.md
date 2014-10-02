@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) package.
 
 #### Version 0.2.1
+- Added `Application` class, used in CLI script.
 - Added sample configuration files.
 - Updated the documentation.
 
