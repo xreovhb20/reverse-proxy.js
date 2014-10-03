@@ -1,4 +1,6 @@
 # Reverse-Proxy.js
+[![Version](http://img.shields.io/npm/v/reverse-proxy-js.svg?style=flat-square)](https://www.npmjs.org/package/reverse-proxy-js) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg?style=flat-square)](https://www.npmjs.org/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg?style=flat-square)](https://raw.githubusercontent.com/cedx/reverse-proxy.js/master/LICENSE.txt)
+
 Simple reverse proxy server based on [node-http-proxy](https://github.com/nodejitsu/node-http-proxy).
 
 ## Features
