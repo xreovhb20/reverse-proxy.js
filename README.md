@@ -1,17 +1,16 @@
 # Reverse-Proxy.js
 [![Version](http://img.shields.io/npm/v/reverse-proxy-js.svg?style=flat)](https://www.npmjs.org/package/reverse-proxy-js) [![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg?style=flat)](https://david-dm.org/cedx/reverse-proxy.js) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg?style=flat)](https://www.npmjs.org/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg?style=flat)](https://github.com/cedx/reverse-proxy.js/blob/master/LICENSE.txt)
 
-Simple reverse proxy server based on [node-http-proxy](https://github.com/nodejitsu/node-http-proxy).
+Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+
+Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Features
-- Reverse Proxy based on simple JSON configuration files.
+- Configuration based on simple JSON files.
 - Routing tables based on hostnames.
 - Multiple instances: allows to listen on several ports, with each one having its own target(s).
 - Supports HTTPS protocol.
 - Supports [WebSockets](https://en.wikipedia.org/wiki/WebSocket) requests.
-
-## When to use Reverse-Proxy.js
-Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Documentation
 - [API Reference](http://dev.belin.io/reverse-proxy.js/api)
