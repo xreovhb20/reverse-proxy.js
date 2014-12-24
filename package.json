@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "async": "^0.9.0",
-    "commander": "^2.5.0",
-    "http-proxy": "^1.6.2",
+    "commander": "^2.5.1",
+    "http-proxy": "^1.8.1",
     "shelljs": "^0.3.0"
   },
   "devDependencies": {
-    "archiver": "^0.12.0",
-    "david": "^5.0.0",
-    "docgen-js": "^0.1.0",
-    "jshint": "^2.5.10",
+    "archiver": "^0.13.0",
+    "david": "^6.0.1",
+    "docgen-js": "^0.0.1",
+    "jshint": "^2.5.11",
     "nodemon": "^1.2.1"
   },
   "engines": {

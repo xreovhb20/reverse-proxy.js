@@ -67,12 +67,13 @@ target.dist=function() {
 
   var sources=[
     'index.js',
-    'package.json',
+    '*.json',
     '*.md',
     '*.txt',
     'bin/cli.*',
     'etc/*.json',
-    'lib/*.js'
+    'lib/*.js',
+    'var/.gitkeep'
   ];
 
   var archive=archiver('zip');
