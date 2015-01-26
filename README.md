@@ -1,5 +1,5 @@
 # Reverse-Proxy.js
-[![Version](http://img.shields.io/npm/v/reverse-proxy-js.svg?style=flat)](https://www.npmjs.org/package/reverse-proxy-js) [![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg?style=flat)](https://david-dm.org/cedx/reverse-proxy.js) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg?style=flat)](https://www.npmjs.org/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg?style=flat)](https://github.com/cedx/reverse-proxy.js/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/npm/v/reverse-proxy-js.svg?style=flat)](https://www.npmjs.com/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg?style=flat)](https://github.com/cedx/reverse-proxy.js/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg?style=flat)](https://www.npmjs.com/package/reverse-proxy-js) [![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg?style=flat)](https://david-dm.org/cedx/reverse-proxy.js)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
@@ -15,7 +15,7 @@ Let's suppose you were running multiple HTTP application servers, but you only w
 ## Documentation
 - [API Reference](http://dev.belin.io/reverse-proxy.js/api)
 
-## Installing via [npm](https://www.npmjs.org)
+## Installing via [npm](https://www.npmjs.com)
 From a command prompt, run:
 
 ```shell
@@ -88,4 +88,4 @@ Its structure is similar to the `options` parameter of [`tls.createServer`](http
 See the [`https-to-http.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/https-to-http.json) file in the `etc` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
 
 ## License
-[Reverse-Proxy.js](https://www.npmjs.org/package/reverse-proxy-js) is distributed under the MIT License.
+[Reverse-Proxy.js](https://www.npmjs.com/package/reverse-proxy-js) is distributed under the MIT License.
