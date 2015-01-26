@@ -53,7 +53,7 @@ gulp.task('clean', function(callback) {
  * Creates a distribution file for this program.
  * @method dist
  */
-gulp.task('dist', [ 'default' ], function() {
+gulp.task('dist', function() {
   var sources=[
     'index.js',
     '*.json',
