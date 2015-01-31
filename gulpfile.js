@@ -39,8 +39,8 @@ gulp.task('default', [ 'dist' ]);
  */
 gulp.task('check', function(callback) {
   return gulp.src('package.json')
-    .pipe(david())
-    .pipe(david.reporter);
+    .pipe(plugins.david())
+    .pipe(plugins.david.reporter);
 });
 
 /**
