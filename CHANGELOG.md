@@ -1,11 +1,16 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/reverse-proxy-js) package.
 
+#### Version 0.4.0
+- Raised the required [Node.js](http://nodejs.org) version.
+- Removed the dependency on [`promise`](https://www.npmjs.com/package/promise) module.
+- Upgraded the package dependencies.
+
 #### Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises/A+](https://www.promisejs.org).
 - Using [Gulp.js](http://gulpjs.com) as build system.
 - Fixed [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
-- Updated the package dependencies.
+- Upgraded the package dependencies.
 
 #### Version 0.2.1
 - Added `Application` class, used in CLI script.

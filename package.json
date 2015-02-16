@@ -7,27 +7,26 @@
   "main": "./index",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "bin": {
     "reverse-proxy": "./bin/cli.js"
   },
   "dependencies": {
-    "commander": "^2.5.1",
-    "forever": "^0.13.0",
-    "promise": "^6.0.1",
+    "commander": "^2.6.0",
+    "forever": "^0.14.1",
     "http-proxy": "^1.8.1"
   },
   "devDependencies": {
     "del": "^1.1.1",
     "docgen-js": "^0.0.1",
-    "gulp": "^3.8.10",
-    "gulp-david": "^0.1.0",
-    "gulp-jshint": "^1.9.0",
+    "gulp": "^3.8.11",
+    "gulp-david": "^0.2.0",
+    "gulp-jshint": "^1.9.2",
     "gulp-load-plugins": "^0.8.0",
     "gulp-zip": "^2.0.2"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "jshintConfig": {
     "camelcase": true,
@@ -42,10 +41,7 @@
     "strict": true,
     "trailing": true,
     "undef": true,
-    "unused": true,
-    "globals": {
-      "Promise": true
-    }
+    "unused": true
   },
   "keywords": [
     "http",
