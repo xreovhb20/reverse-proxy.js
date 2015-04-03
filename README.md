@@ -1,5 +1,5 @@
 # Reverse-Proxy.js
-[![Release](http://img.shields.io/npm/v/reverse-proxy-js.svg?style=flat)](https://www.npmjs.com/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg?style=flat)](https://github.com/cedx/reverse-proxy.js/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg?style=flat)](https://www.npmjs.com/package/reverse-proxy-js) [![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg?style=flat)](https://david-dm.org/cedx/reverse-proxy.js)
+[![Release](http://img.shields.io/npm/v/reverse-proxy-js.svg)](https://www.npmjs.com/package/reverse-proxy-js) [![License](http://img.shields.io/npm/l/reverse-proxy-js.svg)](https://bitbucket.org/cedx/reverse-proxy.js/src/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg)](https://www.npmjs.com/package/reverse-proxy-js) [![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg)](https://david-dm.org/cedx/reverse-proxy.js)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
@@ -56,7 +56,7 @@ $ reverse-proxy --port 80 --target 192.168.0.1:3000
 $ reverse-proxy --port 8080 --target http://another.host:8080 --user www-data
 ```
 
-You can also use a configuration file for the same task. See the [`basic-standalone.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/basic-standalone.json) file in the `etc` folder of this package:
+You can also use a configuration file for the same task. See the [`basic-standalone.json`](https://bitbucket.org/cedx/reverse-proxy.js/src/master/etc/basic-standalone.json) file in the `etc` folder of this package:
 
 ```shell
 $ reverse-proxy --config etc/basic-standalone.json
@@ -69,7 +69,7 @@ A routing table is a simple lookup table that maps incoming requests to proxy ta
 
 To use hostname routing, you need to provide a `router` key in your configuration file, instead of a `target` key. The value of this key is an object where keys are hostnames and values are target locations.
 
-See the [`routing-table.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/routing-table.json) file in the `etc` folder of this package for a concrete example.
+See the [`routing-table.json`](https://bitbucket.org/cedx/reverse-proxy.js/src/master/etc/routing-table.json) file in the `etc` folder of this package for a concrete example.
 
 ```shell
 $ reverse-proxy --config etc/routing-table.json
@@ -85,7 +85,7 @@ If you want the proxy server to use HTTPS protocol, you need to provide a `ssl` 
 This object will be used as the first argument to [`https.createServer`](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) function when instanciating the proxy server.
 Its structure is similar to the `options` parameter of [`tls.createServer`](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) function.
 
-See the [`https-to-http.json`](https://github.com/cedx/reverse-proxy.js/blob/master/etc/https-to-http.json) file in the `etc` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
+See the [`https-to-http.json`](https://bitbucket.org/cedx/reverse-proxy.js/src/master/etc/https-to-http.json) file in the `etc` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
 
 ## License
 [Reverse-Proxy.js](https://www.npmjs.com/package/reverse-proxy-js) is distributed under the MIT License.
