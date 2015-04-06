@@ -9,7 +9,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 #### Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises/A+](https://www.promisejs.org).
 - Using [Gulp.js](http://gulpjs.com) as build system.
-- Fixed [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
+- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
 #### Version 0.2.1
@@ -23,7 +23,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Improved the event handling.
 - Updated the package dependencies.
 - Breaking change: removed `Server.upgrade` event.
-- Using [DocGen.js](https://bitbucket.org/cedx/docgen.js) to generate the API reference.
+- Using [DocGen.js](http://dev.belin.io/docgen.js) to generate the API reference.
 
 #### Version 0.1.0
 - Initial release.

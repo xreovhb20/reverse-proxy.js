@@ -1,8 +1,8 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://bitbucket.org/cedx/reverse-proxy.js/issues",
+  "bugs": "http://dev.belin.io/reverse-proxy.js/issues",
   "description": "Simple reverse proxy server supporting WebSockets.",
-  "homepage": "https://bitbucket.org/cedx/reverse-proxy.js",
+  "homepage": "http://dev.belin.io/reverse-proxy.js",
   "license": "MIT",
   "main": "./index",
   "name": "reverse-proxy-js",
@@ -20,7 +20,7 @@
     "del": "^1.1.1",
     "docgen-js": "^0.0.1",
     "gulp": "^3.8.11",
-    "gulp-david": "^0.2.1",
+    "gulp-david": "^0.2.2",
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.9.0",
     "gulp-zip": "^3.0.2"
@@ -60,7 +60,7 @@
     "stop": "forever stop reverse-proxy"
   },
   "yuidoc": {
-    "logo": "http://dev.belin.io/reverse-proxy.js/favicon.ico",
+    "logo": "http://api.belin.io/reverse-proxy.js/favicon.ico",
     "name": "Reverse-Proxy.js",
     "url": "https://www.npmjs.com/package/reverse-proxy-js",
     "options": {
