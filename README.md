@@ -77,6 +77,8 @@ $ reverse-proxy --config etc/routing-table.json
 
 #### Listening on multiple ports
 In order to listen on several ports, all you have to do is use a different configuration file for each port to listen.
+Consequently, each port can have its own routing table.
+
 The command line interface allows you to specify a directory where to find the configuration files:
 
 ```shell
