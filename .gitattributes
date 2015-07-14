@@ -3,15 +3,15 @@
 .gitattributes text
 .gitignore text
 
-*.cmd text
 *.css text
 *.html text diff=html
 *.js text
 *.json text
 *.md text
-*.sh text
 *.txt text
+*.yaml text
 
 *.gif binary
 *.ico binary
+*.jpg binary
 *.png binary
