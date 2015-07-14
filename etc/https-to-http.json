@@ -1,8 +1,0 @@
-{
-  "port": 443,
-  "target": 8080,
-  "ssl": {
-    "cert": "/path/to/ssl/cert.file",
-    "key": "/path/to/ssl/key.file"
-  }
-}
