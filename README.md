@@ -95,5 +95,8 @@ See the [`multiple_ports.yaml`](https://bitbucket.org/cedx/reverse-proxy.js/src/
 $ reverse-proxy --config example/multiple_ports.yaml
 ```
 
+## Configuration Schema
+The [`defaults.yaml`](https://bitbucket.org/cedx/reverse-proxy.js/src/master/example/defaults.yaml) file, in the `etc` folder of this package, lists all available settings and their default values.
+
 ## License
 [Reverse-Proxy.js](https://www.npmjs.com/package/reverse-proxy-js) is distributed under the MIT License.
