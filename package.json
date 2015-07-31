@@ -10,7 +10,7 @@
   "repository": "bitbucket:cedx/reverse-proxy.js",
   "version": "0.4.1",
   "bin": {
-    "reverse-proxy": "./bin/cli.js"
+    "reverseproxy-js": "./bin/cli.js"
   },
   "dependencies": {
     "commander": "^2.8.1",

@@ -104,7 +104,7 @@ gulp.task('lint:js', function() {
 });
 
 /**
- * Starts the Web server.
+ * Starts the proxy server.
  * @method serve
  */
 gulp.task('serve', function(callback) {
