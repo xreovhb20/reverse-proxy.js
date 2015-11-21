@@ -9,7 +9,7 @@
 *.json text
 *.md text
 *.txt text
-*.yaml text
+*.yml text
 
 *.gif binary
 *.ico binary

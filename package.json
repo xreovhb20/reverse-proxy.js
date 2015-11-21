@@ -1,48 +1,51 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://bitbucket.org/cedx/reverse-proxy.js/issues",
+  "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
   "description": "Simple reverse proxy server supporting WebSockets.",
-  "homepage": "https://bitbucket.org/cedx/reverse-proxy.js",
-  "license": "MIT",
+  "homepage": "https://github.com/cedx/reverse-proxy.js",
+  "license": "Apache-2.0",
   "main": "./index",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
-  "repository": "bitbucket:cedx/reverse-proxy.js",
-  "version": "0.4.1",
+  "repository": "cedx/reverse-proxy.js",
+  "version": "0.5.0",
   "bin": {
     "reverseproxy-js": "./bin/cli.js"
   },
   "dependencies": {
-    "commander": "^2.8.1",
-    "forever": "^0.14.2",
-    "http-proxy": "^1.11.1"
+    "commander": "^2.9.0",
+    "forever": "^0.15.1",
+    "http-proxy": "^1.12.0"
   },
   "devDependencies": {
-    "del": "^1.2.0",
-    "docgen-js": "^0.0.1",
+    "del": "^2.1.0",
+    "jsdoc": "^3.4.0",
+    "jshint": "^2.8.0",
     "gulp": "^3.9.0",
-    "gulp-david": "^0.2.3",
-    "gulp-jshint": "^1.11.1",
-    "gulp-load-plugins": "^0.10.0",
+    "gulp-david": "^0.3.2",
+    "gulp-jshint": "^2.0.0",
+    "gulp-load-plugins": "^1.1.0",
     "gulp-zip": "^3.0.2"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4.2.0"
   },
   "jshintConfig": {
-    "camelcase": true,
+    "esnext": true,
     "freeze": true,
-    "indent": 2,
+    "futurehostile": true,
     "latedef": "nofunc",
     "loopfunc": true,
-    "newcap": true,
+    "mocha": true,
+    "nocomma": true,
     "node": true,
+    "nonbsp": true,
     "nonew": true,
-    "quotmark": "single",
     "strict": true,
     "trailing": true,
     "undef": true,
-    "unused": true
+    "unused": true,
+    "varstmt": true
   },
   "keywords": [
     "http",
