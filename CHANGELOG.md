@@ -1,5 +1,14 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/reverse-proxy-js) package.
+This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
+
+#### Version 0.5.0
+- Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
+- Breaking change: raised the required [Node.js](http://nodejs.org) version.
+- Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
+- Added support for [Travis CI](https://travis-ci.org) continuous integration.
+- Changed the documentation system for [JSDoc](http://usejsdoc.org).
+- Changed licensing for the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+- Upgraded the package dependencies.
 
 #### Version 0.4.1
 - Upgraded the package dependencies.
