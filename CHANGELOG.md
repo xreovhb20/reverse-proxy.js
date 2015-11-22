@@ -8,10 +8,8 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: changed the format of `Server#request` event.
 - Breaking change: changed the format of configuration files to [YAML](http://yaml.org).
 - Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
-- Added support for [Travis CI](https://travis-ci.org) continuous integration.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).
 - Changed licensing for the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
-- Upgraded the package dependencies.
 
 #### Version 0.4.1
 - Upgraded the package dependencies.
