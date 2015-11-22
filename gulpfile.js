@@ -7,6 +7,7 @@
 // Module dependencies.
 const child=require('child_process');
 const del=require('del');
+const fs=require('fs');
 const gulp=require('gulp');
 const plugins=require('gulp-load-plugins')();
 const pkg=require('./package.json');
