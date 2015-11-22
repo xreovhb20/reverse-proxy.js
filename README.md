@@ -6,15 +6,11 @@ Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](h
 Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Features
-- Configuration based on simple [JSON](http://www.json.org) or [YAML](http://yaml.org) files.
+- Configuration based on simple [YAML](http://yaml.org) files.
 - Routing tables based on host names.
 - Multiple instances: allows to listen on several ports, with each one having its own target(s).
 - Supports HTTPS protocol.
 - Supports [WebSockets](https://en.wikipedia.org/wiki/WebSocket) requests.
-
-## Documentation
-- [API Reference](http://www.belin.io/reverse-proxy.js/api)
-- [Code Analysis](http://src.belin.io/dashboard/index/reverse-proxy.js)
 
 ## Installing via [npm](https://www.npmjs.com)
 From a command prompt with administrator privileges, run:
@@ -98,6 +94,10 @@ $ reverse-proxy --config example/multiple_ports.yml
 
 ## Configuration Schema
 The [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/defaults.yml) file, in the `etc` folder of this package, lists all available settings and their default values.
+
+## See Also
+- [API Reference](http://www.belin.io/reverse-proxy.js/api)
+- [Code Analysis](http://src.belin.io/dashboard/index/reverse-proxy.js)
 
 ## License
 [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.

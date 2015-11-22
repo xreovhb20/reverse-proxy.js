@@ -4,6 +4,9 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 #### Version 0.5.0
 - Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
+- Breaking change: changed the whole API of `Application` class.
+- Breaking change: changed the format of `Server#request` event.
+- Breaking change: changed the format of configuration files to [YAML](http://yaml.org).
 - Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
 - Added support for [Travis CI](https://travis-ci.org) continuous integration.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).

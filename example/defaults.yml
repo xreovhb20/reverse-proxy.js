@@ -15,7 +15,7 @@ proxy:
   ignorePath: false
   prependPath: true
   protocolRewrite: null
-  secure: false
+  secure: true
   ws: false
   xfwd: false
 

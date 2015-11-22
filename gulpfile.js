@@ -5,58 +5,19 @@
 'use strict';
 
 // Module dependencies.
-var child=require('child_process');
-var del=require('del');
-var gulp=require('gulp');
-var plugins=require('gulp-load-plugins')();
-var pkg=require('./package.json');
-var util=require('util');
-
-/**
- * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
- * @class cli.Gulpfile
- * @static
- */
+const child=require('child_process');
+const del=require('del');
+const gulp=require('gulp');
+const plugins=require('gulp-load-plugins')();
+const pkg=require('./package.json');
 
 /**
  * The task settings.
- * @property config
- * @type Object
+ * @var {object}
  */
-var config={
-  output: util.format('%s-%s.zip', pkg.yuidoc.name.toLowerCase(), pkg.version)
-};
-
-/**
- * Runs the default tasks.
- * @method default
- */
-gulp.task('default', [ 'dist' ]);
-
-/**
- * Checks the package dependencies.
- * @method check
- */
-gulp.task('check', function() {
-  return gulp.src('package.json')
-    .pipe(plugins.david())
-    .pipe(plugins.david.reporter);
-});
-
-/**
- * Deletes all generated files and reset any saved state.
- * @method clean
- */
-gulp.task('clean', function(callback) {
-  del('var/'+config.output, callback);
-});
-
-/**
- * Creates a distribution file for this program.
- * @method dist
- */
-gulp.task('dist', function() {
-  var sources=[
+const config={
+  output: `${pkg.name}-${pkg.version}.zip`,
+  sources: [
     'index.js',
     '*.json',
     '*.md',
@@ -65,77 +26,79 @@ gulp.task('dist', function() {
     'etc/*.json',
     'lib/*.js',
     'var/.gitkeep'
-  ];
+  ]
+};
 
-  return gulp.src(sources, { base: '.' })
-    .pipe(plugins.zip(config.output))
-    .pipe(gulp.dest('var'));
-});
+/**
+ * Runs the default tasks.
+ */
+gulp.task('default', ['dist']);
+
+/**
+ * Checks the package dependencies.
+ */
+gulp.task('check', () => gulp.src('package.json')
+  .pipe(plugins.david())
+  .pipe(plugins.david.reporter));
+
+/**
+ * Deletes all generated files and reset any saved state.
+ */
+gulp.task('clean', callback => del(`var/${config.output}`, callback));
+
+/**
+ * Creates a distribution file for this program.
+ */
+gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
+  .pipe(plugins.zip(config.output))
+  .pipe(gulp.dest('var')));
 
 /**
  * Builds the documentation.
- * @method doc
  */
-gulp.task('doc', [ 'doc:assets' ]);
+gulp.task('doc', ['doc:assets']);
 
-gulp.task('doc:assets', [ 'doc:build' ], function() {
-  return gulp.src([ 'www/apple-touch-icon.png', 'www/favicon.ico' ])
-    .pipe(gulp.dest('doc/api/assets'));
-});
+gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'])
+  .pipe(gulp.dest('doc/api')));
 
-gulp.task('doc:build', function(callback) {
-  _exec('docgen', callback);
-});
+gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json', callback));
+
+gulp.task('doc:rename', ['doc:build'], callback => fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback));
 
 /**
  * Performs static analysis of source code.
- * @method lint
  */
-gulp.task('lint', [ 'lint:doc', 'lint:js' ]);
-
-gulp.task('lint:doc', function(callback) {
-  _exec('docgen --lint', callback);
-});
-
-gulp.task('lint:js', function() {
-  return gulp.src([ '*.js', 'bin/*.js', 'lib/*.js' ])
-    .pipe(plugins.jshint(pkg.jshintConfig))
-    .pipe(plugins.jshint.reporter('default', { verbose: true }));
-});
+gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/*.js'])
+  .pipe(plugins.jshint(pkg.jshintConfig))
+  .pipe(plugins.jshint.reporter('default', { verbose: true })));
 
 /**
  * Starts the proxy server.
- * @method serve
  */
-gulp.task('serve', function(callback) {
+gulp.task('serve', callback => {
   if('_server' in config) {
     config._server.kill();
     delete config._server;
   }
 
-  config._server=child.fork('bin/cli.js', [ '--target', '8080' ]);
+  config._server=child.fork('bin/cli.js', ['--target', '8080']);
   callback();
 });
 
 /**
  * Watches for file changes.
- * @method watch
  */
-gulp.task('watch', [ 'serve' ], function() {
-  gulp.watch('lib/*.js', [ 'serve' ]);
-});
+gulp.task('watch', ['serve'], () => gulp.watch('lib/*.js', ['serve']));
 
 /**
  * Runs a command and prints its output.
- * @method _exec
- * @param {String} command The command to run, with space-separated arguments.
- * @param {Function} callback The function to invoke when the task is over.
- * @async
+ * @param {string} command The command to run, with space-separated arguments.
+ * @param {function} callback The function to invoke when the task is over.
  * @private
  */
 function _exec(command, callback) {
-  child.exec(command, function(err, stdout) {
-    var output=stdout.trim();
+  child.exec(command, (err, stdout) => {
+    let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);
     callback();

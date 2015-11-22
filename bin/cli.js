@@ -2,13 +2,16 @@
 
 /**
  * Command line interface.
- * @module bin.cli
+ * @module bin/cli
  */
 'use strict';
 
 // Module dependencies.
-var Application=require('../lib/app');
+const Application=require('../lib/app');
 
 // Public interface.
-if(module===require.main) Application.run();
+if(module===require.main) {
+  process.title='reverse-proxy.js';
+  new Application().run();
+}
 else module.exports=Application;
