@@ -2,16 +2,25 @@
 # Basic Standalone
 port: 80
 target: 3000
+proxy:
+  ws: true
+  xfwd: true
 ---
 # HTTPS to HTTP
 port: 443
 target: 3000
+proxy:
+  ws: true
+  xfwd: true
 ssl:
   cert: /path/to/ssl/cert.file
   key: /path/to/ssl/key.file
 ---
 # Routing Table
 port: 8080
+proxy:
+  ws: true
+  xfwd: true
 routes:
   hostname.com: 3000
   www.hostname.com: 3000
