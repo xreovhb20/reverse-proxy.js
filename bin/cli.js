@@ -9,7 +9,7 @@
 // Module dependencies.
 const Application=require('../lib/app');
 
-// Public interface.
+// Run the application.
 if(module===require.main) {
   process.title='reverse-proxy.js';
   new Application().run();
