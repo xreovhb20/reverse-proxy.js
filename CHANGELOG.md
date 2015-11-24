@@ -36,7 +36,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Improved the event handling.
 - Updated the package dependencies.
 - Breaking change: removed `Server.upgrade` event.
-- Using [DocGen.js](https://bitbucket.org/cedx/docgen.js) to generate the API reference.
+- Using DocGen.js to generate the API reference.
 
 #### Version 0.1.0
 - Initial release.
