@@ -63,7 +63,7 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
   .pipe(gulp.dest('doc/api')));
 
 gulp.task('doc:build', callback => {
-  _exec('jsdoc --configure doc/conf.json').then(callback, callback)
+  _exec('jsdoc --configure doc/conf.json').then(callback, callback);
 });
 
 gulp.task('doc:rename', ['doc:build'], callback => fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback));
