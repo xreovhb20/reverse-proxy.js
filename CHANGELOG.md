@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
 
+#### Version 0.5.1
+- The `port` parameter of `Server.listen()` method is now optional.
+
 #### Version 0.5.0
 - Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
