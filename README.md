@@ -98,6 +98,7 @@ The [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/exampl
 ## See Also
 - [API Reference](http://www.belin.io/reverse-proxy.js/api)
 - [Code Analysis](http://src.belin.io/dashboard/index/reverse-proxy.js)
+- [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy.js)
 
 ## License
 [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.
