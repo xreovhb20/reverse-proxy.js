@@ -6,7 +6,6 @@
 
 // Module dependencies.
 const assert=require('assert');
-const fs=require('fs');
 const Server=require('../lib/server');
 
 /**

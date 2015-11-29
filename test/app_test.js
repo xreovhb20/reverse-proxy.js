@@ -7,7 +7,6 @@
 // Module dependencies.
 const Application=require('../lib/app');
 const assert=require('assert');
-const fs=require('fs');
 
 /**
  * Tests the features of the `Application` class.
