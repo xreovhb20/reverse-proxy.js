@@ -60,32 +60,24 @@ class ApplicationTest {
    * Tests the `loadConfig` method.
    */
   testLoadConfig() {
-    it('should return an array of objects corresponding to the ones specified in the command line arguments', done => {
+    it('should return an array of objects corresponding to the ones specified in the command line arguments', () => {
       let args={port: 80, target: 3000};
-      new Application().loadConfig(args).then(
-        (config) => {
-          assert(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-          done();
-        },
-        done
-      );
+      return new Application().loadConfig(args).then(config => {
+        assert(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
     });
 
-    it('should return an array of objects corresponding to the ones specified in the configuration', done => {
+    it('should return an array of objects corresponding to the ones specified in the configuration', () => {
       let args={config: `${__dirname}/../example/basic_standalone.yml`};
-      new Application().loadConfig(args).then(
-        (config) => {
-          assert(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-          done();
-        },
-        done
-      );
+      return new Application().loadConfig(args).then(config => {
+        assert(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
     });
   }
 
