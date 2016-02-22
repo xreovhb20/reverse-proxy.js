@@ -5,8 +5,8 @@
 'use strict';
 
 // Module dependencies.
-const assert=require('assert');
-const Server=require('../lib/server');
+const assert = require('assert');
+const Server = require('../lib/server');
 
 /**
  * Tests the features of the `Server` class.
@@ -17,7 +17,7 @@ class ServerTest {
    * Runs the unit tests.
    */
   run() {
-    let self=this;
+    let self = this;
     describe('Server', function() {
       describe('host', self.testHost);
       describe('port', self.testPort);

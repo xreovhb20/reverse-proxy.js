@@ -32,7 +32,7 @@
     "mocha-sonar-reporter": "^0.1.4"
   },
   "engines": {
-    "node": ">=4.2.0"
+    "node": ">=4.3.0"
   },
   "jshintConfig": {
     "esnext": true,

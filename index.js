@@ -5,6 +5,6 @@
 'use strict';
 
 // Public interface.
-module.exports={
+module.exports = {
   Server: require('./lib/server')
 };

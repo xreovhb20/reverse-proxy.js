@@ -5,8 +5,8 @@
 'use strict';
 
 // Module dependencies.
-const Application=require('../lib/app');
-const assert=require('assert');
+const Application = require('../lib/app');
+const assert = require('assert');
 
 /**
  * Tests the features of the `Application` class.
@@ -17,7 +17,7 @@ class ApplicationTest {
    * Runs the unit tests.
    */
   run() {
-    let self=this;
+    let self = this;
     describe('Application', function() {
       describe('debug', self.testDebug);
       describe('env', self.testEnv);
@@ -31,12 +31,12 @@ class ApplicationTest {
    */
   testDebug() {
     it('should be `false` in production environment', () => {
-      process.env.NODE_ENV='production';
+      process.env.NODE_ENV = 'production';
       assert.equal(new Application().debug, false);
     });
 
     it('should be `true` in development environment', () => {
-      process.env.NODE_ENV='development';
+      process.env.NODE_ENV = 'development';
       assert.equal(new Application().debug, true);
     });
   }
@@ -51,7 +51,7 @@ class ApplicationTest {
     });
 
     it('should equal the value of `NODE_ENV` environment variable when it is set', () => {
-      process.env.NODE_ENV='development';
+      process.env.NODE_ENV = 'development';
       assert.equal(new Application().env, 'development');
     });
   }
@@ -61,7 +61,7 @@ class ApplicationTest {
    */
   testLoadConfig() {
     it('should return an array of objects corresponding to the ones specified in the command line arguments', () => {
-      let args={port: 80, target: 3000};
+      let args = {port: 80, target: 3000};
       return new Application().loadConfig(args).then(config => {
         assert(Array.isArray(config));
         assert.equal(config.length, 1);
@@ -71,7 +71,7 @@ class ApplicationTest {
     });
 
     it('should return an array of objects corresponding to the ones specified in the configuration', () => {
-      let args={config: `${__dirname}/../example/basic_standalone.yml`};
+      let args = {config: `${__dirname}/../example/basic_standalone.yml`};
       return new Application().loadConfig(args).then(config => {
         assert(Array.isArray(config));
         assert.equal(config.length, 1);
