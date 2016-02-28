@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 #### Version 0.5.2
 - Restored support for configuration files in [JSON](http://www.json.org) format.
+- Upgraded the package dependencies.
 
 #### Version 0.5.1
 - The `port` parameter of `Server.listen()` method is now optional.
