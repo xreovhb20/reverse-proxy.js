@@ -70,8 +70,18 @@ class ApplicationTest {
       });
     });
 
-    it('should return an array of objects corresponding to the ones specified in the configuration', () => {
-      let args = {config: `${__dirname}/../example/basic_standalone.yml`};
+    it('should return an array of objects corresponding to the ones specified in the JSON configuration', () => {
+      let args = {config: `${__dirname}/../example/json/basic_standalone.json`};
+      return new Application().loadConfig(args).then(config => {
+        assert(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
+    });
+
+    it('should return an array of objects corresponding to the ones specified in the YAML configuration', () => {
+      let args = {config: `${__dirname}/../example/yaml/basic_standalone.yml`};
       return new Application().loadConfig(args).then(config => {
         assert(Array.isArray(config));
         assert.equal(config.length, 1);
@@ -85,7 +95,11 @@ class ApplicationTest {
    * Tests the `_parseConfig` method.
    */
   testParseConfig() {
-    it('should throw an error if the parsed configuration has no `routes` and no `target` properties', () =>
+    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', () =>
+      assert.throws(() => new Application()._parseConfig('{"port": 80}'))
+    );
+
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', () =>
       assert.throws(() => new Application()._parseConfig('port: 80'))
     );
   }
