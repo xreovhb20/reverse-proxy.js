@@ -40,8 +40,10 @@ gulp.task('default', ['dist']);
  * Checks the package dependencies.
  */
 gulp.task('check', () => gulp.src('package.json')
-  .pipe(plugins.david())
-  .pipe(plugins.david.reporter)
+  .pipe(plugins.david()).on('error', function(err) {
+    console.error(err);
+    this.emit('end');
+  })
 );
 
 /**
@@ -111,11 +113,7 @@ gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
  * Starts the proxy server.
  */
 gulp.task('serve', callback => {
-  if('_server' in config) {
-    config._server.kill();
-    delete config._server;
-  }
-
+  if('_server' in config) config._server.kill();
   config._server = child.fork('bin/cli.js', ['--target', '8080']);
   callback();
 });
