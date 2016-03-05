@@ -99,7 +99,7 @@ gulp.task('doc:rename', ['doc:build'], callback =>
  */
 gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/*.js', 'test/*.js'])
   .pipe(plugins.jshint(pkg.jshintConfig))
-  .pipe(plugins.jshint.reporter('default', { verbose: true }))
+  .pipe(plugins.jshint.reporter('default', {verbose: true}))
 );
 
 /**
@@ -114,7 +114,7 @@ gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
  */
 gulp.task('serve', callback => {
   if('_server' in config) config._server.kill();
-  config._server = child.fork('bin/cli.js', ['--target', '8080']);
+  config._server = child.fork('bin/cli.js');
   callback();
 });
 
