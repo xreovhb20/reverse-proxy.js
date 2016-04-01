@@ -1,14 +1,16 @@
 {
-  "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
   "description": "Simple reverse proxy server supporting WebSockets.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
-  "license": "Apache-2.0",
-  "main": "./index",
   "name": "reverse-proxy-js",
+
+  "author": "Cédric Belin <cedric@belin.io>",
+  "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
+  "license": "Apache-2.0",
+  "main": "./lib/index",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
   "version": "0.5.2",
+
   "bin": {
     "reverse-proxy": "./bin/cli.js"
   },
@@ -16,7 +18,7 @@
     "commander": "^2.9.0",
     "forever": "^0.15.1",
     "http-proxy": "^1.13.2",
-    "js-yaml": "^3.5.3"
+    "js-yaml": "^3.5.5"
   },
   "devDependencies": {
     "del": "^2.2.0",
@@ -32,7 +34,7 @@
     "mocha-sonar-reporter": "^0.1.4"
   },
   "engines": {
-    "node": ">=4.3.0"
+    "node": ">=4.4.0"
   },
   "jshintConfig": {
     "esnext": true,
