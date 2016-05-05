@@ -1,12 +1,11 @@
 {
-  "description": "Simple reverse proxy server supporting WebSockets.",
-  "homepage": "https://github.com/cedx/reverse-proxy.js",
-  "name": "reverse-proxy-js",
-
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
+  "description": "Simple reverse proxy server supporting WebSockets.",
+  "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "Apache-2.0",
   "main": "./lib/index",
+  "name": "reverse-proxy-js",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
   "version": "0.5.2",
@@ -18,20 +17,20 @@
     "commander": "^2.9.0",
     "forever": "^0.15.1",
     "http-proxy": "^1.13.2",
-    "js-yaml": "^3.5.5"
+    "js-yaml": "^3.6.0"
   },
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-david": "^0.4.1",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-david": "^0.4.2",
+    "gulp-istanbul": "^0.10.4",
     "gulp-jshint": "^2.0.0",
-    "gulp-load-plugins": "^1.2.0",
+    "gulp-load-plugins": "^1.2.2",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.2.0",
     "jsdoc": "^3.4.0",
-    "jshint": "^2.9.1",
-    "mocha-sonar-reporter": "^0.1.4"
+    "jshint": "^2.9.2",
+    "mocha-sonar-reporter": "^0.1.5"
   },
   "engines": {
     "node": ">=4.4.0"

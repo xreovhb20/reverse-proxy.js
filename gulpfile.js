@@ -9,6 +9,7 @@ const child = require('child_process');
 const del = require('del');
 const fs = require('fs');
 const gulp = require('gulp');
+const path = require('path');
 const plugins = require('gulp-load-plugins')();
 const pkg = require('./package.json');
 
@@ -86,9 +87,10 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
   .pipe(gulp.dest('doc/api'))
 );
 
-gulp.task('doc:build', () =>
-  _exec('jsdoc --configure doc/conf.json')
-);
+gulp.task('doc:build', () => {
+  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
+  return _exec(`${command} --configure doc/conf.json`);
+});
 
 gulp.task('doc:rename', ['doc:build'], callback =>
   fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', () => del(`doc/${pkg.name}`, callback))
