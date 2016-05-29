@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 #### Version 0.5.3
 - Improved the way the server address is reported.
+- The application instance is now exposed as `global.app` property.
 
 #### Version 0.5.2
 - Restored support for configuration files in [JSON](http://www.json.org) format.

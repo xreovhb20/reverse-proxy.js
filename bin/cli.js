@@ -7,11 +7,16 @@
 'use strict';
 
 // Module dependencies.
-const Application = require('../lib/app');
+const reverseProxy = require('../lib');
 
 // Run the application.
+let application = new reverseProxy.Application();
+
 if(module === require.main) {
   process.title = 'reverse-proxy.js';
-  new Application().run();
+  global.app = application;
+  global.app.run();
 }
-else module.exports = Application;
+
+// Public interface.
+module.exports = application;
