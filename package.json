@@ -4,7 +4,7 @@
   "description": "Simple reverse proxy server supporting WebSockets.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "Apache-2.0",
-  "main": "./lib/index",
+  "main": "./lib/index.js",
   "name": "reverse-proxy-js",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
@@ -15,17 +15,17 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
-    "forever": "^0.15.1",
-    "http-proxy": "^1.13.2",
-    "js-yaml": "^3.6.0"
+    "forever": "^0.15.2",
+    "http-proxy": "^1.13.3",
+    "js-yaml": "^3.6.1"
   },
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-david": "^0.4.2",
     "gulp-istanbul": "^0.10.4",
-    "gulp-jshint": "^2.0.0",
-    "gulp-load-plugins": "^1.2.2",
+    "gulp-jshint": "^2.0.1",
+    "gulp-load-plugins": "^1.2.4",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.2.0",
     "jsdoc": "^3.4.0",
