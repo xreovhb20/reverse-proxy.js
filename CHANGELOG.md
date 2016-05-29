@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
 
+#### Version 0.5.3
+- Improved the way the server address is reported.
+
 #### Version 0.5.2
 - Restored support for configuration files in [JSON](http://www.json.org) format.
 - Upgraded the package dependencies.
