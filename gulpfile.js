@@ -50,9 +50,9 @@ gulp.task('check', () => gulp.src('package.json')
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', callback =>
-  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], callback)
-);
+gulp.task('clean', () => new Promise((resolve, reject) =>
+  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], err => err ? reject(err) : resolve())
+));
 
 /**
  * Generates the code coverage.
@@ -92,9 +92,12 @@ gulp.task('doc:build', () => {
   return _exec(`${command} --configure doc/conf.json`);
 });
 
-gulp.task('doc:rename', ['doc:build'], callback =>
-  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', () => del(`doc/${pkg.name}`, callback))
-);
+gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
+  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
+    if(err) reject(err);
+    else del(`doc/${pkg.name}`, err => err ? reject(err) : resolve());
+  })
+));
 
 /**
  * Performs static analysis of source code.
@@ -109,22 +112,6 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/*.js', 'test/*.js'])
  */
 gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
   .pipe(plugins.mocha())
-);
-
-/**
- * Starts the proxy server.
- */
-gulp.task('serve', callback => {
-  if('_server' in config) config._server.kill();
-  config._server = child.fork('bin/cli.js');
-  callback();
-});
-
-/**
- * Watches for file changes.
- */
-gulp.task('watch', ['serve'], () =>
-  gulp.watch('lib/*.js', ['serve'])
 );
 
 /**
