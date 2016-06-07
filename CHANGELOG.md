@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
 
+#### Version 0.5.4
+- Fixed some bugs.
+- Upgraded the package dependencies.
+
 #### Version 0.5.3
 - Improved the way the server address is reported.
 - The application instance is now exposed as `global.app` property.
