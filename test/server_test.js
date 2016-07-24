@@ -1,10 +1,7 @@
 /**
  * Unit tests of the `server` module.
- * @module test.server_test
+ * @module test/server_test
  */
-'use strict';
-
-// Module dependencies.
 const assert = require('assert');
 const Server = require('../lib/server');
 
@@ -43,7 +40,7 @@ class ServerTest {
    */
   testHost() {
     it('should have an "any IPv4" address as the default host', () =>
-      assert.equal(new Server().host, '0.0.0.0')
+      assert.equal(new Server().host, Server.DEFAULT_HOST)
     );
 
     it('should have the same host as the specified one', () =>
@@ -56,7 +53,7 @@ class ServerTest {
    */
   testPort() {
     it('should have 3000 as the default port', () =>
-      assert.equal(new Server().port, 3000)
+      assert.equal(new Server().port, Server.DEFAULT_PORT)
     );
 
     it('should have the same port as the specified one', () =>
