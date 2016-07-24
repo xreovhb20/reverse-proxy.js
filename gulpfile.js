@@ -41,7 +41,7 @@ gulp.task('default', ['dist']);
  * Checks the package dependencies.
  */
 gulp.task('check', () => gulp.src('package.json')
-  .pipe(plugins.david()).on('error', function(err) {
+  .pipe(plugins.cedx.david()).on('error', function(err) {
     console.error(err);
     this.emit('end');
   })
@@ -117,11 +117,12 @@ gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
 /**
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
- * @return {Promise.<string>} The command output when it is finally terminated.
+ * @param {object} [options] The settings to customize how the process is spawned.
+ * @returns {Promise.<string>} The command output when it is finally terminated.
  * @private
  */
-function _exec(command) {
-  return new Promise((resolve, reject) => child.exec(command, {maxBuffer: 2 * 1024 * 1024}, (err, stdout) => {
+function _exec(command, options = {}) {
+  return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
     if(err) reject(err);
     else resolve(stdout.trim());
   }));
