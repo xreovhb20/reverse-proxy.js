@@ -4,33 +4,31 @@
  */
 'use strict';
 
-// Module dependencies.
 const child = require('child_process');
 const del = require('del');
 const fs = require('fs');
 const gulp = require('gulp');
+const loadPlugins = require('gulp-load-plugins');
 const path = require('path');
-const plugins = require('gulp-load-plugins')();
 const pkg = require('./package.json');
 
 /**
  * The task settings.
- * @var {object}
+ * @type {object}
  */
 const config = {
-  output:
-    `${pkg.name}-${pkg.version}.zip`,
-  sources: [
-    'index.js',
-    '*.json',
-    '*.md',
-    '*.txt',
-    'bin/*',
-    'etc/*.json',
-    'lib/*.js',
-    'var/.gitkeep'
-  ]
+  output: `${pkg.name}-${pkg.version}.zip`,
+  sources: ['*.json', '*.md', '*.txt', 'bin/*.js', 'lib/*.js']
 };
+
+/**
+ * The task plugins.
+ * @type {object}
+ */
+const plugins = loadPlugins({
+  pattern: ['gulp-*', '@*/gulp-*'],
+  replaceString: /^gulp-/
+});
 
 /**
  * Runs the default tasks.
@@ -51,29 +49,21 @@ gulp.task('check', () => gulp.src('package.json')
  * Deletes all generated files and reset any saved state.
  */
 gulp.task('clean', () =>
-  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'])
+  del([`var/${config.output}`, 'var/*.info'])
 );
 
 /**
- * Generates the code coverage.
+ * Sends the results of the code coverage.
  */
-gulp.task('cover', ['cover:instrument'], () => {
-  process.env.npm_package_config_mocha_sonar_reporter_outputfile = 'var/TEST-results.xml';
-  process.env.npm_package_config_mocha_sonar_reporter_testdir = 'test';
-
-  return gulp.src(['test/*.js'], {read: false})
-    .pipe(plugins.mocha({reporter: 'mocha-sonar-reporter'}))
-    .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
+gulp.task('coverage', ['test'], () => {
+  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'codacy-coverage.cmd' : 'codacy-coverage');
+  return _exec(`${command} < var/lcov.info`);
 });
-
-gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
-  .pipe(plugins.istanbul())
-  .pipe(plugins.istanbul.hookRequire()));
 
 /**
  * Creates a distribution file for this program.
  */
-gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
+gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
   .pipe(plugins.zip(config.output))
   .pipe(gulp.dest('var'))
 );
@@ -83,19 +73,19 @@ gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
  */
 gulp.task('doc', ['doc:assets']);
 
-gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'])
+gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'], {base: 'web'})
   .pipe(gulp.dest('doc/api'))
 );
 
 gulp.task('doc:build', () => {
   let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
-  return _exec(`${command} --configure doc/conf.json`);
+  return del('doc/api').then(() => _exec(`${command} --configure doc/conf.json`));
 });
 
 gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
   fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
     if(err) reject(err);
-    else del(`doc/${pkg.name}`).then(resolve, reject);
+    else del('doc/@cedx').then(resolve, reject);
   })
 ));
 
@@ -110,8 +100,14 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/*.js', 'test/*.js'])
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
+gulp.task('test', ['test:coverage'], () => gulp.src(['test/*.js'], {read: false})
   .pipe(plugins.mocha())
+  .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
+);
+
+gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
+  .pipe(plugins.istanbul())
+  .pipe(plugins.istanbul.hookRequire())
 );
 
 /**
