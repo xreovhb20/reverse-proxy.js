@@ -1,15 +1,15 @@
 {
   "description": "Simple reverse proxy server supporting WebSockets.",
-  "homepage": "https://github.com/cedx/reverse-proxy.js",
-  "name": "reverse-proxy-js",
+  "homepage": "https://github.com/cedx/reverse-proxy",
+  "name": "@cedx/reverse-proxy",
 
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
+  "bugs": "https://github.com/cedx/reverse-proxy/issues",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "preferGlobal": true,
-  "repository": "cedx/reverse-proxy.js",
-  "version": "0.5.4",
+  "repository": "cedx/reverse-proxy",
+  "version": "0.6.0",
 
   "bin": {
     "reverse-proxy": "./bin/cli.js"
@@ -17,37 +17,39 @@
   "dependencies": {
     "commander": "^2.9.0",
     "forever": "^0.15.2",
-    "http-proxy": "^1.13.3",
+    "http-proxy": "^1.14.0",
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
-    "del": "^2.2.0",
+    "@cedx/gulp-david": "^2.0.1",
+    "codacy-coverage": "^1.1.3",
+    "del": "^2.2.1",
     "gulp": "^3.9.1",
-    "gulp-david": "^0.4.2",
-    "gulp-istanbul": "^0.10.4",
+    "gulp-istanbul": "^1.0.0",
     "gulp-jshint": "^2.0.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.2.0",
     "jsdoc": "^3.4.0",
-    "jshint": "^2.9.2",
-    "mocha-sonar-reporter": "^0.1.5"
+    "jshint": "^2.9.2"
   },
   "engines": {
-    "node": ">=4.4.0"
+    "node": ">=6.3.0"
   },
   "jshintConfig": {
-    "esnext": true,
+    "esversion": 6,
     "freeze": true,
     "futurehostile": true,
     "latedef": "nofunc",
-    "loopfunc": true,
     "mocha": true,
+    "noarg": true,
     "nocomma": true,
     "node": true,
     "nonbsp": true,
     "nonew": true,
-    "strict": true,
+    "singleGroups": true,
+    "trailing": true,
+    "typed": true,
     "undef": true,
     "unused": true,
     "varstmt": true
