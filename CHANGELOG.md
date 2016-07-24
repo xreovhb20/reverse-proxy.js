@@ -6,6 +6,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Turned the package into a [scoped one](https://docs.npmjs.com/getting-started/scoped-packages).
 - Added the `DEFAULT_HOST` and `DEFAULT_PORT` constants to the `Server` class.
+- Replaced [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
 
 #### Version 0.5.4
 - Fixed some bugs.
