@@ -1,5 +1,11 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
+This file contains highlights of what changes on each version of the [Reverse-Proxy](https://github.com/cedx/reverse-proxy) package.
+
+#### Version 0.6.0
+- Breaking change: using more ES2015 features, like default parameters and destructuring assignment.
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Turned the package into a [scoped one](https://docs.npmjs.com/getting-started/scoped-packages).
+- Added the `DEFAULT_HOST` and `DEFAULT_PORT` constants to the `Server` class.
 
 #### Version 0.5.4
 - Fixed some bugs.
@@ -20,7 +26,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Added support for [Travis CI](https://travis-ci.org) continuous integration.
 
 #### Version 0.5.0
-- Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
+- Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
 - Breaking change: changed the whole API of `Application` class.
 - Breaking change: changed the format of `Server#request` event.
@@ -40,7 +46,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 #### Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 - Using [Gulp.js](http://gulpjs.com) as build system.
-- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
+- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
 #### Version 0.2.1

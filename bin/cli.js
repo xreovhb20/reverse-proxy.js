@@ -5,15 +5,13 @@
  * @module bin/cli
  */
 'use strict';
-
-// Module dependencies.
 const reverseProxy = require('../lib');
 
 // Run the application.
 let application = new reverseProxy.Application();
 
 if(module === require.main) {
-  process.title = 'reverse-proxy.js';
+  process.title = 'reverse-proxy';
   global.app = application;
   global.app.run();
 }

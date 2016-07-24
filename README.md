@@ -1,9 +1,9 @@
-# Reverse-Proxy.js
-![Release](http://img.shields.io/npm/v/reverse-proxy-js.svg) ![License](http://img.shields.io/npm/l/reverse-proxy-js.svg) ![Downloads](http://img.shields.io/npm/dm/reverse-proxy-js.svg) ![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.js.svg) ![Build](http://img.shields.io/travis/cedx/reverse-proxy.js.svg)
+# Reverse-Proxy
+![Release](http://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](http://img.shields.io/npm/l/@cedx/reverse-proxy.svg) ![Downloads](http://img.shields.io/npm/dt/@cedx/reverse-proxy.svg) ![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.svg) ![Build](http://img.shields.io/travis/cedx/reverse-proxy.svg)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
-Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
+Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Features
 - Configuration based on simple [JSON](http://www.json.org) or [YAML](http://yaml.org) files.
@@ -16,7 +16,7 @@ Let's suppose you were running multiple HTTP application servers, but you only w
 From a command prompt with administrator privileges, run:
 
 ```shell
-$ npm install -g reverse-proxy-js
+$ npm install --global @cedx/reverse-proxy
 ```
 
 ## Usage
@@ -53,7 +53,7 @@ $ reverse-proxy --port 80 --target 192.168.0.1:3000
 $ reverse-proxy --port 8080 --target http://another.host:8080 --user www-data
 ```
 
-You can also use a configuration file for the same task. See the [`basic_standalone.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/basic_standalone.json) or [`basic_standalone.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/basic_standalone.yml) file in the `example` folder of this package:
+You can also use a configuration file for the same task. See the [`basic_standalone.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/basic_standalone.json) or [`basic_standalone.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/basic_standalone.yml) file in the `example` folder of this package:
 
 ```shell
 $ reverse-proxy --config example/yaml/basic_standalone.yml
@@ -69,7 +69,7 @@ If you want the proxy server to use HTTPS protocol, you need to provide a `ssl` 
 This object will be used as the first argument to [`https.createServer`](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) function when instanciating the proxy server.
 Its structure is similar to the `options` parameter of [`tls.createServer`](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) function.
 
-See the [`https_to_http.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/https_to_http.json) or [`https_to_http.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/https_to_http.yml) file in the `example` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
+See the [`https_to_http.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/https_to_http.json) or [`https_to_http.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/https_to_http.yml) file in the `example` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
 
 #### Proxy requests using a routing table
 A routing table is a simple lookup table that maps incoming requests to proxy target locations. The mapping is based on the [HTTP `Host` header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
@@ -77,7 +77,7 @@ A routing table is a simple lookup table that maps incoming requests to proxy ta
 To use hostname routing, you need to provide a `routes` key in your configuration file, instead of a `target` key. The value of this key is an object where keys are hostnames and values are target locations.
 Use an asterisk (`*`) as host name to define the route matched by default when a host name is not found.
 
-See the [`routing_table.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/routing_table.json) or [`routing_table.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/routing_table.yml) file in the `example` folder of this package for a concrete example.
+See the [`routing_table.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/routing_table.json) or [`routing_table.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/routing_table.yml) file in the `example` folder of this package for a concrete example.
 
 ```shell
 $ reverse-proxy --config example/yaml/routing_table.yml
@@ -86,19 +86,18 @@ $ reverse-proxy --config example/yaml/routing_table.yml
 #### Listening on multiple ports
 In order to listen on several ports, all you have to do is use a JSON array or a YAML stream containing a different configuration object for each port to listen. Consequently, each port can have its own settings and routing table.
 
-See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/multiple_ports.json) or [`multiple_ports.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/multiple_ports.yml) file in the `example` folder of this package for an example.
+See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/multiple_ports.json) or [`multiple_ports.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/multiple_ports.yml) file in the `example` folder of this package for an example.
 
 ```shell
 $ reverse-proxy --config example/yaml/multiple_ports.yml
 ```
 
 ## Configuration Schema
-The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yml) file, in the `example` folder of this package, lists all available settings and their default values.
+The [`defaults.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/defaults.json) or [`defaults.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/defaults.yml) file, in the `example` folder of this package, lists all available settings and their default values.
 
 ## See Also
-- [API Reference](http://dev.belin.io/reverse-proxy.js)
-- [Code Analysis](http://src.belin.io/dashboard/index/reverse-proxy.js)
-- [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy.js)
+- [Code Quality](https://www.codacy.com/app/cedx/reverse-proxy)
+- [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy)
 
 ## License
-[Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.
+[Reverse-Proxy](https://github.com/cedx/reverse-proxy) is distributed under the Apache License, version 2.0.
