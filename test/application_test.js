@@ -2,8 +2,8 @@
  * Unit tests of the `application` module.
  * @module test/applicaton_test
  */
-const Application = require('../lib/app');
 const assert = require('assert');
+const {Application} = require('../lib');
 
 /**
  * Tests the features of the `Application` class.

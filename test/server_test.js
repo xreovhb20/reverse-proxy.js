@@ -3,7 +3,7 @@
  * @module test/server_test
  */
 const assert = require('assert');
-const Server = require('../lib/server');
+const {Server} = require('../lib');
 
 /**
  * Tests the features of the `Server` class.
