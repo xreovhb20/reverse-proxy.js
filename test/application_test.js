@@ -1,6 +1,6 @@
 /**
- * Unit tests of the `app` module.
- * @module test/app_test
+ * Unit tests of the `application` module.
+ * @module test/applicaton_test
  */
 const Application = require('../lib/app');
 const assert = require('assert');
