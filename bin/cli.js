@@ -5,10 +5,10 @@
  * @module bin/cli
  */
 'use strict';
-const reverseProxy = require('../lib');
+const {Application} = require('../lib');
 
 // Run the application.
-let application = new reverseProxy.Application();
+let application = new Application();
 
 if(module === require.main) {
   process.title = 'reverse-proxy';
