@@ -1,6 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy](https://github.com/cedx/reverse-proxy) package.
 
+#### Version 0.7.0
+- Breaking change: renamed the `Server.DEFAULT_HOST` property to `DEFAULT_ADDRESS`.
+- Breaking change: renamed the `Server.host` property to `address`.
+- Breaking change: renamed the `-H, --host` command line option to `-a, --address`.
+
 #### Version 0.6.0
 - Breaking change: using more ES2015 features, like default parameters and destructuring assignment.
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.

@@ -30,7 +30,7 @@ $ reverse-proxy --help
   Options:
 
     -h, --help             output usage information
-    -V, --version          output the version number
+    -v, --version          output the version number
     -p, --port <port>      port that the reverse proxy should run on [3000]
     -H, --host <host>      host that the reverse proxy should run on [0.0.0.0]
     -t, --target <target>  location of the server the proxy will target
