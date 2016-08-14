@@ -14,11 +14,10 @@ class ServerTest {
    * Runs the unit tests.
    */
   run() {
-    let self = this;
-    describe('Server', function() {
-      describe('address', self.testAddress);
-      describe('port', self.testPort);
-      describe('_getHostName()', self.testGetHostName);
+    describe('Server', () => {
+      describe('address', this.testAddress);
+      describe('port', this.testPort);
+      describe('_getHostName()', this.testGetHostName);
     });
   }
 

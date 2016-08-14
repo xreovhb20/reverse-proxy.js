@@ -14,12 +14,11 @@ class ApplicationTest {
    * Runs the unit tests.
    */
   run() {
-    let self = this;
-    describe('Application', function() {
-      describe('debug', self.testDebug);
-      describe('env', self.testEnv);
-      describe('loadConfig()', self.testLoadConfig);
-      describe('_parseConfig()', self.testParseConfig);
+    describe('Application', () => {
+      describe('debug', this.testDebug);
+      describe('env', this.testEnv);
+      describe('loadConfig()', this.testLoadConfig);
+      describe('_parseConfig()', this.testParseConfig);
     });
   }
 
