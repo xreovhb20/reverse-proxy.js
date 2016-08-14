@@ -1,5 +1,5 @@
 # Reverse-Proxy
-![Release](http://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](http://img.shields.io/npm/l/@cedx/reverse-proxy.svg) ![Downloads](http://img.shields.io/npm/dt/@cedx/reverse-proxy.svg) ![Dependencies](http://img.shields.io/david/cedx/reverse-proxy.svg) ![Build](http://img.shields.io/travis/cedx/reverse-proxy.svg)
+![Release](https://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](https://img.shields.io/npm/l/@cedx/reverse-proxy.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/reverse-proxy.svg) ![Dependencies](https://img.shields.io/david/cedx/reverse-proxy.svg) ![Code quality](https://img.shields.io/codacy/grade/7e77794f9b9844bda7af9051f1e799f0.svg) ![Build](https://img.shields.io/travis/cedx/reverse-proxy.svg)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
