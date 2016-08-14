@@ -1,5 +1,5 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy](https://github.com/cedx/reverse-proxy) package.
+This file contains highlights of what changes on each version of the [Reverse-Proxy](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 #### Version 0.7.0
 - Breaking change: renamed the `Server.DEFAULT_HOST` property to `DEFAULT_ADDRESS`.

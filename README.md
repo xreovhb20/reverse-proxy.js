@@ -100,4 +100,4 @@ The [`defaults.json`](https://github.com/cedx/reverse-proxy/blob/master/example/
 - [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy)
 
 ## License
-[Reverse-Proxy](https://github.com/cedx/reverse-proxy) is distributed under the Apache License, version 2.0.
+[Reverse-Proxy](https://www.npmjs.com/package/@cedx/reverse-proxy) is distributed under the Apache License, version 2.0.
