@@ -5,6 +5,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: renamed the `Server.DEFAULT_HOST` property to `DEFAULT_ADDRESS`.
 - Breaking change: renamed the `Server.host` property to `address`.
 - Breaking change: renamed the `-H, --host` command line option to `-a, --address`.
+- Upgraded the package dependencies.
 
 #### Version 0.6.0
 - Breaking change: using more ES2015 features, like default parameters and destructuring assignment.
