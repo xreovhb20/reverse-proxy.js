@@ -29,14 +29,14 @@ $ reverse-proxy --help
 
   Options:
 
-    -h, --help             output usage information
-    -v, --version          output the version number
-    -p, --port <port>      port that the reverse proxy should run on [3000]
-    -H, --host <host>      host that the reverse proxy should run on [0.0.0.0]
-    -t, --target <target>  location of the server the proxy will target
-    -c, --config <path>    location of the configuration file(s) for the reverse proxy
-    --silent               silence the log output from the reverse proxy
-    -u, --user <user>      user to drop privileges to once server socket is bound
+    -h, --help               output usage information
+    -v, --version            output the version number
+    -a, --address <address>  address that the reverse proxy should run on [0.0.0.0]
+    -p, --port <port>        port that the reverse proxy should run on [3000]
+    -t, --target <target>    location of the server the proxy will target
+    -c, --config <path>      location of the configuration file for the reverse proxy
+    -u, --user <user>        user to drop privileges to once server socket is bound
+    --silent                 silence the log output from the reverse proxy
 ```
 
 #### Setup a basic stand-alone proxy server
