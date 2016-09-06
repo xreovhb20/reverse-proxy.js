@@ -6,13 +6,13 @@
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/reverse-proxy/issues",
   "license": "Apache-2.0",
-  "main": "./lib/index.js",
+  "main": "./lib",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy",
   "version": "1.0.0",
 
   "bin": {
-    "reverse-proxy": "./bin/cli"
+    "reverse-proxy": "./bin/cli.js"
   },
   "dependencies": {
     "commander": "^2.9.0",
