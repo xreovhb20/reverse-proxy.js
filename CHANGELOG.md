@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 #### Version 1.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Changed the HTTP status code used when an error occurred.
 - Updated the package dependencies.
 
 #### Version 0.7.0
