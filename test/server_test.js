@@ -30,7 +30,7 @@ class ServerTest {
     );
 
     it('it should return the "Host" header found in the request, without the port number', () =>
-      assert.equal(new Server()._getHostName({headers: {host: 'www.belin.io:8080'}}), 'www.belin.io')
+      assert.equal(new Server()._getHostName({headers: {Host: 'www.belin.io:8080'}}), 'www.belin.io')
     );
   }
 
