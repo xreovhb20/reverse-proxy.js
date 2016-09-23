@@ -15,7 +15,7 @@ const pkg = require('./package.json');
 
 /**
  * The task settings.
- * @type {object}
+ * @constant {object}
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
@@ -24,7 +24,7 @@ const config = {
 
 /**
  * The task plugins.
- * @type {object}
+ * @constant {object}
  */
 const plugins = loadPlugins({
   pattern: ['gulp-*', '@*/gulp-*'],
