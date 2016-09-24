@@ -7,13 +7,6 @@
 const {Application} = require('../lib');
 
 // Run the application.
-let application = new Application();
-
-if(module === require.main) {
-  process.title = 'reverse-proxy';
-  global.app = application;
-  global.app.run();
-}
-
-// Public interface.
-module.exports = application;
+process.title = 'reverse-proxy';
+global.app = new Application();
+global.app.run();
