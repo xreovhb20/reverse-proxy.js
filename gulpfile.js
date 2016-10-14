@@ -72,7 +72,7 @@ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
 /**
  * Builds the documentation.
  */
-gulp.task('doc', ['doc:build', ], () => new Promise((resolve, reject) =>
+gulp.task('doc', ['doc:build'], () => new Promise((resolve, reject) =>
   fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
     if (err) reject(err);
     else del('doc/@cedx').then(resolve, reject);
