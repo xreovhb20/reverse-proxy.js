@@ -3,7 +3,9 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 #### Version 1.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Added a build task for fixing the coding standards issues.
 - Changed the HTTP status code used when an error occurred.
+- Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
 
 #### Version 0.7.0
