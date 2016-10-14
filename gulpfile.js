@@ -87,7 +87,7 @@ gulp.task('doc:build', () => {
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => gulp.src(['*.js', 'src/**/*.js'], {base: '.'})
+gulp.task('fix', () => gulp.src(['*.js', 'lib/**/*.js', 'test/**/*.js'], {base: '.'})
   .pipe(plugins.eslint({fix: true}))
   .pipe(gulp.dest('.'))
 );
@@ -95,7 +95,7 @@ gulp.task('fix', () => gulp.src(['*.js', 'src/**/*.js'], {base: '.'})
 /**
  * Performs static analysis of source code.
  */
-gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js'])
+gulp.task('lint', () => gulp.src(['*.js', 'lib/**/*.js', 'test/**/*.js'])
   .pipe(plugins.eslint())
   .pipe(plugins.eslint.format())
   .pipe(plugins.eslint.failAfterError())
@@ -123,7 +123,7 @@ gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
  */
 function _exec(command, options = {}) {
   return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
-    if(err) reject(err);
+    if (err) reject(err);
     else resolve(stdout.trim());
   }));
 }
