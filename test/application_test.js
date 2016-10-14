@@ -1,5 +1,5 @@
 /**
- * Unit tests of the `application` module.
+ * Implementation of the `tests.ApplicationTest` class.
  * @module test/applicaton_test
  */
 const assert = require('assert');

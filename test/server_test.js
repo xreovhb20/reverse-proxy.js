@@ -1,5 +1,5 @@
 /**
- * Unit tests of the `server` module.
+ * Implementation of the `tests.ServerTest` class.
  * @module test/server_test
  */
 const assert = require('assert');
