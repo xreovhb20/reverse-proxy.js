@@ -18,7 +18,8 @@
     "commander": "^2.9.0",
     "forever": "^0.15.2",
     "http-proxy": "^1.15.1",
-    "js-yaml": "^3.6.1"
+    "js-yaml": "^3.6.1",
+    "rxjs": "^5.0.0-rc.1"
   },
   "devDependencies": {
     "@cedx/gulp-david": "^2.0.4",

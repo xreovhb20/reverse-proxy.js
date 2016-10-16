@@ -2,7 +2,9 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 #### Version 1.0.0
+- Breaking change: ported the promise-based APIs to [Observables](http://reactivex.io/intro.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: the `Server` class is not anymore an event emiter.
 - Added a build task for fixing the coding standards issues.
 - Changed the HTTP status code used when an error occurred.
 - Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
