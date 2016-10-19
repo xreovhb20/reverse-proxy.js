@@ -34,7 +34,7 @@
     "jsdoc": "^3.4.2"
   },
   "engines": {
-    "node": ">=6.8.0"
+    "node": ">=6.9.0"
   },
   "keywords": [
     "http",
