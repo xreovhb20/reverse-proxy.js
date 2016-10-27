@@ -1,17 +1,17 @@
 * text=auto
 
+.babelrc text
 .editorconfig text
+.eslintrc.json text
 .gitattributes text
 .gitignore text
+.travis.yml text
 
-*.css text
-*.html text diff=html
 *.js text
 *.json text
 *.md text
 *.txt text
 *.yml text
 
-*.gif binary
 *.ico binary
 *.png binary
