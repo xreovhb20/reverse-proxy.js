@@ -22,7 +22,7 @@
     "rxjs": "^5.0.0-rc.1"
   },
   "devDependencies": {
-    "@cedx/gulp-david": "^2.0.4",
+    "@cedx/gulp-david": "^3.0.0",
     "codacy-coverage": "^2.0.0",
     "del": "^2.2.2",
     "esdoc": "^0.4.8",

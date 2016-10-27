@@ -11,7 +11,7 @@ const pkg = require('./package.json');
 
 /**
  * The task settings.
- * @constant {object}
+ * @type {object}
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
@@ -20,7 +20,7 @@ const config = {
 
 /**
  * The task plugins.
- * @constant {object}
+ * @type {object}
  */
 const plugins = loadPlugins({
   pattern: ['gulp-*', '@*/gulp-*'],
@@ -35,12 +35,13 @@ gulp.task('default', ['dist']);
 /**
  * Checks the package dependencies.
  */
-gulp.task('check', () => gulp.src('package.json')
-  .pipe(plugins.cedx.david()).on('error', function(err) {
+gulp.task('check', () => {
+  const {david} = plugins.cedx.david;
+  return gulp.src('package.json').pipe(david()).on('error', function(err) {
     console.error(err);
     this.emit('end');
-  })
-);
+  });
+});
 
 /**
  * Deletes all generated files and reset any saved state.
@@ -114,8 +115,7 @@ gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
- * @returns {Promise.<string>} The command output when it is finally terminated.
- * @private
+ * @return {Promise<string>} The command output when it is finally terminated.
  */
 function _exec(command, options = {}) {
   return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
