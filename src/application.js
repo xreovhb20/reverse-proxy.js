@@ -1,31 +1,27 @@
-/**
- * Implementation of the `Application` class.
- * @module application
- */
-const fs = require('fs');
-const {Observable} = require('rxjs');
-const path = require('path');
-const pkg = require('../package.json');
-const program = require('commander');
-const Server = require('./server');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import {Observable} from 'rxjs';
+import path from 'path';
+import * as pkg from '../package.json';
+import program from 'commander';
+import Server from './server';
+import yaml from 'js-yaml';
 
 /**
  * Represents an application providing functionalities specific to console requests.
  */
-module.exports = class Application {
+export class Application {
 
   /**
-   * Gets a value indicating whether the application runs in debug mode.
-   * @returns {boolean} `true` if the application is in debug mode, otherwise `false`.
+   * Value indicating whether the application runs in debug mode.
+   * @type {boolean}
    */
   get debug() {
     return this.env == 'development' || this.env == 'test';
   }
 
   /**
-   * Gets the application environment.
-   * @returns {string} The application environment.
+   * The application environment.
+   * @type {string}
    */
   get env() {
     return 'NODE_ENV' in process.env ? process.env.NODE_ENV : 'production';
@@ -34,7 +30,7 @@ module.exports = class Application {
   /**
    * Loads the application configuration from the file system.
    * @param {object} args The command line arguments.
-   * @returns {Observable.<Array>} An array of objects containing the settings of one or several reverse proxy instances.
+   * @return {Observable<Array>} An array of objects containing the settings of one or several reverse proxy instances.
    */
   loadConfig(args) {
     if (!args.config) return Observable.of([{
@@ -49,7 +45,7 @@ module.exports = class Application {
 
   /**
    * Prints the specified message, with a timestamp and a new line, to the standard output.
-   * @param {(string|function)} message The message to be logged. If it's a function, the message is the result of the function call.
+   * @param {string|function} message The message to be logged. If it's a function, the message is the result of the function call.
    */
   log(message) {
     if (!program.silent) {
@@ -107,7 +103,7 @@ module.exports = class Application {
 
   /**
    * Sets the user identity of the application process.
-   * @param {(number|string)} userId The user identifier.
+   * @param {number|string} userId The user identifier.
    */
   setUser(userId) {
     if (typeof process.setuid != 'function') this.log('Changing the process user is not supported on this platform.');
@@ -120,7 +116,7 @@ module.exports = class Application {
   /**
    * Starts the specified reverse proxy instances.
    * @param {Server[]} servers The list of servers to start.
-   * @returns {Observable} Completes when all servers have been started.
+   * @return {Observable} Completes when all servers have been started.
    */
   startServers(servers) {
     return Observable.merge(...servers.map(server => {
@@ -141,7 +137,7 @@ module.exports = class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @returns {Array} An array of objects corresponding to the parsed configuration.
+   * @return {Array} An array of objects corresponding to the parsed configuration.
    * @throws {Error} Neither target nor route table is provided in the specified data.
    */
   _parseConfig(data) {
@@ -182,4 +178,4 @@ module.exports = class Application {
 
     return config;
   }
-};
+}

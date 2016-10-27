@@ -39,7 +39,7 @@ $ reverse-proxy --help
     --silent                 silence the log output from the reverse proxy
 ```
 
-#### Setup a basic stand-alone proxy server
+### Setup a basic stand-alone proxy server
 From a command prompt:
 
 ```shell
@@ -61,7 +61,7 @@ $ reverse-proxy --config example/yaml/basic_standalone.yml
 
 For more advanced usages, you always need to use configuration files.
 
-#### Using HTTPS
+### Using HTTPS
 A common use-case for proxying in conjunction with HTTPS is that you have some front-facing HTTPS server, but all of your internal traffic is HTTP. In this way, you can reduce the number of servers to which your CA and other important security files are deployed and reduce the computational overhead from HTTPS traffic.
 
 If you want the proxy server to use HTTPS protocol, you need to provide a `ssl` key in your configuration file.
@@ -71,7 +71,7 @@ Its structure is similar to the `options` parameter of [`tls.createServer`](http
 
 See the [`https_to_http.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/https_to_http.json) or [`https_to_http.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/https_to_http.yml) file in the `example` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
 
-#### Proxy requests using a routing table
+### Proxy requests using a routing table
 A routing table is a simple lookup table that maps incoming requests to proxy target locations. The mapping is based on the [HTTP `Host` header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
 
 To use hostname routing, you need to provide a `routes` key in your configuration file, instead of a `target` key. The value of this key is an object where keys are hostnames and values are target locations.
@@ -83,7 +83,7 @@ See the [`routing_table.json`](https://github.com/cedx/reverse-proxy/blob/master
 $ reverse-proxy --config example/yaml/routing_table.yml
 ```
 
-#### Listening on multiple ports
+### Listening on multiple ports
 In order to listen on several ports, all you have to do is use a JSON array or a YAML stream containing a different configuration object for each port to listen. Consequently, each port can have its own settings and routing table.
 
 See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy/blob/master/example/json/multiple_ports.json) or [`multiple_ports.yml`](https://github.com/cedx/reverse-proxy/blob/master/example/yaml/multiple_ports.yml) file in the `example` folder of this package for an example.

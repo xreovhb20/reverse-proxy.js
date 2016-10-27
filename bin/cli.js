@@ -2,7 +2,6 @@
 
 /**
  * Command line interface.
- * @module bin/cli
  */
 const {Application} = require('../lib');
 

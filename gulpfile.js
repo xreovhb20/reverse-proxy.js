@@ -1,7 +1,3 @@
-/**
- * Build system.
- * @module gulpfile
- */
 'use strict';
 
 const child = require('child_process');

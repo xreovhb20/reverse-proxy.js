@@ -1,18 +1,13 @@
-/**
- * Implementation of the `Server` class.
- * @module server
- */
-const {EventEmitter} = require('events');
-const http = require('http');
-const https = require('https');
-const httpProxy = require('http-proxy');
-const {Observable} = require('rxjs');
+import {EventEmitter} from 'events';
+import http from 'http';
+import https from 'https';
+import httpProxy from 'http-proxy';
+import {Observable, Subscription} from 'rxjs';
 
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
- * @augments events.EventEmitter
  */
-module.exports = class Server extends EventEmitter {
+export class Server extends EventEmitter {
 
   /**
    * Emitted when the server closes.
@@ -45,15 +40,13 @@ module.exports = class Server extends EventEmitter {
 
     /**
      * The underlying HTTP(S) service listening for requests.
-     * @type {(http.Server|https.Server)}
-     * @private
+     * @type {http.Server|https.Server}
      */
     this._httpService = null;
 
     /**
      * The server settings.
      * @type {object}
-     * @private
      */
     this._options = options;
     if (!('routes' in this._options)) this._options.routes = {};
@@ -62,7 +55,6 @@ module.exports = class Server extends EventEmitter {
     /**
      * The underlying proxy service providing custom application logic.
      * @type {httpProxy.Server}
-     * @private
      */
     this._proxyService = httpProxy.createProxyServer(this._options.proxy || {});
     this._proxyService.on('error', this._handleError.bind(this));
@@ -77,32 +69,32 @@ module.exports = class Server extends EventEmitter {
   }
 
   /**
-   * Gets the default address that the server is listening on.
-   * @returns {string} The default address that the server is listening on.
+   * The default address that the server is listening on.
+   * @type {string}
    */
   static get DEFAULT_ADDRESS() {
     return '0.0.0.0';
   }
 
   /**
-   * Gets the default port that the server is listening on.
-   * @returns {number} The default port that the server is listening on.
+   * The default port that the server is listening on.
+   * @type {number}
    */
   static get DEFAULT_PORT() {
     return 3000;
   }
 
   /**
-   * Gets the address that the server is listening on.
-   * @returns {string} The address that the server is listening on.
+   * The address that the server is listening on.
+   * @type {string}
    */
   get address() {
     return typeof this._options.address == 'string' ? this._options.address : Server.DEFAULT_ADDRESS;
   }
 
   /**
-   * Gets the port that the server is listening on.
-   * @returns {number} The port that the server is listening on.
+   * The port that the server is listening on.
+   * @type {number}
    */
   get port() {
     return typeof this._options.port == 'number' ? this._options.port : Server.DEFAULT_PORT;
@@ -110,16 +102,17 @@ module.exports = class Server extends EventEmitter {
 
   /**
    * Stops the server from accepting new connections.
-   * @returns {Observable} Completes when the server is finally closed.
+   * @return {Observable} Completes when the server is finally closed.
    */
   close() {
     if (!this._httpService) return Observable.throw(new Error('The server is not started.'));
     return Observable.create(observer => this._httpService.close(() => {
       this._httpService = null;
 
-      observer.next(null);
+      observer.next();
       observer.complete();
       this.emit('close');
+      return Subscription.EMPTY;
     }));
   }
 
@@ -127,7 +120,7 @@ module.exports = class Server extends EventEmitter {
    * Begin accepting connections.
    * @param {number} [port] The port that the server should run on.
    * @param {string} [address] The address that the server should run on.
-   * @returns {Observable} Completes when the server has been started.
+   * @return {Observable} Completes when the server has been started.
    */
   listen(port = -1, address = '') {
     if (this._httpService) return Observable.throw(new Error('The server is already started.'));
@@ -147,17 +140,17 @@ module.exports = class Server extends EventEmitter {
       this._options.address = socket.address;
       this._options.port = socket.port;
 
-      observer.next(null);
+      observer.next();
       observer.complete();
       this.emit('listening');
+      return Subscription.EMPTY;
     }));
   }
 
   /**
    * Gets the host name contained in the headers of the specified request.
    * @param {http.IncomingMessage} req The request sent by the client.
-   * @returns {string} The host name provided by the specified request, or `*` if the host name could not be determined.
-   * @private
+   * @return {string} The host name provided by the specified request, or `*` if the host name could not be determined.
    */
   _getHostName(req) {
     let headers = req.headers;
@@ -172,7 +165,6 @@ module.exports = class Server extends EventEmitter {
    * @param {Error} err The emitted error event.
    * @param {http.IncomingMessage} req The request sent by the client.
    * @param {http.ServerResponse} res The response sent by the server.
-   * @private
    */
   _handleError(err, req, res) {
     this.emit('error', err);
@@ -183,7 +175,6 @@ module.exports = class Server extends EventEmitter {
    * Handles an HTTP request to a target.
    * @param {http.IncomingMessage} req The request sent by the client.
    * @param {http.ServerResponse} res The response sent by the server.
-   * @private
    */
   _handleHTTPRequest(req, res) {
     this.emit('request', req);
@@ -200,7 +191,6 @@ module.exports = class Server extends EventEmitter {
    * @param {http.IncomingMessage} req The request sent by the client.
    * @param {net.Socket} socket The network socket between the server and client.
    * @param {Buffer} head The first packet of the upgraded stream.
-   * @private
    */
   _handleWSRequest(req, socket, head) {
     let hostName = this._getHostName(req);
@@ -212,7 +202,6 @@ module.exports = class Server extends EventEmitter {
    * Sends an HTTP status code and terminates the specified server response.
    * @param {http.ServerResponse} res The server response.
    * @param {number} statusCode The HTTP status code to send.
-   * @private
    */
   _sendStatus(res, statusCode) {
     let message = http.STATUS_CODES[statusCode];
@@ -223,4 +212,4 @@ module.exports = class Server extends EventEmitter {
 
     res.end(message);
   }
-};
+}
