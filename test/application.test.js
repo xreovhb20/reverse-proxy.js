@@ -1,31 +1,15 @@
-/**
- * Implementation of the `tests.ApplicationTest` class.
- * @module test/applicaton_test
- */
-const assert = require('assert');
-const {Application} = require('../lib');
+import assert from 'assert';
+import {Application} from '../src';
 
 /**
- * Tests the features of the `Application` class.
+ * @test {Application}
  */
-class ApplicationTest {
+describe('Application', () => {
 
   /**
-   * Runs the unit tests.
+   * @test {Application#debug}
    */
-  run() {
-    describe('Application', () => {
-      describe('debug', this.testDebug);
-      describe('env', this.testEnv);
-      describe('loadConfig()', this.testLoadConfig);
-      describe('_parseConfig()', this.testParseConfig);
-    });
-  }
-
-  /**
-   * Tests the `debug` property.
-   */
-  testDebug() {
+  describe('#debug', () => {
     it('should be `false` in production environment', () => {
       process.env.NODE_ENV = 'production';
       assert.equal(new Application().debug, false);
@@ -35,12 +19,12 @@ class ApplicationTest {
       process.env.NODE_ENV = 'development';
       assert.equal(new Application().debug, true);
     });
-  }
+  });
 
   /**
-   * Tests the `env` property.
+   * @test {Application#env}
    */
-  testEnv() {
+  describe('#env', () => {
     it('should be "production" if the NODE_ENV environment variable is not set', () => {
       delete process.env.NODE_ENV;
       assert.equal(new Application().env, 'production');
@@ -50,12 +34,12 @@ class ApplicationTest {
       process.env.NODE_ENV = 'development';
       assert.equal(new Application().env, 'development');
     });
-  }
+  });
 
   /**
-   * Tests the `loadConfig` method.
+   * @test {Application#loadConfig}
    */
-  testLoadConfig() {
+  describe('#loadConfig()', () => {
     it('should return an array of objects corresponding to the ones specified in the command line arguments', () => {
       let args = {port: 80, target: 3000};
       return new Application().loadConfig(args).then(config => {
@@ -85,12 +69,12 @@ class ApplicationTest {
         assert.equal(config[0].target, 3000);
       });
     });
-  }
+  });
 
   /**
-   * Tests the `_parseConfig` method.
+   * @test {Application#_parseConfig}
    */
-  testParseConfig() {
+  describe('#_parseConfig()', () => {
     it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', () =>
       assert.throws(() => new Application()._parseConfig('{"port": 80}'))
     );
@@ -98,8 +82,5 @@ class ApplicationTest {
     it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', () =>
       assert.throws(() => new Application()._parseConfig('port: 80'))
     );
-  }
-}
-
-// Run all tests.
-new ApplicationTest().run();
+  });
+});
