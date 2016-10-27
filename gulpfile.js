@@ -30,7 +30,15 @@ const plugins = loadPlugins({
 /**
  * Runs the default tasks.
  */
-gulp.task('default', ['dist']);
+gulp.task('default', ['build']);
+
+/**
+ * Builds the sources.
+ */
+gulp.task('build', () => gulp.src('src/**/*.js')
+  .pipe(plugins.babel())
+  .pipe(gulp.dest('lib'))
+);
 
 /**
  * Checks the package dependencies.

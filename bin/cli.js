@@ -1,11 +1,6 @@
 #!/usr/bin/env node
-
-/**
- * Command line interface.
- */
-const {Application} = require('../lib');
-
-// Run the application.
 process.title = 'reverse-proxy';
+
+const {Application} = require('../lib');
 global.app = new Application();
 global.app.run();
