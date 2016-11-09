@@ -43,7 +43,7 @@ describe('Application', () => {
     it('should return an array of objects corresponding to the ones specified in the command line arguments', () => {
       let args = {port: 80, target: 3000};
       return new Application().loadConfig(args).then(config => {
-        assert(Array.isArray(config));
+        assert.ok(Array.isArray(config));
         assert.equal(config.length, 1);
         assert.equal(config[0].port, 80);
         assert.equal(config[0].target, 3000);
@@ -53,7 +53,7 @@ describe('Application', () => {
     it('should return an array of objects corresponding to the ones specified in the JSON configuration', () => {
       let args = {config: `${__dirname}/../example/json/basic_standalone.json`};
       return new Application().loadConfig(args).then(config => {
-        assert(Array.isArray(config));
+        assert.ok(Array.isArray(config));
         assert.equal(config.length, 1);
         assert.equal(config[0].port, 80);
         assert.equal(config[0].target, 3000);
@@ -63,7 +63,7 @@ describe('Application', () => {
     it('should return an array of objects corresponding to the ones specified in the YAML configuration', () => {
       let args = {config: `${__dirname}/../example/yaml/basic_standalone.yml`};
       return new Application().loadConfig(args).then(config => {
-        assert(Array.isArray(config));
+        assert.ok(Array.isArray(config));
         assert.equal(config.length, 1);
         assert.equal(config[0].port, 80);
         assert.equal(config[0].target, 3000);
@@ -75,12 +75,12 @@ describe('Application', () => {
    * @test {Application#_parseConfig}
    */
   describe('#_parseConfig()', () => {
-    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', () =>
-      assert.throws(() => new Application()._parseConfig('{"port": 80}'))
-    );
+    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', () => {
+      assert.throws(() => new Application()._parseConfig('{"port": 80}'));
+    });
 
-    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', () =>
-      assert.throws(() => new Application()._parseConfig('port: 80'))
-    );
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', () => {
+      assert.throws(() => new Application()._parseConfig('port: 80'));
+    });
   });
 });
