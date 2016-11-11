@@ -1,5 +1,5 @@
 {
-  "title": "Reverse-Proxy",
+  "title": "Reverse-Proxy.js",
 
   "source": "src",
   "destination": "doc/api",

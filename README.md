@@ -1,9 +1,9 @@
-# Reverse-Proxy
+# Reverse-Proxy.js
 ![Release](https://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](https://img.shields.io/npm/l/@cedx/reverse-proxy.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/reverse-proxy.svg) ![Dependencies](https://img.shields.io/david/cedx/reverse-proxy.js.svg) ![Code quality](https://img.shields.io/codacy/grade/7e77794f9b9844bda7af9051f1e799f0.svg) ![Build](https://img.shields.io/travis/cedx/reverse-proxy.js.svg)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
-Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
+Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup Reverse-Proxy.js on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Features
 - Configuration based on simple [JSON](http://www.json.org) or [YAML](http://yaml.org) files.
@@ -100,4 +100,4 @@ The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/examp
 - [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy.js)
 
 ## License
-[Reverse-Proxy](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.
+[Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.

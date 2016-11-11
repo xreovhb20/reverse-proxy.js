@@ -1,5 +1,5 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
+This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 1.0.0
 - Breaking change: changed the HTTP status code used when an error occurred.
