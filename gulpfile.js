@@ -2,7 +2,6 @@
 
 const child = require('child_process');
 const del = require('del');
-const fs = require('fs');
 const gulp = require('gulp');
 const loadPlugins = require('gulp-load-plugins');
 const os = require('os');
@@ -15,7 +14,7 @@ const pkg = require('./package.json');
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
-  sources: ['*.json', '*.md', '*.txt', 'bin/*.js', 'lib/*.js']
+  sources: ['*.json', '*.md', '*.txt', 'bin/*.js', 'lib/**/*.js']
 };
 
 /**
@@ -102,15 +101,21 @@ gulp.task('lint', () => gulp.src(['*.js', 'lib/**/*.js', 'test/**/*.js'])
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:coverage'], () => gulp.src(['test/*.js'], {read: false})
+gulp.task('test', ['test:instrument'], () => gulp.src(['test/**/*.js'], {read: false})
   .pipe(plugins.mocha())
   .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
 );
 
-gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
-  .pipe(plugins.istanbul())
+gulp.task('test:instrument', ['test:setup'], () => gulp.src(['src/**/*.js'])
+  .pipe(plugins.istanbul({instrumenter: require('isparta').Instrumenter}))
   .pipe(plugins.istanbul.hookRequire())
 );
+
+gulp.task('test:setup', () => new Promise(resolve => {
+  process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '1' : '0';
+  require('babel-register');
+  resolve();
+}));
 
 /**
  * Runs a command and prints its output.
