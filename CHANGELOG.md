@@ -2,13 +2,14 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 1.0.0
+- Breaking change: changed the HTTP status code used when an error occurred.
 - Breaking change: ported the [CommonJS](https://nodejs.org/api/modules.html) modules to ES2015 format.
 - Breaking change: ported the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)-based APIs to [Observables](http://reactivex.io/intro.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: replaced the test classes by plain tests.
-- Breaking change: the `Server` class is not anymore an event emiter.
+- Breaking change: the `Server` class is not anymore an `EventEmitter`.
 - Added a build task for fixing the coding standards issues.
-- Changed the HTTP status code used when an error occurred.
+- Added the `onClose`, `onError`, `onListen` and `onRequest` streams to the `Server` class.
 - Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
 - Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
@@ -65,7 +66,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 ## Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 - Using [Gulp.js](http://gulpjs.com) as build system.
-- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
+- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
 ## Version 0.2.1
