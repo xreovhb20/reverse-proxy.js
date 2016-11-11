@@ -40,7 +40,7 @@ export class Application {
     }]);
 
     let readFile = Observable.bindNodeCallback(fs.readFile);
-    return readFile(path.resolve(args.config), 'utf8').map(data => this._parseConfig(data));
+    return readFile(path.resolve(args.config), 'utf8').flatMap(data => this._parseConfig(data));
   }
 
   /**
@@ -137,45 +137,51 @@ export class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Array} An array of objects corresponding to the parsed configuration.
-   * @throws {Error} Neither target nor route table is provided in the specified data.
+   * @return {Observable<Array>} An array of objects corresponding to the parsed configuration.
    */
   _parseConfig(data) {
     data = data.trim();
-    if (!data.length) throw new Error('Invalid configuration data.');
+    if (!data.length) return Observable.throw(new Error('Invalid configuration data.'));
 
-    // Determine the source format.
-    let firstChar = data[0];
-    let lastChar = data[data.length - 1];
-    let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
+    return new Observable(observer => {
+      let config = [];
+      let firstChar = data[0];
+      let lastChar = data[data.length - 1];
+      let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
 
-    // Parse the data.
-    let config = [];
-    let parser = options => {
-      if (!('routes' in options) && !('target' in options))
-        throw new Error('You must provide at least a target or a route table.');
+      let parser = options => {
+        if (!('routes' in options) && !('target' in options))
+          throw new Error('You must provide at least a target or a route table.');
 
-      if (!('address' in options)) options.address = program.address;
-      if (!('port' in options)) options.port = program.port;
+        if (!('address' in options)) options.address = program.address;
+        if (!('port' in options)) options.port = program.port;
 
-      if ('ssl' in options) {
-        /* eslint no-sync: "off" */
-        if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
-        if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
-        if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
-        if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
+        if ('ssl' in options) {
+          /* eslint no-sync: "off" */
+          if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
+          if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
+          if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
+          if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
+        }
+
+        config.push(options);
+      };
+
+      try {
+        if (!isJson) yaml.safeLoadAll(data, parser);
+        else {
+          let options = JSON.parse(data);
+          if (!Array.isArray(options)) options = [options];
+          options.forEach(parser);
+        }
+
+        observer.next(config);
+        observer.complete();
       }
 
-      config.push(options);
-    };
-
-    if (!isJson) yaml.safeLoadAll(data, parser);
-    else {
-      let options = JSON.parse(data);
-      if (!Array.isArray(options)) options = [options];
-      options.forEach(parser);
-    }
-
-    return config;
+      catch (err) {
+        observer.error(err);
+      }
+    });
   }
 }
