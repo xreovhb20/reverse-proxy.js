@@ -9,7 +9,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: replaced the test classes by plain tests.
 - Breaking change: the `Server` class is not anymore an `EventEmitter`.
 - Added a build task for fixing the coding standards issues.
-- Added the `onClose`, `onError`, `onListen` and `onRequest` streams to the `Server` class.
+- Added the `onClose`, `onError`, `onListen` and `onRequest` event streams to the `Server` class.
 - Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
 - Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
