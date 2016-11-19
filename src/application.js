@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import path from 'path';
 import * as pkg from '../package.json';
 import program from 'commander';
-import Server from './server';
+import {Server} from './server';
 import yaml from 'js-yaml';
 
 /**
@@ -79,26 +79,21 @@ export class Application {
     if (!program.config && !program.target) program.help();
 
     // Start the proxy server.
-    this
-      .loadConfig(program)
-      .map(config => config.map(options => new Server(options)))
-      .subscribe(
-        servers => {
-          console.log('next');
-          console.log(servers);
-          if (!servers.length) throw new Error('Unable to find any configuration for the reverse proxy.');
-          this.startServers(servers).subscribe();
+    this.loadConfig(program)
+      .map(config => {
+        if (!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
+        return config.map(options => new Server(options));
+      })
+      .flatMap(servers => this.startServers(servers))
+      .subscribe({
+        complete: () => {
+          if (program.user) this.setUser(program.user);
         },
-        err => {
-          console.log('error');
+        error: err => {
           console.error(this.debug ? err.stack : err.message);
           process.exit(1);
-        },
-        () => {
-          console.log('complete');
-          if (program.user) this.setUser(program.user);
         }
-      );
+      });
   }
 
   /**
@@ -120,11 +115,11 @@ export class Application {
    */
   startServers(servers) {
     return Observable.merge(...servers.map(server => {
-      server.on('close', () => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-      server.on('error', err => this.log(this.debug ? err.stack : err.message));
-      server.on('listening', () => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+      server.onClose.subscribe(() => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+      server.onError.subscribe(err => this.log(this.debug ? err.stack : err.message));
+      server.onListen.subscribe(() => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
 
-      server.on('request', req => {
+      server.onRequest.subscribe(req => {
         let ipAddress = req.connection.remoteAddress;
         let userAgent = req.headers['user-agent'];
         this.log(`${ipAddress} - ${req.headers.host} - "${req.method} ${req.url} HTTP/${req.httpVersion}" "${userAgent}"`);
@@ -145,10 +140,6 @@ export class Application {
 
     return new Observable(observer => {
       let config = [];
-      let firstChar = data[0];
-      let lastChar = data[data.length - 1];
-      let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
-
       let parser = options => {
         if (!('routes' in options) && !('target' in options))
           throw new Error('You must provide at least a target or a route table.');
@@ -157,17 +148,22 @@ export class Application {
         if (!('port' in options)) options.port = program.port;
 
         if ('ssl' in options) {
-          /* eslint no-sync: "off" */
+          /* eslint-disable no-sync */
           if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
           if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
           if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
           if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
+          /* eslint-enable no-sync */
         }
 
         config.push(options);
       };
 
       try {
+        let firstChar = data[0];
+        let lastChar = data[data.length - 1];
+
+        let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
         if (!isJson) yaml.safeLoadAll(data, parser);
         else {
           let options = JSON.parse(data);
