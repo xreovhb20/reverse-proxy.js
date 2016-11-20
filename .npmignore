@@ -1,0 +1,15 @@
+/.c9/
+/.idea/
+/doc/
+/example/
+/test/
+/var/
+/web/
+
+/.babelrc
+/.editorconfig
+/.eslintrc.json
+/.gitattributes
+/.travis.yml
+/*.iml
+/*.js
