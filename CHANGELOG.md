@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 1.1.0
+- Added the `Server#listening` property.
+
 ## Version 1.0.0
 - Breaking change: changed the HTTP status code used when an error occurred.
 - Breaking change: ported the [CommonJS](https://nodejs.org/api/modules.html) modules to ES2015 format.
@@ -40,7 +43,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Upgraded the package dependencies.
 
 ## Version 0.5.1
-- The `port` parameter of `Server.listen()` method is now optional.
+- The `port` parameter of the `Server#listen` method is now optional.
 - Added unit tests.
 - Added support for code coverage.
 - Added support for [Travis CI](https://travis-ci.org) continuous integration.
@@ -49,7 +52,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
 - Breaking change: changed the whole API of `Application` class.
-- Breaking change: changed the format of `Server#request` event.
+- Breaking change: changed the format of `Server.request` event.
 - Breaking change: changed the format of configuration files to [YAML](http://yaml.org).
 - Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).

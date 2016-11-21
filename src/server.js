@@ -93,6 +93,14 @@ export class Server {
   }
 
   /**
+   * Value indicating whether the server is currently listening.
+   * @type {boolean}
+   */
+  get listening() {
+    return this._httpService && this._httpService.listening;
+  }
+
+  /**
    * The stream of "close" events.
    * @type {Observable}
    */
@@ -138,7 +146,7 @@ export class Server {
    * @emits {*} The "close" event.
    */
   close() {
-    return !this._httpService ? Observable.empty() : new Observable(observer => this._httpService.close(() => {
+    return !this.listening ? Observable.empty() : new Observable(observer => this._httpService.close(() => {
       this._httpService = null;
       this._onClose.next();
       observer.next();
@@ -154,7 +162,7 @@ export class Server {
    * @emits {*} The "listen" event.
    */
   listen(port = -1, address = '') {
-    if (this._httpService) return Observable.throw(new Error('The server is already started.'));
+    if (this.listening) return Observable.throw(new Error('The server is already started.'));
 
     return new Observable(observer => {
       this._httpService =
