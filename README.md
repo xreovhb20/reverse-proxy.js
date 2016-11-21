@@ -96,7 +96,7 @@ $ reverse-proxy --config example/yaml/multiple_ports.yml
 The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yml) file, in the `example` folder of this package, lists all available settings and their default values.
 
 ## See Also
-- [API Reference](http://dev.belin.io/reverse-proxy.js)
+- [API Reference](https://cedx.github.io/reverse-proxy.js)
 - [Code Quality](https://www.codacy.com/app/cedx/reverse-proxy-js)
 - [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy.js)
 
