@@ -146,7 +146,7 @@ export class Server {
    * @emits {*} The "close" event.
    */
   close() {
-    return !this.listening ? Observable.empty() : new Observable(observer => this._httpService.close(() => {
+    return !this.listening ? Observable.of(null) : new Observable(observer => this._httpService.close(() => {
       this._httpService = null;
       this._onClose.next();
       observer.next();
