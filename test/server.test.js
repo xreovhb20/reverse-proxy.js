@@ -22,6 +22,29 @@ describe('Server', () => {
   });
 
   /**
+   * @test {Server#listening}
+   */
+  describe('#listening', () => {
+    let server = new Server({address: '127.0.0.1', port: 0});
+
+    it('should return `true` when the server is listening', done => {
+      assert.ok(!server.listening);
+      server.listen().subscribe(
+        () => assert.ok(server.listening),
+        done, done
+      );
+    });
+
+    it('should return `false` when the server is not listening', done => {
+      assert.ok(server.listening);
+      server.close().subscribe(
+        () => assert.ok(!server.listening),
+        done, done
+      );
+    });
+  });
+
+  /**
    * @test {Server#port}
    */
   describe('#port', () => {
@@ -43,7 +66,7 @@ describe('Server', () => {
     });
 
     it('it should return the "Host" header found in the request, without the port number', () => {
-      assert.equal(new Server()._getHostName({headers: {host: 'www.belin.io:8080'}}), 'www.belin.io');
+      assert.equal(new Server()._getHostName({headers: {host: 'belin.io:8080'}}), 'belin.io');
     });
   });
 });
