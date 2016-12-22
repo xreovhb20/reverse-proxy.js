@@ -1,6 +1,7 @@
 'use strict';
 
 import assert from 'assert';
+import {Observable, Subject} from 'rxjs';
 import {Server} from '../src';
 
 /**
@@ -41,6 +42,50 @@ describe('Server', () => {
         () => assert.ok(!server.listening),
         done, done
       );
+    });
+  });
+
+  /**
+   * @test {Server#onClose}
+   */
+  describe('#onClose', () => {
+    it('should return an Observable instead of the underlying Subject', () => {
+      let stream = new Server().onClose;
+      assert.ok(stream instanceof Observable);
+      assert.ok(!(stream instanceof Subject));
+    });
+  });
+
+  /**
+   * @test {Server#onError}
+   */
+  describe('#onError', () => {
+    it('should return an Observable instead of the underlying Subject', () => {
+      let stream = new Server().onError;
+      assert.ok(stream instanceof Observable);
+      assert.ok(!(stream instanceof Subject));
+    });
+  });
+
+  /**
+   * @test {Server#onListen}
+   */
+  describe('#onListen', () => {
+    it('should return an Observable instead of the underlying Subject', () => {
+      let stream = new Server().onListen;
+      assert.ok(stream instanceof Observable);
+      assert.ok(!(stream instanceof Subject));
+    });
+  });
+
+  /**
+   * @test {Server#onRequest}
+   */
+  describe('#onRequest', () => {
+    it('should return an Observable instead of the underlying Subject', () => {
+      let stream = new Server().onRequest;
+      assert.ok(stream instanceof Observable);
+      assert.ok(!(stream instanceof Subject));
     });
   });
 
