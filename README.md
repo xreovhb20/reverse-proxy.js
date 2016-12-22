@@ -1,5 +1,5 @@
 # Reverse-Proxy.js
-![Release](https://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](https://img.shields.io/npm/l/@cedx/reverse-proxy.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/reverse-proxy.svg) ![Dependencies](https://img.shields.io/david/cedx/reverse-proxy.js.svg) ![Code quality](https://img.shields.io/codacy/grade/3a6a4d53c0a244b0834a5519c777768f.svg) ![Build](https://img.shields.io/travis/cedx/reverse-proxy.js.svg)
+![Release](https://img.shields.io/npm/v/@cedx/reverse-proxy.svg) ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg) ![Dependencies](https://img.shields.io/david/cedx/reverse-proxy.js.svg) ![Coverage](https://img.shields.io/coveralls/cedx/reverse-proxy.js.svg) ![Build](https://img.shields.io/travis/cedx/reverse-proxy.js.svg)
 
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
@@ -95,10 +95,10 @@ $ reverse-proxy --config example/yaml/multiple_ports.yml
 ## Configuration Schema
 The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yml) file, in the `example` folder of this package, lists all available settings and their default values.
 
-## See Also
-- [API Reference](https://cedx.github.io/reverse-proxy.js)
-- [Code Quality](https://www.codacy.com/app/cedx/reverse-proxy-js)
-- [Continuous Integration](https://travis-ci.org/cedx/reverse-proxy.js)
+## See also
+- [API reference](https://cedx.github.io/reverse-proxy.js)
+- [Code coverage](https://coveralls.io/github/cedx/reverse-proxy.js)
+- [Continuous integration](https://travis-ci.org/cedx/reverse-proxy.js)
 
 ## License
 [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.
