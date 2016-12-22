@@ -61,8 +61,9 @@ gulp.task('clean', () =>
  * Sends the results of the code coverage.
  */
 gulp.task('coverage', ['test'], () => {
-  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'codacy-coverage.cmd' : 'codacy-coverage');
-  return _exec(`${command} < var/lcov.info`);
+  let command = process.platform == 'win32' ? 'type' : 'cat';
+  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'coveralls.cmd' : 'coveralls');
+  return _exec(`${command} var/lcov.info | ${executable}`);
 });
 
 /**
@@ -77,8 +78,8 @@ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
  * Builds the documentation.
  */
 gulp.task('doc', () => {
-  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
-  return del('doc/api').then(() => _exec(`${command} -c esdoc.json`));
+  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
+  return del('doc/api').then(() => _exec(`${executable} -c esdoc.json`));
 });
 
 /**
