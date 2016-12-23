@@ -96,7 +96,7 @@ See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy.js/blob/ma
 $ reverse-proxy --config example/yaml/multiple_ports.yml
 ```
 
-## Configuration Schema
+## Configuration schema
 The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yml) file, in the `example` folder of this package, lists all available settings and their default values.
 
 ## See also
