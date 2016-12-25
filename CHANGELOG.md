@@ -73,7 +73,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 ## Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 - Using [Gulp.js](http://gulpjs.com) as build system.
-- Fixed [GitHub issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
+- Fixed [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
 ## Version 0.2.1

@@ -71,7 +71,7 @@ describe('Application', () => {
     });
 
     it('should return an array of objects corresponding to the ones specified in the YAML configuration', done => {
-      let args = {config: `${__dirname}/../example/yaml/basic_standalone.yml`};
+      let args = {config: `${__dirname}/../example/yaml/basic_standalone.yaml`};
       new Application().loadConfig(args).subscribe(
         config => {
           assert.ok(Array.isArray(config));

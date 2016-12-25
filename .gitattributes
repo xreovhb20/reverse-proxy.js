@@ -11,7 +11,7 @@
 *.json text
 *.md text
 *.txt text
-*.yml text
+*.yaml text
 
 *.ico binary
 *.png binary
