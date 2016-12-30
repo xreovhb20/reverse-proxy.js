@@ -146,7 +146,7 @@ export class Server {
    * @emits {*} The "close" event.
    */
   close() {
-    return !this.listening ? Observable.of(null) : new Observable(observer => this._httpService.close(() => {
+    return !this.listening ? Observable.of(null) : Observable.create(observer => this._httpService.close(() => {
       this._httpService = null;
       this._onClose.next();
       observer.next();
@@ -164,7 +164,7 @@ export class Server {
   listen(port = -1, address = '') {
     if (this.listening) return Observable.throw(new Error('The server is already started.'));
 
-    return new Observable(observer => {
+    return Observable.create(observer => {
       this._httpService =
         'ssl' in this._options ?
           https.createServer(this._options.ssl, this._onHTTPRequest.bind(this)) :

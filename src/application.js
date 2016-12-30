@@ -138,7 +138,7 @@ export class Application {
     data = data.trim();
     if (!data.length) return Observable.throw(new Error('Invalid configuration data.'));
 
-    return new Observable(observer => {
+    return Observable.create(observer => {
       let config = [];
       let parser = options => {
         if (!('routes' in options) && !('target' in options))
