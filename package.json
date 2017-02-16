@@ -21,13 +21,13 @@
     "forever": "^0.15.3",
     "http-proxy": "^1.16.2",
     "js-yaml": "^3.8.1",
-    "rxjs": "^5.1.0"
+    "rxjs": "^5.1.1"
   },
   "devDependencies": {
-    "@cedx/gulp-david": "^3.1.0",
+    "@cedx/coveralls": "^0.2.0",
+    "@cedx/gulp-david": "^4.0.0",
     "babel-preset-latest": "^6.22.0",
-    "babel-register": "^6.22.0",
-    "coveralls": "^2.11.16",
+    "babel-register": "^6.23.0",
     "del": "^2.2.2",
     "esdoc": "^0.5.2",
     "gulp": "^3.9.1",
@@ -43,16 +43,14 @@
   },
   "keywords": [
     "http",
-    "observable",
     "proxy",
     "reverse",
     "routing",
-    "rxjs",
     "server",
     "websocket"
   ],
   "scripts": {
-    "coverage": "cat var/lcov.info | coveralls",
+    "coverage": "coveralls --file=var/lcov.info",
     "prepublish": "gulp build",
     "restart": "npm stop && gulp clean && npm start",
     "start": "forever start -e var/stderr.log -o var/stdout.log -l reverse-proxy.log --append --minUptime 30000 --spinSleepTime 30000 --uid reverse-proxy bin/cli.js",
