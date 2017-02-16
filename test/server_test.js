@@ -28,20 +28,14 @@ describe('Server', () => {
   describe('#listening', () => {
     let server = new Server({address: '127.0.0.1', port: 0});
 
-    it('should return `true` when the server is listening', done => {
+    it('should return `true` when the server is listening', () => {
       assert.ok(!server.listening);
-      server.listen().subscribe(
-        () => assert.ok(server.listening),
-        done, done
-      );
+      return server.listen().then(() => assert.ok(server.listening));
     });
 
-    it('should return `false` when the server is not listening', done => {
+    it('should return `false` when the server is not listening', () => {
       assert.ok(server.listening);
-      server.close().subscribe(
-        () => assert.ok(!server.listening),
-        done, done
-      );
+      return server.close().then(() => assert.ok(!server.listening));
     });
   });
 

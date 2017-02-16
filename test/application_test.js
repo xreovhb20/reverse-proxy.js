@@ -42,46 +42,34 @@ describe('Application', () => {
    * @test {Application#loadConfig}
    */
   describe('#loadConfig()', () => {
-    it('should return an array of objects corresponding to the ones specified on the command line arguments', done => {
+    it('should return an array of objects corresponding to the ones specified on the command line arguments', () => {
       let args = {port: 80, target: 3000};
-      new Application().loadConfig(args).subscribe(
-        config => {
-          assert.ok(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-        },
-        done,
-        done
-      );
+      return new Application().loadConfig(args).then(config => {
+        assert.ok(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
     });
 
-    it('should return an array of objects corresponding to the ones specified in the JSON configuration', done => {
+    it('should return an array of objects corresponding to the ones specified in the JSON configuration', () => {
       let args = {config: `${__dirname}/../example/json/basic_standalone.json`};
-      new Application().loadConfig(args).subscribe(
-        config => {
-          assert.ok(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-        },
-        done,
-        done
-      );
+      return new Application().loadConfig(args).then(config => {
+        assert.ok(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
     });
 
-    it('should return an array of objects corresponding to the ones specified in the YAML configuration', done => {
+    it('should return an array of objects corresponding to the ones specified in the YAML configuration', () => {
       let args = {config: `${__dirname}/../example/yaml/basic_standalone.yaml`};
-      new Application().loadConfig(args).subscribe(
-        config => {
-          assert.ok(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-        },
-        done,
-        done
-      );
+      return new Application().loadConfig(args).then(config => {
+        assert.ok(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      });
     });
   });
 
@@ -89,44 +77,36 @@ describe('Application', () => {
    * @test {Application#_parseConfig}
    */
   describe('#_parseConfig()', () => {
-    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', done => {
-      new Application()._parseConfig('{"port": 80}').subscribe(
-        () => done(new Error('The configuration is invalid.')),
-        () => done()
-      );
-    });
+    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', () =>
+      new Application()._parseConfig('{"port": 80}').then(
+        () => assert.ifError(new Error('The configuration is invalid.')),
+        () => assert.ok(true)
+      )
+    );
 
-    it('should completes with an array if the parsed JSON configuration is valid', done => {
-      new Application()._parseConfig('{"port": 80, "target": 3000}').subscribe(
-        config => {
-          assert.ok(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-        },
-        done,
-        done
-      );
-    });
+    it('should completes with an array if the parsed JSON configuration is valid', () =>
+      new Application()._parseConfig('{"port": 80, "target": 3000}').then(config => {
+        assert.ok(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      })
+    );
 
-    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', done => {
-      new Application()._parseConfig('port: 80').subscribe(
-        () => done(new Error('The configuration is invalid.')),
-        () => done()
-      );
-    });
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', () =>
+      new Application()._parseConfig('port: 80').then(
+        () => assert.ifError(new Error('The configuration is invalid.')),
+        () => assert.ok(true)
+      )
+    );
 
-    it('should completes with an array if the parsed YAML configuration is valid', done => {
-      new Application()._parseConfig('port: 80\ntarget: 3000').subscribe(
-        config => {
-          assert.ok(Array.isArray(config));
-          assert.equal(config.length, 1);
-          assert.equal(config[0].port, 80);
-          assert.equal(config[0].target, 3000);
-        },
-        done,
-        done
-      );
-    });
+    it('should completes with an array if the parsed YAML configuration is valid', () =>
+      new Application()._parseConfig('port: 80\ntarget: 3000').then(config => {
+        assert.ok(Array.isArray(config));
+        assert.equal(config.length, 1);
+        assert.equal(config[0].port, 80);
+        assert.equal(config[0].target, 3000);
+      })
+    );
   });
 });

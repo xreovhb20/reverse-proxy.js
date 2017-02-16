@@ -1,5 +1,4 @@
 import fs from 'fs';
-import {Observable} from 'rxjs';
 import path from 'path';
 import * as pkg from '../package.json';
 import program from 'commander';
@@ -30,17 +29,19 @@ export class Application {
   /**
    * Loads the application configuration from the file system.
    * @param {object} args The command line arguments.
-   * @return {Observable<Array>} An array of objects containing the settings of one or several reverse proxy instances.
+   * @return {Promise<object[]>} An array of objects containing the settings of one or several reverse proxy instances.
    */
   loadConfig(args) {
-    if (!args.config) return Observable.of([{
+    if (!args.config) return Promise.resolve([{
       address: args.address,
       port: args.port,
       target: args.target
     }]);
 
-    let readFile = Observable.bindNodeCallback(fs.readFile);
-    return readFile(path.resolve(args.config), 'utf8').flatMap(data => this._parseConfig(data));
+    return new Promise((resolve, reject) => fs.readFile(path.resolve(args.config), 'utf8', (err, data) => {
+      if (err) reject(err);
+      else resolve(this._parseConfig(data));
+    }));
   }
 
   /**
@@ -67,6 +68,7 @@ export class Application {
 
     program._name = 'reverse-proxy';
     program
+      .description('Simple reverse proxy server supporting WebSockets.')
       .version(pkg.version, '-v, --version')
       .option('-a, --address <address>', `address that the reverse proxy should run on [${Server.DEFAULT_ADDRESS}]`, Server.DEFAULT_ADDRESS)
       .option('-p, --port <port>', `port that the reverse proxy should run on [${Server.DEFAULT_PORT}]`, format.asInteger, Server.DEFAULT_PORT)
@@ -80,20 +82,20 @@ export class Application {
 
     // Start the proxy server.
     this.loadConfig(program)
-      .map(config => {
+      .then(config => {
         if (!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
         return config.map(options => new Server(options));
       })
-      .flatMap(servers => this.startServers(servers))
-      .subscribe({
-        complete: () => {
+      .then(servers => this.startServers(servers))
+      .then(
+        () => {
           if (program.user) this.setUser(program.user);
         },
-        error: err => {
+        err => {
           console.error(this.debug ? err.stack : err.message);
           process.exit(1);
         }
-      });
+      );
   }
 
   /**
@@ -111,10 +113,10 @@ export class Application {
   /**
    * Starts the specified reverse proxy instances.
    * @param {Server[]} servers The list of servers to start.
-   * @return {Observable} Completes when all servers have been started.
+   * @return {Promise} Completes when all servers have been started.
    */
   startServers(servers) {
-    return Observable.merge(...servers.map(server => {
+    return Promise.all(servers.map(server => {
       server.onClose.subscribe(() => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
       server.onError.subscribe(err => this.log(this.debug ? err.stack : err.message));
       server.onListen.subscribe(() => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
@@ -132,13 +134,13 @@ export class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Observable<Array>} An array of objects corresponding to the parsed configuration.
+   * @return {Promise<object[]>} An array of objects corresponding to the parsed configuration.
    */
   _parseConfig(data) {
     data = data.trim();
-    if (!data.length) return Observable.throw(new Error('Invalid configuration data.'));
+    if (!data.length) return Promise.reject(new Error('Invalid configuration data.'));
 
-    return Observable.create(observer => {
+    return new Promise((resolve, reject) => {
       let config = [];
       let parser = options => {
         if (!('routes' in options) && !('target' in options))
@@ -171,12 +173,11 @@ export class Application {
           options.forEach(parser);
         }
 
-        observer.next(config);
-        observer.complete();
+        resolve(config);
       }
 
-      catch (err) {
-        observer.error(err);
+      catch (error) {
+        reject(error);
       }
     });
   }

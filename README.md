@@ -30,6 +30,8 @@ This application provides a command line interface:
 $ reverse-proxy --help
 
   Usage: reverse-proxy [options]
+  
+  Simple reverse proxy server supporting WebSockets.
 
   Options:
 
