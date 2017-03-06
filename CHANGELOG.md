@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 2.0.0
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Improved the build system.
 
 ## Version 1.2.0
