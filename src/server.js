@@ -97,7 +97,7 @@ export class Server {
    * @type {boolean}
    */
   get listening() {
-    return this._httpService && this._httpService.listening;
+    return Boolean(this._httpService && this._httpService.listening);
   }
 
   /**
@@ -145,25 +145,25 @@ export class Server {
    * @return {Promise} Completes when the server is finally closed.
    * @emits {*} The "close" event.
    */
-  close() {
-    return !this.listening ? Promise.resolve() : new Promise(resolve => this._httpService.close(() => {
+  async close() {
+    if (this.listening) await new Promise(resolve => this._httpService.close(() => {
       this._httpService = null;
       this._onClose.next();
       resolve();
     }));
+
+    return null;
   }
 
   /**
-   * Begin accepting connections. Throws an error if the server has already been started.
+   * Begin accepting connections. It does nothing if the server is already started.
    * @param {number} [port] The port that the server should run on.
    * @param {string} [address] The address that the server should run on.
    * @return {Promise} Completes when the server has been started.
    * @emits {*} The "listen" event.
    */
-  listen(port = -1, address = '') {
-    if (this.listening) return Promise.reject(new Error('The server is already started.'));
-
-    return new Promise(resolve => {
+  async listen(port = -1, address = '') {
+    if (!this.listening) {
       this._httpService = 'ssl' in this._options ?
         https.createServer(this._options.ssl, this._onHTTPRequest.bind(this)) :
         http.createServer(this._onHTTPRequest.bind(this));
@@ -171,15 +171,19 @@ export class Server {
       this._httpService.on('error', err => this._onError.next(err));
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-      this._httpService.listen(port > 0 ? port : this.port, address.length ? address : this.address, () => {
-        let socket = this._httpService.address();
-        this._options.address = socket.address;
-        this._options.port = socket.port;
+      await new Promise(resolve => {
+        this._httpService.listen(port > 0 ? port : this.port, address.length ? address : this.address, () => {
+          let socket = this._httpService.address();
+          this._options.address = socket.address;
+          this._options.port = socket.port;
 
-        this._onListen.next();
-        resolve();
+          this._onListen.next();
+          resolve();
+        });
       });
-    });
+    }
+
+    return this._options.port;
   }
 
   /**

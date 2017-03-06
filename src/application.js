@@ -31,7 +31,7 @@ export class Application {
    * @param {object} args The command line arguments.
    * @return {Promise<object[]>} An array of objects containing the settings of one or several reverse proxy instances.
    */
-  loadConfig(args) {
+  async loadConfig(args) {
     if (!args.config) return Promise.resolve([{
       address: args.address,
       port: args.port,
@@ -58,8 +58,9 @@ export class Application {
 
   /**
    * Runs the application.
+   * @return {Promise} Completes when the reverse proxy has been started.
    */
-  run() {
+  async run() {
     // Parse the command line arguments.
     const format = {
       asInteger: value => parseInt(value, 10),
@@ -81,21 +82,20 @@ export class Application {
     if (!program.config && !program.target) program.help();
 
     // Start the proxy server.
-    this.loadConfig(program)
-      .then(config => {
-        if (!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
-        return config.map(options => new Server(options));
-      })
-      .then(servers => this.startServers(servers))
-      .then(
-        () => {
-          if (program.user) this.setUser(program.user);
-        },
-        err => {
-          console.error(this.debug ? err.stack : err.message);
-          process.exit(1);
-        }
-      );
+    try {
+      let config = await this.loadConfig(program);
+      if (!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
+
+      await this.startServers(config.map(options => new Server(options)));
+      if (program.user) this.setUser(program.user);
+    }
+
+    catch (err) {
+      console.error(this.debug ? err.stack : err.message);
+      process.exit(1);
+    }
+
+    return null;
   }
 
   /**
@@ -115,7 +115,7 @@ export class Application {
    * @param {Server[]} servers The list of servers to start.
    * @return {Promise} Completes when all servers have been started.
    */
-  startServers(servers) {
+  async startServers(servers) {
     return Promise.all(servers.map(server => {
       server.onClose.subscribe(() => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
       server.onError.subscribe(err => this.log(this.debug ? err.stack : err.message));
@@ -136,7 +136,7 @@ export class Application {
    * @param {string} data A string specifying the application configuration.
    * @return {Promise<object[]>} An array of objects corresponding to the parsed configuration.
    */
-  _parseConfig(data) {
+  async _parseConfig(data) {
     data = data.trim();
     if (!data.length) return Promise.reject(new Error('Invalid configuration data.'));
 
