@@ -4,6 +4,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 ## Version 2.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Improved the build system.
+- Updated the package dependencies.
 
 ## Version 1.2.0
 - Replaced the [Codacy](https://www.codacy.com) code coverage service by the [Coveralls](https://coveralls.io) one.
