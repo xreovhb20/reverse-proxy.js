@@ -32,16 +32,14 @@ export class Application {
    * @return {Promise<object[]>} An array of objects containing the settings of one or several reverse proxy instances.
    */
   async loadConfig(args) {
-    if (!args.config) return Promise.resolve([{
+    if (!args.config) return [{
       address: args.address,
       port: args.port,
       target: args.target
-    }]);
+    }];
 
-    return new Promise((resolve, reject) => fs.readFile(path.resolve(args.config), 'utf8', (err, data) => {
-      if (err) reject(err);
-      else resolve(this._parseConfig(data));
-    }));
+    const readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+    return this._parseConfig(await readFile(path.resolve(args.config)));
   }
 
   /**
@@ -134,51 +132,43 @@ export class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Promise<object[]>} An array of objects corresponding to the parsed configuration.
+   * @return {object[]} An array of objects corresponding to the parsed configuration.
    */
-  async _parseConfig(data) {
+  _parseConfig(data) {
     data = data.trim();
-    if (!data.length) return Promise.reject(new Error('Invalid configuration data.'));
+    if (!data.length) throw new Error('Invalid configuration data.');
 
-    return new Promise((resolve, reject) => {
-      let config = [];
-      let parser = options => {
-        if (!('routes' in options) && !('target' in options))
-          throw new Error('You must provide at least a target or a route table.');
+    let config = [];
+    let parser = options => {
+      if (!('routes' in options) && !('target' in options))
+        throw new Error('You must provide at least a target or a route table.');
 
-        if (!('address' in options)) options.address = program.address;
-        if (!('port' in options)) options.port = program.port;
+      if (!('address' in options)) options.address = program.address;
+      if (!('port' in options)) options.port = program.port;
 
-        if ('ssl' in options) {
-          /* eslint-disable no-sync */
-          if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
-          if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
-          if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
-          if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
-          /* eslint-enable no-sync */
-        }
-
-        config.push(options);
-      };
-
-      try {
-        let firstChar = data[0];
-        let lastChar = data[data.length - 1];
-
-        let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
-        if (!isJson) yaml.safeLoadAll(data, parser);
-        else {
-          let options = JSON.parse(data);
-          if (!Array.isArray(options)) options = [options];
-          options.forEach(parser);
-        }
-
-        resolve(config);
+      if ('ssl' in options) {
+        /* eslint-disable no-sync */
+        if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
+        if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
+        if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
+        if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
+        /* eslint-enable no-sync */
       }
 
-      catch (error) {
-        reject(error);
-      }
-    });
+      config.push(options);
+    };
+
+    let firstChar = data[0];
+    let lastChar = data[data.length - 1];
+
+    let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
+    if (!isJson) yaml.safeLoadAll(data, parser);
+    else {
+      let options = JSON.parse(data);
+      if (!Array.isArray(options)) options = [options];
+      options.forEach(parser);
+    }
+
+    return config;
   }
 }

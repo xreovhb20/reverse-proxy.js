@@ -50,9 +50,7 @@
   "scripts": {
     "coverage": "coveralls --file=var/lcov.info",
     "prepublish": "gulp build",
-    "restart": "npm stop && gulp clean && npm start",
-    "start": "forever start -e var/stderr.log -o var/stdout.log -l reverse-proxy.log --append --minUptime 30000 --spinSleepTime 30000 --uid reverse-proxy bin/cli.js",
-    "stop": "forever stop reverse-proxy",
+    "start": "node bin/cli.js",
     "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register --recursive"
   }
 }

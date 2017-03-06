@@ -25,12 +25,12 @@ gulp.task('build', () => gulp.src('src/**/*.js')
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => del(['var/**/*', `${os.homedir()}/.forever/reverse-proxy.log`]));
+gulp.task('clean', () => del('var/**/*'));
 
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node', ['bin/cli.js', '--file=var/lcov.info']));
+gulp.task('coverage', ['test'], () => _exec('node_modules/.bin/coveralls', ['--file=var/lcov.info']));
 
 /**
  * Builds the documentation.

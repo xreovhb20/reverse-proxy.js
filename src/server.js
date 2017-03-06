@@ -159,7 +159,7 @@ export class Server {
    * Begin accepting connections. It does nothing if the server is already started.
    * @param {number} [port] The port that the server should run on.
    * @param {string} [address] The address that the server should run on.
-   * @return {Promise} Completes when the server has been started.
+   * @return {Promise<number>} The port that the server is running on.
    * @emits {*} The "listen" event.
    */
   async listen(port = -1, address = '') {
@@ -171,16 +171,14 @@ export class Server {
       this._httpService.on('error', err => this._onError.next(err));
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-      await new Promise(resolve => {
-        this._httpService.listen(port > 0 ? port : this.port, address.length ? address : this.address, () => {
-          let socket = this._httpService.address();
-          this._options.address = socket.address;
-          this._options.port = socket.port;
+      await new Promise(resolve => this._httpService.listen(port > 0 ? port : this.port, address.length ? address : this.address, () => {
+        let socket = this._httpService.address();
+        this._options.address = socket.address;
+        this._options.port = socket.port;
 
-          this._onListen.next();
-          resolve();
-        });
-      });
+        this._onListen.next();
+        resolve();
+      }));
     }
 
     return this._options.port;
