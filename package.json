@@ -50,7 +50,7 @@
   "scripts": {
     "coverage": "coveralls --file=var/lcov.info",
     "prepublish": "gulp build",
-    "start": "gulp serve",
+    "start": "gulp watch",
     "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register --recursive"
   }
 }

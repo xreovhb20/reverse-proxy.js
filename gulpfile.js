@@ -64,7 +64,7 @@ gulp.task('outdated', () => gulp.src('package.json').pipe(david()));
 /**
  * Starts the proxy server.
  */
-gulp.task('serve', ['watch'], async () => {
+gulp.task('serve', ['build'], () => {
   if (global._server) global._server.kill();
   global._server = child_process.fork('bin/cli.js', ['--target=8080'], {stdio: 'inherit'});
 });
@@ -83,7 +83,7 @@ gulp.task('test', () => _exec('node_modules/.bin/nyc', [
 /**
  * Watches for file changes.
  */
-gulp.task('watch', ['default'], () => gulp.watch('src/**/*.js', ['build']));
+gulp.task('watch', ['serve'], () => gulp.watch('src/**/*.js', ['serve']));
 
 /**
  * Spawns a new process using the specified command.
