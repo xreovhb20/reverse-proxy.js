@@ -48,7 +48,7 @@ export class Application {
    */
   log(message) {
     if (!program.silent) {
-      let now = new Date().toUTCString();
+      let now = new Date().toISOString();
       let text = typeof message == 'function' ? message() : message;
       console.log(`[${now}] ${text}`);
     }
