@@ -6,7 +6,6 @@ const {david} = require('@cedx/gulp-david');
 const del = require('del');
 const eslint = require('gulp-eslint');
 const gulp = require('gulp');
-const os = require('os');
 const path = require('path');
 
 /**
@@ -63,6 +62,14 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
 gulp.task('outdated', () => gulp.src('package.json').pipe(david()));
 
 /**
+ * Starts the proxy server.
+ */
+gulp.task('serve', ['watch'], async () => {
+  if (global._server) global._server.kill();
+  global._server = child_process.fork('bin/cli.js', ['--target=8080'], {stdio: 'inherit'});
+});
+
+/**
  * Runs the unit tests.
  */
 gulp.task('test', () => _exec('node_modules/.bin/nyc', [
@@ -72,6 +79,11 @@ gulp.task('test', () => _exec('node_modules/.bin/nyc', [
   '--compilers=js:babel-register',
   '--recursive'
 ]));
+
+/**
+ * Watches for file changes.
+ */
+gulp.task('watch', ['default'], () => gulp.watch('src/**/*.js', ['build']));
 
 /**
  * Spawns a new process using the specified command.
