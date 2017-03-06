@@ -28,15 +28,14 @@
     "@cedx/gulp-david": "^6.0.0",
     "babel-preset-env": "^1.2.0",
     "babel-register": "^6.23.0",
+    "chai": "^3.5.0",
     "del": "^2.2.2",
     "esdoc": "^0.5.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-istanbul": "^1.1.1",
     "gulp-eslint": "^3.0.1",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-mocha": "^3.0.1",
-    "isparta": "^4.0.0"
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2"
   },
   "engines": {
     "node": ">=7.6.0"
@@ -55,6 +54,6 @@
     "restart": "npm stop && gulp clean && npm start",
     "start": "forever start -e var/stderr.log -o var/stdout.log -l reverse-proxy.log --append --minUptime 30000 --spinSleepTime 30000 --uid reverse-proxy bin/cli.js",
     "stop": "forever stop reverse-proxy",
-    "test": "gulp test"
+    "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register --recursive"
   }
 }

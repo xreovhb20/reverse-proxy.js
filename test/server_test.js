@@ -1,8 +1,8 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {Observable, Subject} from 'rxjs';
-import {Server} from '../src';
+import {Server} from '../src/index';
 
 /**
  * @test {Server}
@@ -14,11 +14,11 @@ describe('Server', () => {
    */
   describe('#address', () => {
     it('should have an "any IPv4" address as the default address', () => {
-      assert.equal(new Server().address, Server.DEFAULT_ADDRESS);
+      expect(new Server().address).to.equal(Server.DEFAULT_ADDRESS);
     });
 
     it('should have the same host as the specified one', () => {
-      assert.equal(new Server({address: 'localhost'}).address, 'localhost');
+      expect(new Server({address: 'localhost'}).address).to.equal('localhost');
     });
   });
 
@@ -26,16 +26,13 @@ describe('Server', () => {
    * @test {Server#listening}
    */
   describe('#listening', () => {
-    let server = new Server({address: '127.0.0.1', port: 0});
-
-    it('should return `true` when the server is listening', () => {
-      assert.ok(!server.listening);
-      return server.listen().then(() => assert.ok(server.listening));
-    });
-
-    it('should return `false` when the server is not listening', () => {
-      assert.ok(server.listening);
-      return server.close().then(() => assert.ok(!server.listening));
+    it('should return whether the server is listening', async () => {
+      let server = new Server({address: '127.0.0.1', port: 0});
+      expect(server.listening).to.be.false;
+      await server.listen();
+      expect(server.listening).to.be.true;
+      await server.close();
+      expect(server.listening).to.be.false;
     });
   });
 
@@ -45,8 +42,8 @@ describe('Server', () => {
   describe('#onClose', () => {
     it('should return an Observable instead of the underlying Subject', () => {
       let stream = new Server().onClose;
-      assert.ok(stream instanceof Observable);
-      assert.ok(!(stream instanceof Subject));
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
     });
   });
 
@@ -56,8 +53,8 @@ describe('Server', () => {
   describe('#onError', () => {
     it('should return an Observable instead of the underlying Subject', () => {
       let stream = new Server().onError;
-      assert.ok(stream instanceof Observable);
-      assert.ok(!(stream instanceof Subject));
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
     });
   });
 
@@ -67,8 +64,8 @@ describe('Server', () => {
   describe('#onListen', () => {
     it('should return an Observable instead of the underlying Subject', () => {
       let stream = new Server().onListen;
-      assert.ok(stream instanceof Observable);
-      assert.ok(!(stream instanceof Subject));
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
     });
   });
 
@@ -78,8 +75,8 @@ describe('Server', () => {
   describe('#onRequest', () => {
     it('should return an Observable instead of the underlying Subject', () => {
       let stream = new Server().onRequest;
-      assert.ok(stream instanceof Observable);
-      assert.ok(!(stream instanceof Subject));
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
     });
   });
 
@@ -88,11 +85,11 @@ describe('Server', () => {
    */
   describe('#port', () => {
     it('should have 3000 as the default port', () => {
-      assert.equal(new Server().port, Server.DEFAULT_PORT);
+      expect(new Server().port).to.equal(Server.DEFAULT_PORT);
     });
 
     it('should have the same port as the specified one', () => {
-      assert.equal(new Server({port: 8080}).port, 8080);
+      expect(new Server({port: 8080}).port).to.equal(8080);
     });
   });
 
@@ -101,11 +98,11 @@ describe('Server', () => {
    */
   describe('#_getHostName()', () => {
     it('it should return "*" if there is no "Host" header in the request', () => {
-      assert.equal(new Server()._getHostName({headers: {}}), '*');
+      expect(new Server()._getHostName({headers: {}})).to.equal('*');
     });
 
     it('it should return the "Host" header found in the request, without the port number', () => {
-      assert.equal(new Server()._getHostName({headers: {host: 'belin.io:8080'}}), 'belin.io');
+      expect(new Server()._getHostName({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
     });
   });
 });
