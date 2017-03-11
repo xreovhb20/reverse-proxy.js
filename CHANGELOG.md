@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 2.1.0
+- Using asynchronous file access in `Application#_parseConfig` method.
+- Updated the package dependencies.
+
 ## Version 2.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: removed the `global.app` property.
@@ -33,7 +37,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 ## Version 0.7.0
 - Breaking change: renamed the `Server.DEFAULT_HOST` property to `DEFAULT_ADDRESS`.
-- Breaking change: renamed the `Server.host` property to `address`.
+- Breaking change: renamed the `Server#host` property to `address`.
 - Breaking change: renamed the `-H, --host` command line option to `-a, --address`.
 - Upgraded the package dependencies.
 
@@ -66,7 +70,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
 - Breaking change: changed the whole API of `Application` class.
-- Breaking change: changed the format of `Server.request` event.
+- Breaking change: changed the format of `Server#request` event.
 - Breaking change: changed the format of configuration files to [YAML](http://yaml.org).
 - Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).
@@ -93,10 +97,10 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 ## Version 0.2.0
 - The `Server` class and CLI now uses port 3000 as default.
-- Added `Server.listening` event.
+- Added `Server#listening` event.
 - Improved the event handling.
 - Updated the package dependencies.
-- Breaking change: removed `Server.upgrade` event.
+- Breaking change: removed `Server#upgrade` event.
 - Using DocGen.js to generate the API reference.
 
 ## Version 0.1.0

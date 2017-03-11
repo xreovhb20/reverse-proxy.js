@@ -132,39 +132,43 @@ export class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {object[]} An array of objects corresponding to the parsed configuration.
+   * @return {Promise<object[]>} An array of objects corresponding to the parsed configuration.
    */
-  _parseConfig(data) {
+  async _parseConfig(data) {
     data = data.trim();
     if (!data.length) throw new Error('Invalid configuration data.');
 
-    let config = [];
-    let parser = options => {
+    /* eslint-disable no-extra-parens */
+    let firstChar = data[0];
+    let lastChar = data[data.length - 1];
+    let isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
+    /* eslint-enable no-extra-parens */
+
+    let config;
+    if (!isJson) {
+      config = [];
+      yaml.safeLoadAll(data, options => config.push(options));
+    }
+    else {
+      config = JSON.parse(data);
+      if (!Array.isArray(config)) config = [config];
+    }
+
+    const readFile = file => new Promise((resolve, reject) => fs.readFile(file, 'utf8', (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    }));
+
+    for (let options of config) {
       if (!('routes' in options) && !('target' in options))
         throw new Error('You must provide at least a target or a route table.');
 
       if (!('address' in options)) options.address = program.address;
       if (!('port' in options)) options.port = program.port;
 
-      if ('ssl' in options) {
-        if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
-        if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
-        if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
-        if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
-      }
-
-      config.push(options);
-    };
-
-    let firstChar = data[0];
-    let lastChar = data[data.length - 1];
-
-    let isJson = (firstChar == '[' || firstChar == '{') && (lastChar == ']' || lastChar == '}');
-    if (!isJson) yaml.safeLoadAll(data, parser);
-    else {
-      let options = JSON.parse(data);
-      if (!Array.isArray(options)) options = [options];
-      options.forEach(parser);
+      if ('ssl' in options) await ['ca', 'cert', 'key', 'pfx']
+        .filter(sslOption => sslOption in options.ssl)
+        .map(sslOption => readFile(options.ssl[sslOption]));
     }
 
     return config;
