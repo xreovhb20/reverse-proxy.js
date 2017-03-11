@@ -147,12 +147,10 @@ export class Application {
       if (!('port' in options)) options.port = program.port;
 
       if ('ssl' in options) {
-        /* eslint-disable no-sync */
         if ('ca' in options.ssl) options.ssl.ca = fs.readFileSync(options.ssl.ca);
         if ('cert' in options.ssl) options.ssl.cert = fs.readFileSync(options.ssl.cert);
         if ('key' in options.ssl) options.ssl.key = fs.readFileSync(options.ssl.key);
         if ('pfx' in options.ssl) options.ssl.pfx = fs.readFileSync(options.ssl.pfx);
-        /* eslint-enable no-sync */
       }
 
       config.push(options);
