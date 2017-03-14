@@ -89,7 +89,7 @@ export class Server {
    * @type {string}
    */
   get address() {
-    return typeof this._options.address == 'string' ? this._options.address : Server.DEFAULT_ADDRESS;
+    return this.listening ? this._httpService.address().address : Server.DEFAULT_ADDRESS;
   }
 
   /**
@@ -137,7 +137,7 @@ export class Server {
    * @type {number}
    */
   get port() {
-    return typeof this._options.port == 'number' ? this._options.port : Server.DEFAULT_PORT;
+    return this.listening ? this._httpService.address().port : Server.DEFAULT_PORT;
   }
 
   /**
@@ -162,7 +162,7 @@ export class Server {
    * @return {Promise<number>} The port that the server is running on.
    * @emits {*} The "listen" event.
    */
-  async listen(port = -1, address = '') {
+  async listen(port = Server.DEFAULT_PORT, address = Server.DEFAULT_ADDRESS) {
     if (!this.listening) {
       this._httpService = 'ssl' in this._options ?
         https.createServer(this._options.ssl, this._onHTTPRequest.bind(this)) :
@@ -171,17 +171,13 @@ export class Server {
       this._httpService.on('error', err => this._onError.next(err));
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-      await new Promise(resolve => this._httpService.listen(port > 0 ? port : this.port, address.length ? address : this.address, () => {
-        let socket = this._httpService.address();
-        this._options.address = socket.address;
-        this._options.port = socket.port;
-
+      await new Promise(resolve => this._httpService.listen(port, address, () => {
         this._onListen.next();
         resolve();
       }));
     }
 
-    return this._options.port;
+    return this.port;
   }
 
   /**
