@@ -65,7 +65,11 @@ You can also use a configuration file for the same task. See the [`basic_standal
 $ reverse-proxy --config example/yaml/basic_standalone.yaml
 ```
 
-For more advanced usages, you always need to use configuration files.
+For more advanced usages, you **always** need to use configuration files.
+
+> A target server can be expressed in two possible ways in the configuration file:
+> - a string or a number representing an URI: `3000` (a port of the local host), `"domain.com:8080"` (a host) or `"http://domain.com:8080"` (a URL).
+> - an object with a `uri` property having the same format: `{"uri": 3000}`, `{"uri": "domain.com:8080"}` or `{"uri": "http://domain.com:8080"}`.
 
 ### Using HTTPS
 A common use-case for proxying in conjunction with HTTPS is that you have some front-facing HTTPS server, but all of your internal traffic is HTTP. In this way, you can reduce the number of servers to which your CA and other important security files are deployed and reduce the computational overhead from HTTPS traffic.
@@ -97,6 +101,13 @@ See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy.js/blob/ma
 ```shell
 $ reverse-proxy --config example/yaml/multiple_ports.yaml
 ```
+
+### Adding HTTP headers to the proxied requests
+It can sometimes be useful to add some HTTP headers to the requests sent to the target servers.
+
+Let say that you have a remote service that needs basic authentication, but that you want to expose publicly (!). You could add an `Authorization` header to the proxied requests in order to let the remote service accept these requests.
+
+TODO
 
 ## Configuration schema
 The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yaml) file, in the `example` folder of this package, lists all available settings and their default values.
