@@ -68,7 +68,7 @@ $ reverse-proxy --config example/yaml/basic_standalone.yaml
 For more advanced usages, you **always** need to use configuration files.
 
 > A target server can be expressed in two possible ways in the configuration file:
-> - a string or a number representing an URI: `3000` (a port of the local host), `"domain.com:8080"` (a host) or `"http://domain.com:8080"` (a URL).
+> - a string or a number representing an URI: `3000` (a port of the local host), `"domain.com:8080"` (an authority) or `"http://domain.com:8080"` (an origin).
 > - an object with a `uri` property having the same format: `{"uri": 3000}`, `{"uri": "domain.com:8080"}` or `{"uri": "http://domain.com:8080"}`.
 
 ### Using HTTPS

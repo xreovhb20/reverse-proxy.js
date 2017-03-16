@@ -26,15 +26,9 @@ export class Server {
 
   /**
    * Initializes a new instance of the class.
-   * @param {object} [routes] An object specifying the routing table.
+   * @param {object} [options] An object specifying the server settings.
    */
-  constructor(routes = {}) {
-
-    /**
-     * The routing table.
-     * @type {object}
-     */
-    this.routes = routes;
+  constructor(options = {}) {
 
     /**
      * The underlying HTTP(S) service listening for requests.
