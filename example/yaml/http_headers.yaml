@@ -7,7 +7,7 @@ target:
     Authorization: Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=
     X-Custom-Header: X-Value
 ---
-# HTTPS to HTTP
+# Routing Table
 port: 8080
 routes:
   hostname.com: 3000

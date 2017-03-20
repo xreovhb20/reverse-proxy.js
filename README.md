@@ -87,27 +87,23 @@ A routing table is a simple lookup table that maps incoming requests to proxy ta
 To use hostname routing, you need to provide a `routes` key in your configuration file, instead of a `target` key. The value of this key is an object where keys are hostnames and values are target locations.
 Use an asterisk (`*`) as host name to define the route matched by default when a host name is not found.
 
-See the [`routing_table.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/routing_table.json) or [`routing_table.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/routing_table.yaml) file in the `example` folder of this package for a concrete example.
-
-```shell
-$ reverse-proxy --config example/yaml/routing_table.yaml
-```
+See the [`routing_table.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/routing_table.json) or [`routing_table.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/routing_table.yaml) file in the `example` folder.
 
 ### Listening on multiple ports
 In order to listen on several ports, all you have to do is use a JSON array or a YAML stream containing a different configuration object for each port to listen. Consequently, each port can have its own settings and routing table.
 
-See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/multiple_ports.json) or [`multiple_ports.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/multiple_ports.yaml) file in the `example` folder of this package for an example.
-
-```shell
-$ reverse-proxy --config example/yaml/multiple_ports.yaml
-```
+See the [`multiple_ports.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/multiple_ports.json) or [`multiple_ports.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/multiple_ports.yaml) file in the `example` folder.
 
 ### Adding HTTP headers to the proxied requests
 It can sometimes be useful to add some HTTP headers to the requests sent to the target servers.
 
-Let say that you have a remote service that needs basic authentication, but that you want to expose publicly (!). You could add an `Authorization` header to the proxied requests in order to let the remote service accept these requests.
+Let say that you have a remote service that needs basic authentication, but that you want to expose publicly. You could add an `Authorization` header to the proxied requests in order to let the remote service accept these requests.
 
-TODO
+To add an header to all the proxied requests of a target, you must use the object notation for this target, and a `headers` subproperty providing a map of the HTTP headers to set.
+
+> The HTTP headers defined in this way will replace **any** existing header with the same name.
+
+See the [`http_headers.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/http_headers.json) or [`http_headers.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/http_headers.yaml) file in the `example` folder.
 
 ## Configuration schema
 The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/defaults.json) or [`defaults.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/defaults.yaml) file, in the `example` folder of this package, lists all available settings and their default values.
