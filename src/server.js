@@ -77,11 +77,7 @@ export class Server {
 
     // Normalize the routing table.
     let routes = this._options.routes;
-    for (let host in routes) {
-      let target = routes[host];
-      if (typeof target == 'number') routes[host] = `http://127.0.0.1:${target}`;
-      else if (!/^https?:/i.test(target)) routes[host] = `http://${target}`;
-    }
+    for (let host in routes) routes[host] = this._normalizeRoute(routes[host]);
   }
 
   /**
@@ -164,7 +160,7 @@ export class Server {
    * @return {Promise<number>} The port that the server is running on.
    * @emits {*} The "listen" event.
    */
-  async listen(port = Server.DEFAULT_PORT, address = Server.DEFAULT_ADDRESS) {
+  async listen(port = -1, address = '') {
     if (!this.listening) {
       this._httpService = 'ssl' in this._options ?
         https.createServer(this._options.ssl, this._onHTTPRequest.bind(this)) :
@@ -173,7 +169,8 @@ export class Server {
       this._httpService.on('error', err => this._onError.next(err));
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-      await new Promise(resolve => this._httpService.listen(port, address, () => {
+
+      await new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
         this._onListen.next();
         resolve();
       }));
@@ -221,18 +218,21 @@ export class Server {
 
   /**
    * Handles an HTTP request to a target.
-   * @param {http.IncomingMessage} req The request sent by the client.
-   * @param {http.ServerResponse} res The response sent by the server.
+   * @param {http.IncomingMessage} request The request sent by the client.
+   * @param {http.ServerResponse} response The response sent by the server.
    * @emits {http.IncomingMessage} The "request" event.
    */
-  _onHTTPRequest(req, res) {
-    this._onRequest.next(req);
+  _onHTTPRequest(request, response) {
+    this._onRequest.next(request);
 
-    let hostName = this._getHostName(req);
+    let hostName = this._getHostName(request);
     let host = hostName in this._options.routes ? hostName : '*';
-
-    if (host in this._options.routes) this._proxyService.web(req, res, {target: this._options.routes[host]});
-    else this._sendStatus(res, 404);
+    if (!(host in this._options.routes)) this._sendStatus(response, 404);
+    else {
+      let target = this._options.routes[host];
+      if (target.headers && typeof target.headers == 'object') Object.assign(request.headers, target.headers);
+      this._proxyService.web(request, response, {target: target.uri});
+    }
   }
 
   /**
@@ -249,14 +249,18 @@ export class Server {
 
   /**
    * Handles a WebSocket request to a target.
-   * @param {http.IncomingMessage} req The request sent by the client.
+   * @param {http.IncomingMessage} request The request sent by the client.
    * @param {net.Socket} socket The network socket between the server and client.
    * @param {Buffer} head The first packet of the upgraded stream.
    */
-  _onWSRequest(req, socket, head) {
-    let hostName = this._getHostName(req);
+  _onWSRequest(request, socket, head) {
+    let hostName = this._getHostName(request);
     let host = hostName in this._options.routes ? hostName : '*';
-    if (host in this._options.routes) this._proxyService.ws(req, socket, head, {target: this._options.routes[host]});
+    if (host in this._options.routes) {
+      let target = this._options.routes[host];
+      if (target.headers && typeof target.headers == 'object') Object.assign(request.headers, target.headers);
+      this._proxyService.ws(request, socket, head, {target: target.uri});
+    }
   }
 
   /**
