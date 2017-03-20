@@ -194,6 +194,30 @@ export class Server {
   }
 
   /**
+   * Normalizes the specified route.
+   * @param {*} route The route to normalize.
+   * @return {object} The normalized route.
+   * @throws {Error} The route has an invalid format.
+   */
+  _normalizeRoute(route) {
+    let value = Object.assign({}, route && typeof route == 'object' ? route : {uri: route});
+    switch (typeof value.uri) {
+      case 'number':
+        value.uri = `http://127.0.0.1:${value.uri}`;
+        break;
+
+      case 'string':
+        if (!/^https?:/i.test(value.uri)) value.uri = `http://${value.uri}`;
+        break;
+
+      default:
+        throw new Error('The route has an invalid format.');
+    }
+
+    return value;
+  }
+
+  /**
    * Handles an HTTP request to a target.
    * @param {http.IncomingMessage} req The request sent by the client.
    * @param {http.ServerResponse} res The response sent by the server.
