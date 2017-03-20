@@ -199,7 +199,8 @@ export class Server {
    * @throws {Error} The route has an invalid format.
    */
   _normalizeRoute(route) {
-    let value = Object.assign({}, route && typeof route == 'object' ? route : {uri: route});
+    let value = typeof route == 'object' && route ? route : {uri: route};
+
     switch (typeof value.uri) {
       case 'number':
         value.uri = `http://127.0.0.1:${value.uri}`;
@@ -210,7 +211,14 @@ export class Server {
         break;
 
       default:
-        throw new Error('The route has an invalid format.');
+        throw new Error('The value has an invalid format.');
+    }
+
+    if (typeof value.headers != 'object' || !value.headers) value.headers = {};
+    else {
+      let map = {};
+      for (let key in value.headers) map[key.toLowerCase()] = value.headers[key];
+      value.headers = map;
     }
 
     return value;
@@ -230,7 +238,7 @@ export class Server {
     if (!(host in this._options.routes)) this._sendStatus(response, 404);
     else {
       let target = this._options.routes[host];
-      if (target.headers && typeof target.headers == 'object') Object.assign(request.headers, target.headers);
+      Object.assign(request.headers, target.headers);
       this._proxyService.web(request, response, {target: target.uri});
     }
   }
@@ -258,7 +266,7 @@ export class Server {
     let host = hostName in this._options.routes ? hostName : '*';
     if (host in this._options.routes) {
       let target = this._options.routes[host];
-      if (target.headers && typeof target.headers == 'object') Object.assign(request.headers, target.headers);
+      Object.assign(request.headers, target.headers);
       this._proxyService.ws(request, socket, head, {target: target.uri});
     }
   }

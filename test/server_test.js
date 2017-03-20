@@ -111,18 +111,18 @@ describe('Server', () => {
    */
   describe('#_normalizeRoute()', () => {
     it('it should normalize a port on the local host', () => {
-      expect(new Server()._normalizeRoute(3000)).to.deep.equal({uri: 'http://127.0.0.1:3000'});
-      expect(new Server()._normalizeRoute({uri: 3000})).to.deep.equal({uri: 'http://127.0.0.1:3000'});
+      expect(new Server()._normalizeRoute(3000)).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
+      expect(new Server()._normalizeRoute({uri: 3000})).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
     });
 
     it('it should normalize an authority', () => {
-      expect(new Server()._normalizeRoute('domain.com:8080')).to.deep.equal({uri: 'http://domain.com:8080'});
-      expect(new Server()._normalizeRoute({uri: 'domain.com:8080'})).to.deep.equal({uri: 'http://domain.com:8080'});
+      expect(new Server()._normalizeRoute('domain.com:8080')).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
+      expect(new Server()._normalizeRoute({uri: 'domain.com:8080'})).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
     });
 
     it('it should normalize an origin', () => {
-      expect(new Server()._normalizeRoute('https://domain.com:8080')).to.deep.equal({uri: 'https://domain.com:8080'});
-      expect(new Server()._normalizeRoute({uri: 'https://domain.com:8080'})).to.deep.equal({uri: 'https://domain.com:8080'});
+      expect(new Server()._normalizeRoute('https://domain.com:8080')).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
+      expect(new Server()._normalizeRoute({uri: 'https://domain.com:8080'})).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
     });
 
     it('it should throw an error if the route has an invalid format', () => {
