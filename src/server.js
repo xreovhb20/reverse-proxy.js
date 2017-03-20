@@ -89,7 +89,8 @@ export class Server {
    * @type {string}
    */
   get address() {
-    return this.listening ? this._httpService.address().address : Server.DEFAULT_ADDRESS;
+    if (this.listening) return this._httpService.address().address;
+    return typeof this._options.address == 'string' ? this._options.address : Server.DEFAULT_ADDRESS;
   }
 
   /**
@@ -137,7 +138,8 @@ export class Server {
    * @type {number}
    */
   get port() {
-    return this.listening ? this._httpService.address().port : Server.DEFAULT_PORT;
+    if (this.listening) return this._httpService.address().port;
+    return typeof this._options.port == 'number' ? this._options.port : Server.DEFAULT_PORT;
   }
 
   /**
@@ -182,11 +184,11 @@ export class Server {
 
   /**
    * Gets the host name contained in the headers of the specified request.
-   * @param {http.IncomingMessage} req The request sent by the client.
+   * @param {http.IncomingMessage} request The request sent by the client.
    * @return {string} The host name provided by the specified request, or `*` if the host name could not be determined.
    */
-  _getHostName(req) {
-    let headers = req.headers;
+  _getHostName(request) {
+    let headers = request.headers;
     if (!('host' in headers)) return '*';
 
     let index = headers.host.indexOf(':');
@@ -235,14 +237,14 @@ export class Server {
 
   /**
    * Handles the error emitted if a request to a target fails.
-   * @param {Error} err The emitted error event.
-   * @param {http.IncomingMessage} req The request sent by the client.
-   * @param {http.ServerResponse} res The response sent by the server.
+   * @param {Error} error The emitted error event.
+   * @param {http.IncomingMessage} request The request sent by the client.
+   * @param {http.ServerResponse} response The response sent by the server.
    * @emits {Error} The "error" event.
    */
-  _onRequestError(err, req, res) {
-    this._onError.next(err);
-    this._sendStatus(res, 502);
+  _onRequestError(error, request, response) {
+    this._onError.next(error);
+    this._sendStatus(response, 502);
   }
 
   /**
@@ -259,16 +261,16 @@ export class Server {
 
   /**
    * Sends an HTTP status code and terminates the specified server response.
-   * @param {http.ServerResponse} res The server response.
+   * @param {http.ServerResponse} response The server response.
    * @param {number} statusCode The HTTP status code to send.
    */
-  _sendStatus(res, statusCode) {
+  _sendStatus(response, statusCode) {
     let message = http.STATUS_CODES[statusCode];
-    res.writeHead(statusCode, {
+    response.writeHead(statusCode, {
       'Content-Length': Buffer.byteLength(message),
       'Content-Type': 'text/plain'
     });
 
-    res.end(message);
+    response.end(message);
   }
 }
