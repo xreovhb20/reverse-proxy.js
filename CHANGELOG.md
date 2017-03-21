@@ -1,8 +1,7 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
-## Version 3.0.0
-- Breaking change: changed the signature of the `Server` constructor.
+## Version 2.2.0
 - Added support of HTTP headers: feature request from [issue #4](https://github.com/cedx/reverse-proxy.js/issues/4).
 - Fixed a bug in the reading of the SSL certificates.
 
