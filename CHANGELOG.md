@@ -4,6 +4,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 ## Version 3.0.0
 - Breaking change: changed the signature of the `Server` constructor.
 - Added support of HTTP headers: feature request from [issue #4](https://github.com/cedx/reverse-proxy.js/issues/4).
+- Fixed a bug in the reading of the SSL certificates.
 
 ## Version 2.1.0
 - Using asynchronous file access in `Application#_parseConfig` method.

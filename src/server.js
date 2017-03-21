@@ -169,7 +169,6 @@ export class Server {
       this._httpService.on('error', err => this._onError.next(err));
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-
       await new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
         this._onListen.next();
         resolve();

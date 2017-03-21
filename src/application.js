@@ -154,7 +154,7 @@ export class Application {
       if (!Array.isArray(config)) config = [config];
     }
 
-    const readFile = file => new Promise((resolve, reject) => fs.readFile(file, 'utf8', (err, data) => {
+    const readFile = file => new Promise((resolve, reject) => fs.readFile(file, (err, data) => {
       if (err) reject(err);
       else resolve(data);
     }));
@@ -166,9 +166,11 @@ export class Application {
       if (!('address' in options)) options.address = program.address;
       if (!('port' in options)) options.port = program.port;
 
-      if ('ssl' in options) await ['ca', 'cert', 'key', 'pfx']
-        .filter(sslOption => sslOption in options.ssl)
-        .map(sslOption => readFile(options.ssl[sslOption]));
+      if ('ssl' in options) {
+        let keys = ['ca', 'cert', 'key', 'pfx'].filter(cert => cert in options.ssl);
+        let certs = await Promise.all(keys.map(cert => readFile(options.ssl[cert])));
+        for (let i = 0; i < keys.length; i++) options.ssl[keys[i]] = certs[i];
+      }
     }
 
     return config;
