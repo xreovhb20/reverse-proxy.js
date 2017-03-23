@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 3.0.0
+- Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 
 ## Version 2.2.0
 - Added support of HTTP headers: feature request from [issue #4](https://github.com/cedx/reverse-proxy.js/issues/4).
@@ -34,7 +35,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Breaking change: ported the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)-based APIs to [Observables](http://reactivex.io/intro.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: replaced the test classes by plain tests.
-- Breaking change: the `Server` class is not anymore an `EventEmitter`.
+- Breaking change: the `Server` class is not anymore an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
 - Added a build task for fixing the coding standards issues.
 - Added the `onClose`, `onError`, `onListen` and `onRequest` event streams to the `Server` class.
 - Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).

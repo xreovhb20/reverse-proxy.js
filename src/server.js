@@ -1,7 +1,6 @@
 import http from 'http';
 import https from 'https';
 import httpProxy from 'http-proxy';
-import {Subject} from 'rxjs';
 
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
@@ -35,30 +34,6 @@ export class Server {
      * @type {http.Server|https.Server}
      */
     this._httpService = null;
-
-    /**
-     * The handler of "close" events.
-     * @type {Subject}
-     */
-    this._onClose = new Subject();
-
-    /**
-     * The handler of "error" events.
-     * @type {Subject<Error>}
-     */
-    this._onError = new Subject();
-
-    /**
-     * The handler of "listen" events.
-     * @type {Subject}
-     */
-    this._onListen = new Subject();
-
-    /**
-     * The handler of "request" events.
-     * @type {Subject<http.IncomingMessage>}
-     */
-    this._onRequest = new Subject();
 
     /**
      * The server settings.
@@ -98,38 +73,6 @@ export class Server {
   }
 
   /**
-   * The stream of "close" events.
-   * @type {Observable}
-   */
-  get onClose() {
-    return this._onClose.asObservable();
-  }
-
-  /**
-   * The stream of "error" events.
-   * @type {Observable<Error>}
-   */
-  get onError() {
-    return this._onError.asObservable();
-  }
-
-  /**
-   * The stream of "listen" events.
-   * @type {Observable}
-   */
-  get onListen() {
-    return this._onListen.asObservable();
-  }
-
-  /**
-   * The stream of "request" events.
-   * @type {Observable<http.IncomingMessage>}
-   */
-  get onRequest() {
-    return this._onRequest.asObservable();
-  }
-
-  /**
    * The port that the server is listening on.
    * @type {number}
    */
@@ -146,7 +89,7 @@ export class Server {
   async close() {
     if (this.listening) await new Promise(resolve => this._httpService.close(() => {
       this._httpService = null;
-      this._onClose.next();
+      this.emit('close');
       resolve();
     }));
 
