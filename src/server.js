@@ -103,7 +103,7 @@ export class Server extends EventEmitter {
    * @param {number} [port] The port that the server should run on.
    * @param {string} [address] The address that the server should run on.
    * @return {Promise<number>} The port that the server is running on.
-   * @emits {*} The "listen" event.
+   * @emits {*} The "listening" event.
    */
   async listen(port = -1, address = '') {
     if (!this.listening) {
@@ -115,7 +115,7 @@ export class Server extends EventEmitter {
       this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
       await new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
-        this._onListen.next();
+        this.emit('listening');
         resolve();
       }));
     }

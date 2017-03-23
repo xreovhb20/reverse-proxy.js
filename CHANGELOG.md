@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 ## Version 3.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
+- Breaking change: renamed the `listen` event to `listening`.
+- Breaking change: the `Server` class is now an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
 
 ## Version 2.2.0
 - Added support of HTTP headers: feature request from [issue #4](https://github.com/cedx/reverse-proxy.js/issues/4).

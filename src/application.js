@@ -115,14 +115,14 @@ export class Application {
    */
   async startServers(servers) {
     return Promise.all(servers.map(server => {
-      server.onClose.subscribe(() => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-      server.onError.subscribe(err => this.log(this.debug ? err.stack : err.message));
-      server.onListen.subscribe(() => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+      server.on('close', () => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+      server.on('error', error => this.log(this.debug ? error.stack : error.message));
+      server.on('listening', () => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
 
-      server.onRequest.subscribe(req => {
-        let ipAddress = req.connection.remoteAddress;
-        let userAgent = req.headers['user-agent'];
-        this.log(`${ipAddress} - ${req.headers.host} - "${req.method} ${req.url} HTTP/${req.httpVersion}" "${userAgent}"`);
+      server.on('request', request => {
+        let ipAddress = request.connection.remoteAddress;
+        let userAgent = request.headers['user-agent'];
+        this.log(`${ipAddress} - ${request.headers.host} - "${request.method} ${request.url} HTTP/${request.httpVersion}" "${userAgent}"`);
       });
 
       return server.listen();
