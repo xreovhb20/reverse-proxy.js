@@ -1,7 +1,6 @@
 'use strict';
 
 import {expect} from 'chai';
-import {Observable, Subject} from 'rxjs';
 import {Server} from '../src/index';
 
 /**
@@ -33,50 +32,6 @@ describe('Server', () => {
       expect(server.listening).to.be.true;
       await server.close();
       expect(server.listening).to.be.false;
-    });
-  });
-
-  /**
-   * @test {Server#onClose}
-   */
-  describe('#onClose', () => {
-    it('should return an Observable instead of the underlying Subject', () => {
-      let stream = new Server().onClose;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onError}
-   */
-  describe('#onError', () => {
-    it('should return an Observable instead of the underlying Subject', () => {
-      let stream = new Server().onError;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onListen}
-   */
-  describe('#onListen', () => {
-    it('should return an Observable instead of the underlying Subject', () => {
-      let stream = new Server().onListen;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onRequest}
-   */
-  describe('#onRequest', () => {
-    it('should return an Observable instead of the underlying Subject', () => {
-      let stream = new Server().onRequest;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
     });
   });
 

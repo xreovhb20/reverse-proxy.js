@@ -1,3 +1,4 @@
+import EventEmitter from 'events';
 import http from 'http';
 import https from 'https';
 import httpProxy from 'http-proxy';
@@ -5,7 +6,7 @@ import httpProxy from 'http-proxy';
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
  */
-export class Server {
+export class Server extends EventEmitter {
 
   /**
    * The default address that the server is listening on.
@@ -28,6 +29,7 @@ export class Server {
    * @param {object} [options] An object specifying the server settings.
    */
   constructor(options = {}) {
+    super();
 
     /**
      * The underlying HTTP(S) service listening for requests.
@@ -173,7 +175,7 @@ export class Server {
    * @emits {http.IncomingMessage} The "request" event.
    */
   _onHTTPRequest(request, response) {
-    this._onRequest.next(request);
+    this.emit('request', request);
 
     let hostName = this._getHostName(request);
     let host = hostName in this._options.routes ? hostName : '*';
@@ -193,7 +195,7 @@ export class Server {
    * @emits {Error} The "error" event.
    */
   _onRequestError(error, request, response) {
-    this._onError.next(error);
+    this.emit('error', error);
     this._sendStatus(response, 502);
   }
 
