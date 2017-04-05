@@ -10,8 +10,8 @@
   "repository": "cedx/reverse-proxy.js",
   "version": "3.0.0",
 
-  "jsnext:main": "./src/index",
   "main": "./lib/index",
+  "module": "./src/index",
 
   "bin": {
     "reverse-proxy": "./bin/cli.js"
