@@ -11,6 +11,7 @@ Let's suppose you were running multiple HTTP application servers, but you only w
 - Multiple instances: allows to listen on several ports, with each one having its own target(s).
 - Supports HTTPS protocol.
 - Supports [WebSockets](https://en.wikipedia.org/wiki/WebSocket) requests.
+- Supports custom HTTP headers.
 
 ## Requirements
 The latest [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com) versions.
