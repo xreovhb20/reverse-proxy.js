@@ -15,7 +15,7 @@ export class Application {
    * @type {boolean}
    */
   get debug() {
-    return this.env == 'development' || this.env == 'test';
+    return ['development', 'test'].includes(this.env);
   }
 
   /**
