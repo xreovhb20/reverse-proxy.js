@@ -1,9 +1,11 @@
-import fs from 'fs';
-import path from 'path';
-import * as pkg from '../package.json';
 import program from 'commander';
+import {readFile} from 'fs';
+import {resolve} from 'path';
+import {safeLoadAll as loadYAML} from 'js-yaml';
+
+import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
-import yaml from 'js-yaml';
+
 
 /**
  * Represents an application providing functionalities specific to console requests.
@@ -38,8 +40,8 @@ export class Application {
       target: args.target
     }];
 
-    const readFile = file => new Promise(resolve => fs.readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
-    return this._parseConfig(await readFile(path.resolve(args.config)));
+    const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+    return this._parseConfig(await loadConfig(resolve(args.config)));
   }
 
   /**
@@ -68,7 +70,7 @@ export class Application {
     program._name = 'reverse-proxy';
     program
       .description('Simple reverse proxy server supporting WebSockets.')
-      .version(pkg.version, '-v, --version')
+      .version(pkgVersion, '-v, --version')
       .option('-a, --address <address>', `address that the reverse proxy should run on [${Server.DEFAULT_ADDRESS}]`, Server.DEFAULT_ADDRESS)
       .option('-p, --port <port>', `port that the reverse proxy should run on [${Server.DEFAULT_PORT}]`, format.asInteger, Server.DEFAULT_PORT)
       .option('-t, --target <target>', 'location of the server the proxy will target', format.asIntegerIfNumeric)
@@ -147,14 +149,14 @@ export class Application {
     let config;
     if (!isJson) {
       config = [];
-      yaml.safeLoadAll(data, options => config.push(options));
+      loadYAML(data, options => config.push(options));
     }
     else {
       config = JSON.parse(data);
       if (!Array.isArray(config)) config = [config];
     }
 
-    const readFile = file => new Promise((resolve, reject) => fs.readFile(file, (err, data) => {
+    const loadCert = file => new Promise((resolve, reject) => readFile(file, (err, data) => {
       if (err) reject(err);
       else resolve(data);
     }));
@@ -168,7 +170,7 @@ export class Application {
 
       if ('ssl' in options) {
         let keys = ['ca', 'cert', 'key', 'pfx'].filter(cert => cert in options.ssl);
-        let certs = await Promise.all(keys.map(cert => readFile(options.ssl[cert])));
+        let certs = await Promise.all(keys.map(cert => loadCert(options.ssl[cert])));
         for (let i = 0; i < keys.length; i++) options.ssl[keys[i]] = certs[i];
       }
     }

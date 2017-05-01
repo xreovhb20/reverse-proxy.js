@@ -1,12 +1,12 @@
 'use strict';
 
-const babel = require('gulp-babel');
-const child_process = require('child_process');
 const {david} = require('@cedx/gulp-david');
+const {fork, spawn} = require('child_process');
 const del = require('del');
-const eslint = require('gulp-eslint');
 const gulp = require('gulp');
-const path = require('path');
+const babel = require('gulp-babel');
+const eslint = require('gulp-eslint');
+const {normalize} = require('path');
 
 /**
  * Runs the default tasks.
@@ -49,7 +49,7 @@ gulp.task('doc', async () => {
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'], {base: '.'})
+gulp.task('fix', () => gulp.src(['*.js', 'bin/*.js', 'src/**/*.js', 'test/**/*.js'], {base: '.'})
   .pipe(eslint({fix: true}))
   .pipe(gulp.dest('.'))
 );
@@ -57,10 +57,9 @@ gulp.task('fix', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'], {base: 
 /**
  * Performs static analysis of source code.
  */
-gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
+gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'src/**/*.js', 'test/**/*.js'])
   .pipe(eslint())
   .pipe(eslint.format())
-  .pipe(eslint.failAfterError())
 );
 
 /**
@@ -68,7 +67,7 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
  */
 gulp.task('serve', ['build'], () => {
   if (global._server) global._server.kill();
-  global._server = child_process.fork('bin/cli.js', ['--target=8080'], {stdio: 'inherit'});
+  global._server = fork('bin/cli.js', ['--target=8080'], {stdio: 'inherit'});
 });
 
 /**
@@ -77,7 +76,7 @@ gulp.task('serve', ['build'], () => {
 gulp.task('test', () => _exec('node_modules/.bin/nyc', [
   '--report-dir=var',
   '--reporter=lcovonly',
-  path.normalize('node_modules/.bin/mocha'),
+  normalize('node_modules/.bin/mocha'),
   '--compilers=js:babel-register',
   '--recursive'
 ]));
@@ -95,8 +94,7 @@ gulp.task('watch', ['serve'], () => gulp.watch('src/**/*.js', ['serve']));
  * @return {Promise} Completes when the command is finally terminated.
  */
 async function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
-  return new Promise((resolve, reject) => child_process
-    .spawn(path.normalize(command), args, options)
+  return new Promise((resolve, reject) => spawn(normalize(command), args, options)
     .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
   );
 }

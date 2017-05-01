@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
-import http from 'http';
-import https from 'https';
-import httpProxy from 'http-proxy';
+import {createServer, STATUS_CODES} from 'http';
+import {createServer as createSecureServer} from 'https';
+import {createProxyServer} from 'http-proxy';
 
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
@@ -49,7 +49,7 @@ export class Server extends EventEmitter {
      * The underlying proxy service providing custom application logic.
      * @type {httpProxy.Server}
      */
-    this._proxyService = httpProxy.createProxyServer(this._options.proxy || {});
+    this._proxyService = createProxyServer(this._options.proxy || {});
     this._proxyService.on('error', this._onRequestError.bind(this));
 
     // Normalize the routing table.
@@ -89,13 +89,11 @@ export class Server extends EventEmitter {
    * @emits {*} The "close" event.
    */
   async close() {
-    if (this.listening) await new Promise(resolve => this._httpService.close(() => {
+    return !this.listening ? null : new Promise(resolve => this._httpService.close(() => {
       this._httpService = null;
       this.emit('close');
-      resolve();
+      resolve(null);
     }));
-
-    return null;
   }
 
   /**
@@ -106,21 +104,19 @@ export class Server extends EventEmitter {
    * @emits {*} The "listening" event.
    */
   async listen(port = -1, address = '') {
-    if (!this.listening) {
-      this._httpService = 'ssl' in this._options ?
-        https.createServer(this._options.ssl, this._onHTTPRequest.bind(this)) :
-        http.createServer(this._onHTTPRequest.bind(this));
+    if (this.listening) return this.port;
 
-      this._httpService.on('error', err => this._onError.next(err));
-      this._httpService.on('upgrade', this._onWSRequest.bind(this));
+    this._httpService = 'ssl' in this._options ?
+      createSecureServer(this._options.ssl, this._onHTTPRequest.bind(this)) :
+      createServer(this._onHTTPRequest.bind(this));
 
-      await new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
-        this.emit('listening');
-        resolve();
-      }));
-    }
+    this._httpService.on('error', err => this._onError.next(err));
+    this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
-    return this.port;
+    return new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
+      this.emit('listening');
+      resolve(this.port);
+    }));
   }
 
   /**
@@ -221,7 +217,7 @@ export class Server extends EventEmitter {
    * @param {number} statusCode The HTTP status code to send.
    */
   _sendStatus(response, statusCode) {
-    let message = http.STATUS_CODES[statusCode];
+    let message = STATUS_CODES[statusCode];
     response.writeHead(statusCode, {
       'Content-Length': Buffer.byteLength(message),
       'Content-Type': 'text/plain'
