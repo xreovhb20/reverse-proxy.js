@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 3.1.0
+- Added support for the [Node Security Platform](https://nodesecurity.io) reports.
+- Updated the package dependencies.
+
 ## Version 3.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Breaking change: renamed the `listen` event to `listening`.
