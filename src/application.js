@@ -25,7 +25,7 @@ export class Application {
    * @type {string}
    */
   get env() {
-    return 'NODE_ENV' in process.env ? process.env.NODE_ENV : 'production';
+    return 'NODE_ENV' in process.env ? process.env.NODE_ENV : 'development';
   }
 
   /**

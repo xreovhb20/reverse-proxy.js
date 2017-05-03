@@ -66,7 +66,7 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'src/**/*.js', 'test/**/*.
  * Starts the proxy server.
  */
 gulp.task('serve', ['build'], () => {
-  if (global._server) global._server.kill();
+  if ('_server' in global) global._server.kill();
   global._server = fork('bin/cli.js', ['--target=8080'], {stdio: 'inherit'});
 });
 
