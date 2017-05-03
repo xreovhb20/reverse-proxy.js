@@ -28,14 +28,14 @@ describe('Application', () => {
    * @test {Application#env}
    */
   describe('#env', () => {
-    it('should be "production" if the NODE_ENV environment variable is not set', () => {
+    it('should be "development" if the NODE_ENV environment variable is not set', () => {
       delete process.env.NODE_ENV;
-      expect(new Application().env).to.equal('production');
+      expect(new Application().env).to.equal('development');
     });
 
     it('should equal the value of `NODE_ENV` environment variable when it is set', () => {
-      process.env.NODE_ENV = 'development';
-      expect(new Application().env).to.equal('development');
+      process.env.NODE_ENV = 'production';
+      expect(new Application().env).to.equal('production');
     });
   });
 
