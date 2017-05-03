@@ -22,8 +22,8 @@
     "js-yaml": "^3.8.3"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^0.7.0",
-    "@cedx/gulp-david": "^6.3.0",
+    "@cedx/coveralls": "^0.8.0",
+    "@cedx/gulp-david": "^7.0.0",
     "babel-preset-env": "^1.2.2",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
