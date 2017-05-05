@@ -31,7 +31,7 @@ export class Application {
   /**
    * Loads the application configuration from the file system.
    * @param {object} args The command line arguments.
-   * @return {Promise<object[]>} An array of objects containing the settings of one or several reverse proxy instances.
+   * @return {Promise<Array>} An array of objects containing the settings of one or several reverse proxy instances.
    */
   async loadConfig(args) {
     if (!args.config) return [{
@@ -134,7 +134,7 @@ export class Application {
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Promise<object[]>} An array of objects corresponding to the parsed configuration.
+   * @return {Promise<Array>} An array of objects corresponding to the parsed configuration.
    */
   async _parseConfig(data) {
     data = data.trim();
