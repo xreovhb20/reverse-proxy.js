@@ -22,6 +22,18 @@ export class Application {
   }
 
   /**
+   * Initializes a new instance of the class.
+   */
+  constructor() {
+
+    /**
+     * The servers managed by this application.
+     * @type {Server[]}
+     */
+    this.servers = [];
+  }
+
+  /**
    * Value indicating whether the application runs in debug mode.
    * @type {boolean}
    */
