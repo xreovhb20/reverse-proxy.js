@@ -2,6 +2,10 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 5.0.0
+- Breaking change: renamed the `Application#loadConfig` method to `init`.
+- Breaking change: renamed the `Application#setUser` method to `_setUser`.
+- Breaking change: renamed the `Application#startServers` method to `_startServers`.
+- Added the `Application#servers` property.
 - Added new unit tests.
 
 ## Version 4.0.1
