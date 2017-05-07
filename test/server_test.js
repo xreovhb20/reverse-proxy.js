@@ -37,6 +37,26 @@ describe('Server', () => {
   });
 
   /**
+   * @test {Server#routes}
+   */
+  describe('#routes', () => {
+    it('should be empty by default', () => {
+      expect(new Server().routes.size).to.equal(0);
+    });
+
+    it('should create a default route if a target is specified', () => {
+      let routes = new Server({target: 9000}).routes;
+      expect(routes.size).to.equal(1);
+      expect(routes.get('*')).to.be.an('object').and.have.property('uri');
+    });
+
+    it('should normalize the specified targets', () => {
+      let routes = new Server({routes: {'belin.io': 9000}}).routes;
+      expect(routes.get('belin.io')).to.be.an('object').and.have.property('uri').that.equal('http://127.0.0.1:9000');
+    });
+  });
+
+  /**
    * @test {Server#port}
    */
   describe('#port', () => {
