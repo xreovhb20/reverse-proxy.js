@@ -1,8 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
-# Version 4.0.0
+# Version 3.2.0
 - The response object is also provided in `request` events.
+- The routing table of a `Server` is now exposed as the `routes` property.
 
 ## Version 3.1.0
 - Added support for the [Node Security Platform](https://nodesecurity.io) reports.

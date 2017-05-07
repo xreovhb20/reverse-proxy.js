@@ -1,7 +1,7 @@
 import program from 'commander';
 import {readFile} from 'fs';
-import {resolve} from 'path';
 import {safeLoadAll as loadYAML} from 'js-yaml';
+import {resolve} from 'path';
 
 import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
