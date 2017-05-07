@@ -100,9 +100,10 @@ export class Application {
    * @param {number|string} userId The user identifier.
    */
   setUser(userId) {
-    if (typeof process.setuid != 'function') this.log('Changing the process user is not supported on this platform.');
+    if (typeof process.setuid != 'function')
+      console.error('Changing the process user is not supported on this platform.');
     else {
-      this.log(`Drop user privileges to: ${userId}`);
+      console.log(`Drop user privileges to: ${userId}`);
       process.setuid(userId);
     }
   }
@@ -117,12 +118,10 @@ export class Application {
     let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
 
     return Promise.all(servers.map(server => {
-      if (!program.silent) {
-        server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-        server.on('error', error => console.error(this.debug ? error.stack : error.message));
-        server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
-        server.on('request', (request, response) => logger(request, response, done));
-      }
+      server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+      server.on('error', error => console.error(this.debug ? error.stack : error.message));
+      server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+      if (!program.silent) server.on('request', (request, response) => logger(request, response, done));
 
       return server.listen();
     }));

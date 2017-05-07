@@ -1,7 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
-# Version 4.0.0
+## Version 4.0.1
+- Fixed the [issue #5](https://github.com/cedx/reverse-proxy.js/issues/5): regression in the `Application#setUser` method.
+
+## Version 4.0.0
 - Breaking change: removed the `Application#log` method.
 - The response object is also provided in `request` events.
 - The routing table of a `Server` is now exposed as the `routes` property.
@@ -106,7 +109,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 ## Version 0.3.0
 - Breaking change: ported the callback-based API to [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 - Using [Gulp.js](http://gulpjs.com) as build system.
-- Fixed [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
+- Fixed the [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
 ## Version 0.2.1
