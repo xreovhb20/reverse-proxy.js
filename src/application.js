@@ -1,6 +1,7 @@
 import program from 'commander';
 import {readFile} from 'fs';
 import {safeLoadAll as loadYAML} from 'js-yaml';
+import morgan from 'morgan';
 import {resolve} from 'path';
 
 import {version as pkgVersion} from '../package.json';
@@ -11,6 +12,14 @@ import {Server} from './server';
  * Represents an application providing functionalities specific to console requests.
  */
 export class Application {
+
+  /**
+   * The format used for logging the requests.
+   * @type {string}
+   */
+  static get LOG_FORMAT() {
+    return ':req[host] :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
+  }
 
   /**
    * Value indicating whether the application runs in debug mode.
@@ -42,18 +51,6 @@ export class Application {
 
     const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
     return this._parseConfig(await loadConfig(resolve(args.config)));
-  }
-
-  /**
-   * Prints the specified message, with a timestamp and a new line, to the standard output.
-   * @param {string|function} message The message to be logged. If it's a function, the message is the result of the function call.
-   */
-  log(message) {
-    if (!program.silent) {
-      let now = new Date().toISOString();
-      let text = typeof message == 'function' ? message() : message;
-      console.log(`[${now}] ${text}`);
-    }
   }
 
   /**
@@ -116,16 +113,16 @@ export class Application {
    * @return {Promise} Completes when all servers have been started.
    */
   async startServers(servers) {
-    return Promise.all(servers.map(server => {
-      server.on('close', () => this.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-      server.on('error', error => this.log(this.debug ? error.stack : error.message));
-      server.on('listening', () => this.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+    let done = () => {};
+    let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
 
-      server.on('request', request => {
-        let ipAddress = request.connection.remoteAddress;
-        let userAgent = request.headers['user-agent'];
-        this.log(`${ipAddress} - ${request.headers.host} - "${request.method} ${request.url} HTTP/${request.httpVersion}" "${userAgent}"`);
-      });
+    return Promise.all(servers.map(server => {
+      if (!program.silent) {
+        server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+        server.on('error', error => console.error(this.debug ? error.stack : error.message));
+        server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+        server.on('request', (request, response) => logger(request, response, done));
+      }
 
       return server.listen();
     }));
@@ -163,7 +160,7 @@ export class Application {
 
     for (let options of config) {
       if (!('routes' in options) && !('target' in options))
-        throw new Error('You must provide at least a target or a route table.');
+        throw new Error('You must provide at least a target or a routing table.');
 
       if (!('address' in options)) options.address = program.address;
       if (!('port' in options)) options.port = program.port;

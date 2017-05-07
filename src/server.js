@@ -36,8 +36,8 @@ export class Server extends EventEmitter {
      * @type {Map}
      */
     this.routes = new Map();
-    if ('routes' in options) for (let host in options.routes) this._routes.set(host, this._normalizeRoute(options.routes[host]));
-    if ('target' in options) this._routes.set('*', this._normalizeRoute(options.target));
+    if ('routes' in options) for (let host in options.routes) this.routes.set(host, this._normalizeRoute(options.routes[host]));
+    if ('target' in options) this.routes.set('*', this._normalizeRoute(options.target));
 
     /**
      * The underlying HTTP(S) service listening for requests.
@@ -130,7 +130,7 @@ export class Server extends EventEmitter {
    * @param {http.IncomingMessage} request The request sent by the client.
    * @return {string} The host name provided by the specified request, or `*` if the host name could not be determined.
    */
-  _getHostName(request) {
+  _getHostname(request) {
     let headers = request.headers;
     if (!('host' in headers)) return '*';
 
@@ -179,8 +179,8 @@ export class Server extends EventEmitter {
   _onHTTPRequest(request, response) {
     this.emit('request', request, response);
 
-    let hostName = this._getHostName(request);
-    let pattern = this.routes.has(hostName) ? hostName : '*';
+    let hostname = this._getHostname(request);
+    let pattern = this.routes.has(hostname) ? hostname : '*';
     if (!this.routes.has(pattern)) this._sendStatus(response, 404);
     else {
       let target = this.routes.get(pattern);
@@ -208,8 +208,8 @@ export class Server extends EventEmitter {
    * @param {Buffer} head The first packet of the upgraded stream.
    */
   _onWSRequest(request, socket, head) {
-    let hostName = this._getHostName(request);
-    let pattern = this.routes.has(hostName) ? hostName : '*';
+    let hostname = this._getHostname(request);
+    let pattern = this.routes.has(hostname) ? hostname : '*';
     if (this.routes.has(pattern)) {
       let target = this.routes.get(pattern);
       Object.assign(request.headers, target.headers);
