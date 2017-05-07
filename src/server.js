@@ -171,7 +171,7 @@ export class Server extends EventEmitter {
    * @emits {http.IncomingMessage} The "request" event.
    */
   _onHTTPRequest(request, response) {
-    this.emit('request', request);
+    this.emit('request', request, response);
 
     let hostName = this._getHostName(request);
     let host = hostName in this._options.routes ? hostName : '*';
@@ -220,7 +220,7 @@ export class Server extends EventEmitter {
     let message = STATUS_CODES[statusCode];
     response.writeHead(statusCode, {
       'Content-Length': Buffer.byteLength(message),
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain; charset=utf-8'
     });
 
     response.end(message);

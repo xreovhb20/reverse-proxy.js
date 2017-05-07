@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 # Version 4.0.0
+- The response object is also provided in `request` events.
 
 ## Version 3.1.0
 - Added support for the [Node Security Platform](https://nodesecurity.io) reports.
