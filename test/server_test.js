@@ -50,15 +50,15 @@ describe('Server', () => {
   });
 
   /**
-   * @test {Server#_getHostName}
+   * @test {Server#_getHostname}
    */
-  describe('#_getHostName()', () => {
+  describe('#_getHostname()', () => {
     it('it should return "*" if there is no "Host" header in the request', () => {
-      expect(new Server()._getHostName({headers: {}})).to.equal('*');
+      expect(new Server()._getHostname({headers: {}})).to.equal('*');
     });
 
     it('it should return the "Host" header found in the request, without the port number', () => {
-      expect(new Server()._getHostName({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
+      expect(new Server()._getHostname({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
     });
   });
 
