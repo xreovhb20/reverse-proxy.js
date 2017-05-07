@@ -103,7 +103,7 @@ export class Application {
     if (typeof process.setuid != 'function')
       console.error('Changing the process user is not supported on this platform.');
     else {
-      console.log(`Drop user privileges to: ${userId}`);
+      console.log(`Drop user privileges to "${userId}"`);
       process.setuid(userId);
     }
   }
