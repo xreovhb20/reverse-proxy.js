@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 5.0.0
+- Added new unit tests.
+
 ## Version 4.0.1
 - Fixed the [issue #5](https://github.com/cedx/reverse-proxy.js/issues/5): regression in the `Application#setUser` method.
 

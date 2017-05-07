@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
-  "version": "4.0.1",
+  "version": "5.0.0",
 
   "main": "./lib/index",
   "module": "./src/index",
