@@ -67,7 +67,7 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'src/**/*.js', 'test/**/*.
  */
 gulp.task('serve', ['build'], () => {
   if ('_server' in global) global._server.kill();
-  global._server = fork('bin/cli.js', ['--target=9000'], {stdio: 'inherit'});
+  global._server = fork('bin/cli.js', ['--address=localhost', '--target=9000'], {stdio: 'inherit'});
 });
 
 /**

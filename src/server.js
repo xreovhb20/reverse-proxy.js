@@ -157,7 +157,7 @@ export class Server extends EventEmitter {
         break;
 
       default:
-        throw new Error('The value has an invalid format.');
+        throw new Error('The route has an invalid format.');
     }
 
     if (typeof value.headers != 'object' || !value.headers) value.headers = {};

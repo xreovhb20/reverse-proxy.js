@@ -2,7 +2,6 @@ import program from 'commander';
 import {readFile} from 'fs';
 import {safeLoadAll as loadYAML} from 'js-yaml';
 import morgan from 'morgan';
-import {resolve} from 'path';
 
 import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
@@ -50,19 +49,19 @@ export class Application {
   }
 
   /**
-   * Loads the application configuration from the file system.
-   * @param {object} args The command line arguments.
-   * @return {Promise<Array>} An array of objects containing the settings of one or several reverse proxy instances.
+   * Initializes the application.
+   * @param {object} [args] The command line arguments.
    */
-  async loadConfig(args) {
-    if (!args.config) return [{
+  async init(args = {}) {
+    if (typeof args.config == 'string') {
+      const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
+      this.servers.push(...await this._parseConfig(await loadConfig(args.config)));
+    }
+    else this.servers.push(new Server({
       address: args.address,
       port: args.port,
       target: args.target
-    }];
-
-    const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
-    return this._parseConfig(await loadConfig(resolve(args.config)));
+    }));
   }
 
   /**
@@ -92,11 +91,11 @@ export class Application {
 
     // Start the proxy server.
     try {
-      let config = await this.loadConfig(program);
-      if (!config.length) throw new Error('Unable to find any configuration for the reverse proxy.');
+      await this.init(program);
+      if (!this.servers.length) throw new Error('Unable to find any configuration for the reverse proxy.');
 
-      await this.startServers(config.map(options => new Server(options)));
-      if (program.user) this.setUser(program.user);
+      await this._startServers();
+      if (program.user) this._setUser(program.user);
     }
 
     catch (err) {
@@ -108,41 +107,9 @@ export class Application {
   }
 
   /**
-   * Sets the user identity of the application process.
-   * @param {number|string} userId The user identifier.
-   */
-  setUser(userId) {
-    if (typeof process.setuid != 'function')
-      console.error('Changing the process user is not supported on this platform.');
-    else {
-      console.log(`Drop user privileges to "${userId}"`);
-      process.setuid(userId);
-    }
-  }
-
-  /**
-   * Starts the specified reverse proxy instances.
-   * @param {Server[]} servers The list of servers to start.
-   * @return {Promise} Completes when all servers have been started.
-   */
-  async startServers(servers) {
-    let done = () => {};
-    let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
-
-    return Promise.all(servers.map(server => {
-      server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-      server.on('error', error => console.error(this.debug ? error.stack : error.message));
-      server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
-      if (!program.silent) server.on('request', (request, response) => logger(request, response, done));
-
-      return server.listen();
-    }));
-  }
-
-  /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Promise<Array>} An array of objects corresponding to the parsed configuration.
+   * @return {Promise<Server[]>} The server instances corresponding to the parsed configuration.
    */
   async _parseConfig(data) {
     data = data.trim();
@@ -183,6 +150,37 @@ export class Application {
       }
     }
 
-    return config;
+    return config.map(options => new Server(options));
+  }
+
+  /**
+   * Sets the user identity of the application process.
+   * @param {number|string} userId The user identifier.
+   */
+  _setUser(userId) {
+    if (typeof process.setuid != 'function')
+      console.error('Changing the process user is not supported on this platform.');
+    else {
+      console.log(`Drop user privileges to "${userId}"`);
+      process.setuid(userId);
+    }
+  }
+
+  /**
+   * Starts the reverse proxy instances.
+   * @return {Promise} Completes when all servers have been started.
+   */
+  async _startServers() {
+    let done = () => {};
+    let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
+
+    return Promise.all(this.servers.map(server => {
+      server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+      server.on('error', error => console.error(this.debug ? error.stack : error.message));
+      server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+      if (!program.silent) server.on('request', (request, response) => logger(request, response, done));
+
+      return server.listen();
+    }));
   }
 }
