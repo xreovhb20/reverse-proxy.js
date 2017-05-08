@@ -67,6 +67,7 @@ export class Application {
   /**
    * Runs the application.
    * @return {Promise} Completes when the reverse proxy has been started.
+   * @throws {Error} Unable to find any configuration for the reverse proxy.
    */
   async run() {
     // Parse the command line arguments.
@@ -90,19 +91,11 @@ export class Application {
     if (!program.config && !program.target) program.help();
 
     // Start the proxy server.
-    try {
-      await this.init(program);
-      if (!this.servers.length) throw new Error('Unable to find any configuration for the reverse proxy.');
+    await this.init(program);
+    if (!this.servers.length) throw new Error('Unable to find any configuration for the reverse proxy.');
 
-      await this._startServers();
-      if (program.user) this._setUser(program.user);
-    }
-
-    catch (err) {
-      console.error(this.debug ? err.stack : err.message);
-      process.exit(1);
-    }
-
+    await this._startServers();
+    if (program.user) this._setUser(program.user);
     return null;
   }
 

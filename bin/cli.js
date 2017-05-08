@@ -13,7 +13,7 @@ async function main() {
 }
 
 // Run the application.
-if (module === require.main) main().catch(error => {
-  console.error(error.message);
+if (module === require.main) main().catch(err => {
+  console.error(err);
   process.exit(1);
 });
