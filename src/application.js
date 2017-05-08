@@ -55,13 +55,13 @@ export class Application {
   async init(args = {}) {
     if (typeof args.config == 'string') {
       const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
-      this.servers.push(...await this._parseConfig(await loadConfig(args.config)));
+      this.servers = await this._parseConfig(await loadConfig(args.config));
     }
-    else this.servers.push(new Server({
+    else this.servers = [new Server({
       address: args.address,
       port: args.port,
       target: args.target
-    }));
+    })];
   }
 
   /**
