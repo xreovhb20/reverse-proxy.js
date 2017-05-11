@@ -6,7 +6,6 @@ import morgan from 'morgan';
 import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
 
-
 /**
  * Represents an application providing functionalities specific to console requests.
  */
