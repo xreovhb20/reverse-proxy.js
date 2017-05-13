@@ -35,7 +35,7 @@ export class Server extends EventEmitter {
      * The routing table.
      * @type {Map}
      */
-    this.routes = new Map();
+    this.routes = new Map;
     if ('routes' in options) for (let host in options.routes) this.routes.set(host, this._normalizeRoute(options.routes[host]));
     if ('target' in options) this.routes.set('*', this._normalizeRoute(options.target));
 
