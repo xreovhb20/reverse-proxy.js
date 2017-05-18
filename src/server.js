@@ -47,7 +47,7 @@ export class Server extends EventEmitter {
 
     /**
      * The server settings.
-     * @type {Map}
+     * @type {object}
      */
     this._options = {
       address: typeof options.address == 'string' ? options.address : Server.DEFAULT_ADDRESS,
