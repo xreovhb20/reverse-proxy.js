@@ -23,10 +23,10 @@
     "morgan": "^1.8.1"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^1.0.0",
+    "@cedx/coveralls": "^1.0.1",
     "@cedx/gulp-david": "^7.0.1",
-    "babel-preset-env": "^1.2.2",
-    "babel-register": "^6.24.0",
+    "babel-preset-env": "^1.5.0",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "del": "^2.2.2",
     "esdoc": "^0.5.2",
