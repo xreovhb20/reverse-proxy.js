@@ -1,18 +1,15 @@
 {
-  "description": "Simple reverse proxy server supporting WebSockets.",
-  "homepage": "https://github.com/cedx/reverse-proxy.js",
-  "name": "@cedx/reverse-proxy",
-
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
+  "description": "Simple reverse proxy server supporting WebSockets.",
+  "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "Apache-2.0",
+  "main": "./lib/index",
+  "module": "./src/index",
+  "name": "@cedx/reverse-proxy",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
   "version": "5.0.1",
-
-  "main": "./lib/index",
-  "module": "./src/index",
-
   "bin": {
     "reverse-proxy": "./bin/cli.js"
   },
