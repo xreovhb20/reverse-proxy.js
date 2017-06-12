@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 6.0.0
+
 ## Version 5.0.1
 - Fixed a code generation bug.
 - Updated the package dependencies.
