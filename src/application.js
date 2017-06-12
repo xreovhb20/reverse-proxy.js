@@ -2,6 +2,7 @@ import program from 'commander';
 import {readFile} from 'fs';
 import {safeLoadAll as loadYAML} from 'js-yaml';
 import morgan from 'morgan';
+import {promisify} from 'util';
 
 import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
@@ -53,8 +54,8 @@ export class Application {
    */
   async init(args = {}) {
     if (typeof args.config == 'string') {
-      const loadConfig = file => new Promise(resolve => readFile(file, 'utf8', (err, data) => resolve(err ? '' : data)));
-      this.servers = await this._parseConfig(await loadConfig(args.config));
+      const loadConfig = promisify(readFile);
+      this.servers = await this._parseConfig(await loadConfig(args.config, 'utf8'));
     }
     else this.servers = [new Server({
       address: args.address,
@@ -123,11 +124,7 @@ export class Application {
       if (!Array.isArray(config)) config = [config];
     }
 
-    const loadCert = file => new Promise((resolve, reject) => readFile(file, (err, data) => {
-      if (err) reject(err);
-      else resolve(data);
-    }));
-
+    const loadCert = promisify(readFile);
     for (let options of config) {
       if (!('routes' in options) && !('target' in options))
         throw new Error('You must provide at least a target or a routing table.');
