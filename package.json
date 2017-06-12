@@ -9,7 +9,7 @@
   "name": "@cedx/reverse-proxy",
   "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "bin": {
     "reverse-proxy": "./bin/cli.js"
   },
