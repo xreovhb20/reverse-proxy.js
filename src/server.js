@@ -51,7 +51,7 @@ export class Server extends EventEmitter {
      */
     this._options = {
       address: typeof options.address == 'string' ? options.address : Server.DEFAULT_ADDRESS,
-      port: typeof options.port == 'number' ? options.port : Server.DEFAULT_PORT,
+      port: Number.isInteger(options.port) ? options.port : Server.DEFAULT_PORT,
       proxy: typeof options.proxy == 'object' && options.proxy ? options.proxy : null,
       ssl: typeof options.ssl == 'object' && options.ssl ? options.ssl : null
     };

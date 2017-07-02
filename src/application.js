@@ -72,8 +72,8 @@ export class Application {
   async run() {
     // Parse the command line arguments.
     const format = {
-      asInteger: value => parseInt(value, 10),
-      asIntegerIfNumeric: value => /^\d+$/.test(value) ? parseInt(value, 10) : value
+      asInteger: value => Number.parseInt(value, 10),
+      asIntegerIfNumeric: value => /^\d+$/.test(value) ? Number.parseInt(value, 10) : value
     };
 
     program._name = 'reverse-proxy';
