@@ -1,7 +1,7 @@
 import {createServer, STATUS_CODES} from 'http';
 import {createServer as createSecureServer} from 'https';
 import {createProxyServer} from 'http-proxy';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
@@ -45,6 +45,30 @@ export class Server {
     this._httpService = null;
 
     /**
+     * The handler of "close" events.
+     * @type {Subject}
+     */
+    this._onClose = new Subject();
+
+    /**
+     * The handler of "error" events.
+     * @type {Subject<Error>}
+     */
+    this._onError = new Subject();
+
+    /**
+     * The handler of "listening" events.
+     * @type {Subject}
+     */
+    this._onListening = new Subject();
+
+    /**
+     * The handler of "request" events.
+     * @type {Subject<object>}
+     */
+    this._onRequest = new Subject();
+
+    /**
      * The server settings.
      * @type {object}
      */
@@ -54,18 +78,6 @@ export class Server {
       proxy: typeof options.proxy == 'object' && options.proxy ? options.proxy : null,
       ssl: typeof options.ssl == 'object' && options.ssl ? options.ssl : null
     };
-
-    /**
-     * The handler of "close" events.
-     * @type {Subject}
-     */
-    this._onClose = new Subject();
-
-    /**
-     * The handler of "listening" events.
-     * @type {Subject}
-     */
-    this._onListening = new Subject();
 
     /**
      * The underlying proxy service providing custom application logic.
@@ -99,11 +111,27 @@ export class Server {
   }
 
   /**
+   * The stream of "error" events.
+   * @type {Observable<Error>}
+   */
+  get onError() {
+    return this._onError.asObservable();
+  }
+
+  /**
    * The stream of "listening" events.
    * @type {Observable}
    */
   get onListening() {
     return this._onListening.asObservable();
+  }
+
+  /**
+   * The stream of "request" events.
+   * @type {Observable<object>}
+   */
+  get onRequest() {
+    return this._onRequest.asObservable();
   }
 
   /**
@@ -116,15 +144,16 @@ export class Server {
 
   /**
    * Stops the server from accepting new connections. It does nothing if the server is already closed.
-   * @return {Promise} Completes when the server is finally closed.
+   * @return {Observable} Completes when the server is finally closed.
    * @emits {*} The "close" event.
    */
-  async close() {
-    return !this.listening ? null : new Promise(resolve => this._httpService.close(() => {
+  close() {
+    return !this.listening ? Observable.of(null) : new Observable(observer => this._httpService.close(() => {
       this._httpService = null;
       this._proxyService = null;
-      this.emit('close');
-      resolve(null);
+      this._onClose.next();
+      observer.next();
+      observer.complete();
     }));
   }
 
@@ -132,23 +161,24 @@ export class Server {
    * Begin accepting connections. It does nothing if the server is already started.
    * @param {number} [port] The port that the server should run on.
    * @param {string} [address] The address that the server should run on.
-   * @return {Promise<number>} The port that the server is running on.
+   * @return {Observable<number>} The port that the server is running on.
    * @emits {*} The "listening" event.
    */
-  async listen(port = -1, address = '') {
-    if (this.listening) return this.port;
+  listen(port = this.port, address = this.address) {
+    if (this.listening) return Observable.of(this.port);
 
     let requestHandler = this._onHTTPRequest.bind(this);
     this._httpService = this._options.ssl ? createSecureServer(this._options.ssl, requestHandler) : createServer(requestHandler);
-    this._httpService.on('error', error => this.emit('error', error));
+    this._httpService.on('error', error => this._onError.next(error));
     this._httpService.on('upgrade', this._onWSRequest.bind(this));
 
     this._proxyService = createProxyServer(this._options.proxy);
     this._proxyService.on('error', this._onRequestError.bind(this));
 
-    return new Promise(resolve => this._httpService.listen(port >= 0 ? port : this.port, address.length ? address : this.address, () => {
-      this.emit('listening');
-      resolve(this.port);
+    return new Observable(observer => this._httpService.listen(port, address, () => {
+      this._onListening.next();
+      observer.next(this.port);
+      observer.complete();
     }));
   }
 
@@ -201,10 +231,10 @@ export class Server {
    * Handles an HTTP request to a target.
    * @param {http.IncomingMessage} request The request sent by the client.
    * @param {http.ServerResponse} response The response sent by the server.
-   * @emits {http.IncomingMessage} The "request" event.
+   * @emits {object} The "request" event.
    */
   _onHTTPRequest(request, response) {
-    this.emit('request', request, response);
+    this._onRequest.next({request, response});
 
     let hostname = this._getHostname(request);
     let pattern = this.routes.has(hostname) ? hostname : '*';
@@ -224,7 +254,7 @@ export class Server {
    * @emits {Error} The "error" event.
    */
   _onRequestError(error, request, response) {
-    this.emit('error', error);
+    this._onError.next(error);
     this._sendStatus(response, 502);
   }
 
