@@ -2,6 +2,7 @@
 
 import {expect} from 'chai';
 import {describe, it} from 'mocha';
+import {Observable, Subject} from 'rxjs';
 import {Server} from '../src/index';
 
 /**
@@ -26,13 +27,73 @@ describe('Server', () => {
    * @test {Server#listening}
    */
   describe('#listening', () => {
-    it('should return whether the server is listening', async () => {
+    it('should return whether the server is listening', done => {
       let server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
-      await server.listen();
-      expect(server.listening).to.be.true;
-      await server.close();
-      expect(server.listening).to.be.false;
+
+      let observables = [
+        server.listen().do(() => expect(server.listening).to.be.true),
+        server.close().do(expect(server.listening).to.be.false)
+      ];
+
+      Observable.concat(observables).subscribe(null, done, done);
+    });
+  });
+
+  /**
+   * @test {Server#onClose}
+   */
+  describe('#onClose', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Server().onClose;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
+   * @test {Server#onError}
+   */
+  describe('#onError', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Server().onError;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
+   * @test {Server#onListening}
+   */
+  describe('#onListening', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Server().onListening;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
+   * @test {Server#onRequest}
+   */
+  describe('#onRequest', () => {
+    it('should return an `Observable` instead of the underlying `Subject`', () => {
+      let stream = new Server().onRequest;
+      expect(stream).to.be.instanceof(Observable);
+      expect(stream).to.not.be.instanceof(Subject);
+    });
+  });
+
+  /**
+   * @test {Server#port}
+   */
+  describe('#port', () => {
+    it('should have 3000 as the default port', () => {
+      expect((new Server).port).to.equal(Server.DEFAULT_PORT);
+    });
+
+    it('should have the same port as the specified one', () => {
+      expect(new Server({port: 8080}).port).to.equal(8080);
     });
   });
 
@@ -52,20 +113,8 @@ describe('Server', () => {
 
     it('should normalize the specified targets', () => {
       let routes = new Server({routes: {'belin.io': 9000}}).routes;
-      expect(routes.get('belin.io')).to.be.an('object').and.have.property('uri').that.equal('http://127.0.0.1:9000');
-    });
-  });
-
-  /**
-   * @test {Server#port}
-   */
-  describe('#port', () => {
-    it('should have 3000 as the default port', () => {
-      expect((new Server).port).to.equal(Server.DEFAULT_PORT);
-    });
-
-    it('should have the same port as the specified one', () => {
-      expect(new Server({port: 8080}).port).to.equal(8080);
+      expect(routes.get('belin.io')).to.be.an('object')
+        .and.have.property('uri').that.equal('http://127.0.0.1:9000');
     });
   });
 
@@ -102,7 +151,7 @@ describe('Server', () => {
     });
 
     it('it should throw an error if the route has an invalid format', () => {
-      expect(() => (new Server)._normalizeRoute([])).to.throw();
+      expect(() => (new Server)._normalizeRoute([3000])).to.throw();
     });
   });
 });
