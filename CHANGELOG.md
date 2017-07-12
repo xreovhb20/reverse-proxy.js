@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 ## Version 6.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: restored the [Observable](http://reactivex.io/intro.html) APIs.
+- Added new unit tests.
 - Updated the package dependencies.
 
 ## Version 5.0.1
