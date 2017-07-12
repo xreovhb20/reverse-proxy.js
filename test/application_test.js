@@ -43,25 +43,28 @@ describe('Application', () => {
    * @test {Application#init}
    */
   describe('#init()', () => {
-    it('should initialize the `servers` property from the command line arguments', async () => {
+    it('should initialize the `servers` property from the command line arguments', done => {
       let app = new Application;
-      await app.init({port: 80, target: 3000});
-      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-      expect(app.servers[0].port).to.equal(80);
+      app.init({port: 80, target: 3000}).subscribe(() => {
+        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+        expect(app.servers[0].port).to.equal(80);
+      }, done, done);
     });
 
-    it('should initialize the `servers` property from the JSON configuration', async () => {
+    it('should initialize the `servers` property from the JSON configuration', done => {
       let app = new Application;
-      await app.init({config: `${__dirname}/../example/json/basic_standalone.json`});
-      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-      expect(app.servers[0].port).to.equal(80);
+      app.init({config: `${__dirname}/../example/json/basic_standalone.json`}).subscribe(() => {
+        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+        expect(app.servers[0].port).to.equal(80);
+      }, done, done);
     });
 
-    it('should initialize the `servers` property from the YAML configuration', async () => {
+    it('should initialize the `servers` property from the YAML configuration', done => {
       let app = new Application;
-      await app.init({config: `${__dirname}/../example/yaml/basic_standalone.yaml`});
-      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-      expect(app.servers[0].port).to.equal(80);
+      app.init({config: `${__dirname}/../example/yaml/basic_standalone.yaml`}).subscribe(() => {
+        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+        expect(app.servers[0].port).to.equal(80);
+      }, done, done);
     });
   });
 
@@ -69,40 +72,34 @@ describe('Application', () => {
    * @test {Application#_parseConfig}
    */
   describe('#_parseConfig()', () => {
-    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', async () => {
-      try {
-        await (new Application)._parseConfig('{"port": 80}');
-        expect(true).to.not.be.ok;
-      }
-
-      catch (err) {
-        expect(true).to.be.ok;
-      }
+    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', done => {
+      (new Application)._parseConfig('{"port": 80}').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
     });
 
-    it('should completes with an array if the parsed JSON configuration is valid', async () => {
-      let config = await (new Application)._parseConfig('{"port": 80, "target": 3000}');
-      expect(config).to.be.an('array').and.have.lengthOf(1);
-      expect(config[0]).to.be.instanceOf(Server);
-      expect(config[0].port).to.equal(80);
+    it('should completes with an array if the parsed JSON configuration is valid', done => {
+      (new Application)._parseConfig('{"port": 80, "target": 3000}').subscribe(config => {
+        expect(config).to.be.an('array').and.have.lengthOf(1);
+        expect(config[0]).to.be.instanceof(Server);
+        expect(config[0].port).to.equal(80);
+      }, done, done);
     });
 
-    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', async () => {
-      try {
-        await (new Application)._parseConfig('port: 80');
-        expect(true).to.not.be.ok;
-      }
-
-      catch (err) {
-        expect(true).to.be.ok;
-      }
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', done => {
+      (new Application)._parseConfig('port: 80').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
     });
 
-    it('should completes with an array if the parsed YAML configuration is valid', async () => {
-      let config = await (new Application)._parseConfig('port: 80\ntarget: 3000');
-      expect(config).to.be.an('array').and.have.lengthOf(1);
-      expect(config[0]).to.be.instanceOf(Server);
-      expect(config[0].port).to.equal(80);
+    it('should completes with an array if the parsed YAML configuration is valid', done => {
+      (new Application)._parseConfig('port: 80\ntarget: 3000').subscribe(config => {
+        expect(config).to.be.an('array').and.have.lengthOf(1);
+        expect(config[0]).to.be.instanceof(Server);
+        expect(config[0].port).to.equal(80);
+      }, done, done);
     });
   });
 });

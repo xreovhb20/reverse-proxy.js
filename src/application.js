@@ -2,7 +2,7 @@ import program from 'commander';
 import {readFile} from 'fs';
 import {safeLoadAll as loadYAML} from 'js-yaml';
 import morgan from 'morgan';
-import {promisify} from 'util';
+import {Observable} from 'rxjs';
 
 import {version as pkgVersion} from '../package.json';
 import {Server} from './server';
@@ -18,18 +18,6 @@ export class Application {
    */
   static get LOG_FORMAT() {
     return ':req[host] :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
-  }
-
-  /**
-   * Initializes a new instance of the class.
-   */
-  constructor() {
-
-    /**
-     * The servers managed by this application.
-     * @type {Server[]}
-     */
-    this.servers = [];
   }
 
   /**
@@ -51,25 +39,24 @@ export class Application {
   /**
    * Initializes the application.
    * @param {object} [args] The command line arguments.
+   * @return {Observable<Server[]>} The reverse proxy instances to be started.
    */
-  async init(args = {}) {
-    if (typeof args.config == 'string') {
-      const loadConfig = promisify(readFile);
-      this.servers = await this._parseConfig(await loadConfig(args.config, 'utf8'));
-    }
-    else this.servers = [new Server({
+  init(args = {}) {
+    if (typeof args.config != 'string') return Observable.of([new Server({
       address: args.address,
       port: args.port,
       target: args.target
-    })];
+    })]);
+
+    const loadConfig = Observable.bindNodeCallback(readFile);
+    return loadConfig(args.config, 'utf8').mergeMap(data => this._parseConfig(data));
   }
 
   /**
    * Runs the application.
-   * @return {Promise} Completes when the reverse proxy has been started.
-   * @throws {Error} Unable to find any configuration for the reverse proxy.
+   * @return {Observable} Completes when the reverse proxy has been started.
    */
-  async run() {
+  run() {
     // Parse the command line arguments.
     const format = {
       asInteger: value => Number.parseInt(value, 10),
@@ -91,55 +78,62 @@ export class Application {
     if (!program.config && !program.target) program.help();
 
     // Start the proxy server.
-    await this.init(program);
-    if (!this.servers.length) throw new Error('Unable to find any configuration for the reverse proxy.');
-
-    await this._startServers();
-    if (program.user) this._setUser(program.user);
-    return null;
+    return this.init(program)
+      .mergeMap(servers => {
+        if (!servers.length) return Observable.throw(new Error('Unable to find any configuration for the reverse proxy.'));
+        return this._startServers(servers);
+      })
+      .do(() => {
+        if (program.user) this._setUser(program.user);
+      });
   }
 
   /**
    * Parses the specified configuration.
    * @param {string} data A string specifying the application configuration.
-   * @return {Promise<Server[]>} The server instances corresponding to the parsed configuration.
+   * @return {Observable<Server[]>} The server instances corresponding to the parsed configuration.
    */
-  async _parseConfig(data) {
+  _parseConfig(data) {
     data = data.trim();
-    if (!data.length) throw new Error('Invalid configuration data.');
+    if (!data.length) return Observable.throw(new Error('Invalid configuration data.'));
 
     /* eslint-disable no-extra-parens */
+    let config;
     let firstChar = data[0];
     let lastChar = data[data.length - 1];
     let isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
     /* eslint-enable no-extra-parens */
 
-    let config;
-    if (!isJson) {
-      config = [];
-      loadYAML(data, options => config.push(options));
-    }
-    else {
-      config = JSON.parse(data);
-      if (!Array.isArray(config)) config = [config];
-    }
-
-    const loadCert = promisify(readFile);
-    for (let options of config) {
-      if (!('routes' in options) && !('target' in options))
-        throw new Error('You must provide at least a target or a routing table.');
-
-      if (!('address' in options)) options.address = program.address;
-      if (!('port' in options)) options.port = program.port;
-
-      if ('ssl' in options) {
-        let keys = ['ca', 'cert', 'key', 'pfx'].filter(cert => cert in options.ssl);
-        let certs = await Promise.all(keys.map(cert => loadCert(options.ssl[cert])));
-        for (let i = 0; i < keys.length; i++) options.ssl[keys[i]] = certs[i];
+    try {
+      if (!isJson) {
+        config = [];
+        loadYAML(data, options => config.push(options));
+      }
+      else {
+        config = JSON.parse(data);
+        if (!Array.isArray(config)) config = [config];
       }
     }
 
-    return config.map(options => new Server(options));
+    catch (err) {
+      return Observable.throw(err);
+    }
+
+    const loadCert = Observable.bindNodeCallback(readFile);
+    return Observable.from(config).mergeMap(options => {
+      if (!('routes' in options) && !('target' in options))
+        return Observable.throw(new Error('You must provide at least a target or a routing table.'));
+
+      if (!('address' in options)) options.address = program.address;
+      if (!('port' in options)) options.port = program.port;
+      if (!('ssl' in options)) return Observable.of(new Server(options));
+
+      let keys = ['ca', 'cert', 'key', 'pfx'].filter(key => key in options.ssl);
+      let observables = keys.map(key => loadCert(options.ssl[key]));
+      return Observable.zip(...observables)
+        .do(certs => { for (let i = 0; i < keys.length; i++) options.ssl[keys[i]] = certs[i]; })
+        .map(() => new Server(options));
+    });
   }
 
   /**
@@ -156,18 +150,19 @@ export class Application {
   }
 
   /**
-   * Starts the reverse proxy instances.
-   * @return {Promise} Completes when all servers have been started.
+   * Starts the specified reverse proxy instances.
+   * @param {Server[]} servers The list of servers to start.
+   * @return {Observable} Completes when all servers have been started.
    */
-  async _startServers() {
+  _startServers(servers) {
     let done = () => {};
     let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
 
-    return Promise.all(this.servers.map(server => {
-      server.on('close', () => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
-      server.on('error', error => console.error(this.debug ? error.stack : error.message));
-      server.on('listening', () => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
-      if (!program.silent) server.on('request', (request, response) => logger(request, response, done));
+    return Observable.merge(...servers.map(server => {
+      server.onClose.subscribe(() => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
+      server.onError.subscribe(error => console.error(this.debug ? error : error.message));
+      server.onListening.subscribe(() => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));
+      if (!program.silent) server.onRequest.subscribe(({request, response}) => logger(request, response, done));
 
       return server.listen();
     }));
