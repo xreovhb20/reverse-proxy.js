@@ -1,12 +1,12 @@
-import EventEmitter from 'events';
 import {createServer, STATUS_CODES} from 'http';
 import {createServer as createSecureServer} from 'https';
 import {createProxyServer} from 'http-proxy';
+import {Subject} from 'rxjs';
 
 /**
  * Acts as an intermediary for requests from clients seeking resources from other servers.
  */
-export class Server extends EventEmitter {
+export class Server {
 
   /**
    * The default address that the server is listening on.
@@ -29,7 +29,6 @@ export class Server extends EventEmitter {
    * @param {object} [options] An object specifying the server settings.
    */
   constructor(options = {}) {
-    super();
 
     /**
      * The routing table.
@@ -57,6 +56,18 @@ export class Server extends EventEmitter {
     };
 
     /**
+     * The handler of "close" events.
+     * @type {Subject}
+     */
+    this._onClose = new Subject();
+
+    /**
+     * The handler of "listening" events.
+     * @type {Subject}
+     */
+    this._onListening = new Subject();
+
+    /**
      * The underlying proxy service providing custom application logic.
      * @type {httpProxy.Server}
      */
@@ -77,6 +88,22 @@ export class Server extends EventEmitter {
    */
   get listening() {
     return Boolean(this._httpService && this._httpService.listening);
+  }
+
+  /**
+   * The stream of "close" events.
+   * @type {Observable}
+   */
+  get onClose() {
+    return this._onClose.asObservable();
+  }
+
+  /**
+   * The stream of "listening" events.
+   * @type {Observable}
+   */
+  get onListening() {
+    return this._onListening.asObservable();
   }
 
   /**

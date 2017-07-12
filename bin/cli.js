@@ -5,15 +5,15 @@ const {Application} = require('../lib');
 
 /**
  * Application entry point.
- * @return {Promise} Completes when the program is started.
+ * @return {Observable} Completes when the program is terminated.
  */
-async function main() {
+function main() {
   process.title = 'Reverse-Proxy.js';
   return (new Application).run();
 }
 
-// Run the application.
-if (module === require.main) main().catch(err => {
+// Start the application.
+if (module === require.main) main().subscribe({error: err => {
   console.error(err);
   process.exit(1);
-});
+}});
