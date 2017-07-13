@@ -33,7 +33,7 @@ describe('Server', () => {
 
       let observables = [
         server.listen().do(() => expect(server.listening).to.be.true),
-        server.close().do(expect(server.listening).to.be.false)
+        server.close().do(() => expect(server.listening).to.be.false)
       ];
 
       Observable.concat(observables).subscribe(null, done, done);
