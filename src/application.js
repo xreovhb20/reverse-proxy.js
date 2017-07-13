@@ -21,6 +21,18 @@ export class Application {
   }
 
   /**
+   * Initializes a new instance of the class.
+   */
+  constructor() {
+
+    /**
+     * The servers managed by this application.
+     * @type {Server[]}
+     */
+    this.servers = [];
+  }
+
+  /**
    * Value indicating whether the application runs in debug mode.
    * @type {boolean}
    */
@@ -133,7 +145,7 @@ export class Application {
       return Observable.zip(...observables)
         .do(certs => { for (let i = 0; i < keys.length; i++) options.ssl[keys[i]] = certs[i]; })
         .map(() => new Server(options));
-    });
+    }).toArray();
   }
 
   /**
