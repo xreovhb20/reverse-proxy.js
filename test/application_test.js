@@ -113,8 +113,8 @@ describe('Application', () => {
       let settings = `{
         "target": 3000,
         "ssl": {
-          "cert": "fixtures/cert.pem",
-          "key": "fixtures/key.pem"
+          "cert": "test/fixtures/cert.pem",
+          "key": "test/fixtures/key.pem"
         }
       }`;
 
