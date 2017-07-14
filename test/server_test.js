@@ -31,12 +31,11 @@ describe('Server', () => {
       let server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
 
-      let observables = [
-        server.listen().do(() => expect(server.listening).to.be.true),
-        server.close().do(() => expect(server.listening).to.be.false)
-      ];
-
-      Observable.concat(observables).subscribe(null, done, done);
+      server.listen()
+        .do(() => expect(server.listening).to.be.true)
+        .concatMap(() => server.close())
+        .do(() => expect(server.listening).to.be.false)
+        .subscribe(null, done, done);
     });
   });
 
