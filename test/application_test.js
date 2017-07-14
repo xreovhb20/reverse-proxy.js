@@ -128,7 +128,7 @@ describe('Application', () => {
 
         let key = config[0]._options.ssl.key;
         expect(key).to.be.instanceof(Buffer);
-        expect(key.toString()).to.contain('-----BEGIN CERTIFICATE-----');
+        expect(key.toString()).to.contain('-----BEGIN ENCRYPTED PRIVATE KEY-----');
       }, done, done);
     });
   });
