@@ -26,7 +26,7 @@ export class Application {
   constructor() {
 
     /**
-     * The servers managed by this application.
+     * The proxy servers managed by this application.
      * @type {Server[]}
      */
     this.servers = [];
@@ -51,17 +51,21 @@ export class Application {
   /**
    * Initializes the application.
    * @param {object} [args] The command line arguments.
-   * @return {Observable<Server[]>} The reverse proxy instances to be started.
+   * @return {Observable} Completes when the initialization is over.
    */
   init(args = {}) {
-    if (typeof args.config != 'string') return Observable.of([new Server({
+    let observable;
+    if (typeof args.config == 'string') {
+      const loadConfig = Observable.bindNodeCallback(readFile);
+      observable = loadConfig(args.config, 'utf8').mergeMap(data => this._parseConfig(data));
+    }
+    else observable = Observable.of([new Server({
       address: args.address,
       port: args.port,
       target: args.target
     })]);
 
-    const loadConfig = Observable.bindNodeCallback(readFile);
-    return loadConfig(args.config, 'utf8').mergeMap(data => this._parseConfig(data));
+    return observable.map(servers => this.servers = servers);
   }
 
   /**
@@ -91,13 +95,13 @@ export class Application {
 
     // Start the proxy server.
     return this.init(program)
-      .mergeMap(servers => {
-        if (!servers.length) return Observable.throw(new Error('Unable to find any configuration for the reverse proxy.'));
-        return this._startServers(servers);
+      .mergeMap(() => {
+        if (!this.servers.length) return Observable.throw(new Error('Unable to find any configuration for the reverse proxy.'));
+        return this._startServers();
       })
-      .do(() => {
+      .do({complete: () => {
         if (program.user) this._setUser(program.user);
-      });
+      }});
   }
 
   /**
@@ -162,15 +166,14 @@ export class Application {
   }
 
   /**
-   * Starts the specified reverse proxy instances.
-   * @param {Server[]} servers The list of servers to start.
+   * Starts the reverse proxy instances.
    * @return {Observable} Completes when all servers have been started.
    */
-  _startServers(servers) {
+  _startServers() {
     let done = () => {};
     let logger = morgan(this.debug ? 'dev' : Application.LOG_FORMAT);
 
-    return Observable.merge(...servers.map(server => {
+    return Observable.merge(...this.servers.map(server => {
       server.onClose.subscribe(() => console.log(`Reverse proxy instance on ${server.address}:${server.port} closed`));
       server.onError.subscribe(error => console.error(this.debug ? error : error.message));
       server.onListening.subscribe(() => console.log(`Reverse proxy instance listening on ${server.address}:${server.port}`));

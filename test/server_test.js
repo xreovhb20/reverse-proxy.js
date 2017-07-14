@@ -33,7 +33,7 @@ describe('Server', () => {
 
       server.listen()
         .do(() => expect(server.listening).to.be.true)
-        .concatMap(() => server.close())
+        .mergeMap(() => server.close())
         .do(() => expect(server.listening).to.be.false)
         .subscribe(null, done, done);
     });
