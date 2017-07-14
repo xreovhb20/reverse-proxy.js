@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 6.0.1
+- Fixed a packaging issue.
+
 ## Version 6.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: restored the [Observable](http://reactivex.io/intro.html) APIs.
