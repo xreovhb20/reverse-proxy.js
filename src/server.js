@@ -148,13 +148,14 @@ export class Server {
    * @emits {*} The "close" event.
    */
   close() {
-    return !this.listening ? Observable.of(null) : new Observable(observer => this._httpService.close(() => {
+    if (!this.listening) return Observable.of(null);
+
+    const close = Observable.bindCallback(this._httpService.close.bind(this._httpService));
+    return close().do(() => {
       this._httpService = null;
       this._proxyService = null;
       this._onClose.next();
-      observer.next();
-      observer.complete();
-    }));
+    });
   }
 
   /**
@@ -175,11 +176,11 @@ export class Server {
     this._proxyService = createProxyServer(this._options.proxy);
     this._proxyService.on('error', this._onRequestError.bind(this));
 
-    return new Observable(observer => this._httpService.listen(port, address, () => {
+    const listen = Observable.bindCallback(this._httpService.listen.bind(this._httpService));
+    return listen(port, address).map(() => {
       this._onListening.next();
-      observer.next(this.port);
-      observer.complete();
-    }));
+      return this.port;
+    });
   }
 
   /**
