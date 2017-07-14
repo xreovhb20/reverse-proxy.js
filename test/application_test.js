@@ -53,7 +53,7 @@ describe('Application', () => {
 
     it('should initialize the `servers` property from the JSON configuration', done => {
       let app = new Application;
-      app.init({config: `${__dirname}/../example/json/basic_standalone.json`}).subscribe(() => {
+      app.init({config: 'example/json/basic_standalone.json'}).subscribe(() => {
         expect(app.servers).to.be.an('array').and.have.lengthOf(1);
         expect(app.servers[0].port).to.equal(80);
       }, done, done);
@@ -61,7 +61,7 @@ describe('Application', () => {
 
     it('should initialize the `servers` property from the YAML configuration', done => {
       let app = new Application;
-      app.init({config: `${__dirname}/../example/yaml/basic_standalone.yaml`}).subscribe(() => {
+      app.init({config: 'example/yaml/basic_standalone.yaml'}).subscribe(() => {
         expect(app.servers).to.be.an('array').and.have.lengthOf(1);
         expect(app.servers[0].port).to.equal(80);
       }, done, done);
