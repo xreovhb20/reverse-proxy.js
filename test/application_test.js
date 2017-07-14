@@ -72,8 +72,22 @@ describe('Application', () => {
    * @test {Application#_parseConfig}
    */
   describe('#_parseConfig()', () => {
+    it('should throw an error if the configuration has an invalid format', done => {
+      (new Application)._parseConfig('"FooBar"').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
+    });
+
     it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', done => {
       (new Application)._parseConfig('{"port": 80}').subscribe({
+        complete: () => done(new Error('Error not thrown.')),
+        error: () => done()
+      });
+    });
+
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', done => {
+      (new Application)._parseConfig('port: 80').subscribe({
         complete: () => done(new Error('Error not thrown.')),
         error: () => done()
       });
@@ -87,18 +101,34 @@ describe('Application', () => {
       }, done, done);
     });
 
-    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', done => {
-      (new Application)._parseConfig('port: 80').subscribe({
-        complete: () => done(new Error('Error not thrown.')),
-        error: () => done()
-      });
-    });
-
     it('should completes with an array if the parsed YAML configuration is valid', done => {
       (new Application)._parseConfig('port: 80\ntarget: 3000').subscribe(config => {
         expect(config).to.be.an('array').and.have.lengthOf(1);
         expect(config[0]).to.be.instanceof(Server);
         expect(config[0].port).to.equal(80);
+      }, done, done);
+    });
+
+    it('should handle the loading of certificate files', done => {
+      let settings = `{
+        "target": 3000,
+        "ssl": {
+          "cert": "fixtures/cert.pem",
+          "key": "fixtures/key.pem"
+        }
+      }`;
+
+      (new Application)._parseConfig(settings).subscribe(config => {
+        expect(config).to.be.an('array').and.have.lengthOf(1);
+        expect(config[0]).to.be.instanceof(Server);
+
+        let cert = config[0]._options.ssl.cert;
+        expect(cert).to.be.instanceof(Buffer);
+        expect(cert.toString()).to.contain('-----BEGIN CERTIFICATE-----');
+
+        let key = config[0]._options.ssl.key;
+        expect(key).to.be.instanceof(Buffer);
+        expect(key.toString()).to.contain('-----BEGIN CERTIFICATE-----');
       }, done, done);
     });
   });

@@ -129,6 +129,9 @@ export class Application {
         config = JSON.parse(data);
         if (!Array.isArray(config)) config = [config];
       }
+
+      if (!config.every(value => typeof value == 'object' && value))
+        throw new Error('Invalid configuration format.');
     }
 
     catch (err) {
