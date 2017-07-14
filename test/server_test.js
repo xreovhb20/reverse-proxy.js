@@ -1,6 +1,7 @@
 'use strict';
 
 import {expect} from 'chai';
+import {STATUS_CODES} from 'http';
 import {describe, it} from 'mocha';
 import {Observable, Subject} from 'rxjs';
 import {Server} from '../src/index';
@@ -149,8 +150,44 @@ describe('Server', () => {
       expect((new Server)._normalizeRoute({uri: 'https://domain.com:8080'})).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
     });
 
+    it('it should normalize the HTTP headers', () => {
+      let headers = {'X-Header': 'X-Value'};
+      expect((new Server)._normalizeRoute({headers, uri: 'https://domain.com:8080'}))
+        .to.deep.equal({headers: {'x-header': 'X-Value'}, uri: 'https://domain.com:8080'});
+    });
+
     it('it should throw an error if the route has an invalid format', () => {
       expect(() => (new Server)._normalizeRoute([3000])).to.throw();
+    });
+  });
+
+  /**
+   * @test {Server#_sendStatus}
+   */
+  describe('#_sendStatus()', () => {
+    const Response = class {
+      /* eslint-disable require-jsdoc */
+      constructor() {
+        this.body = '';
+        this.status = 200;
+      }
+      end(message) { this.body = message; }
+      writeHead(status) { this.status = status; }
+      /* eslint-enable require-jsdoc */
+    };
+
+    it('it should set the response status', () => {
+      let response = new Response;
+      expect(response.status).to.equal(200);
+      (new Server)._sendStatus(response, 404);
+      expect(response.status).to.equal(404);
+    });
+
+    it('it should set the response body', () => {
+      let response = new Response;
+      expect(response.body).to.be.empty;
+      (new Server)._sendStatus(response, 404);
+      expect(response.body).to.equal(STATUS_CODES[404]);
     });
   });
 });
