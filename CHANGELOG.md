@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 6.1.0
+- Removed the dependency on [Babel](https://babeljs.io) compiler.
+- Updated the package dependencies.
+
 ## Version 6.0.1
 - Fixed a packaging issue.
 
