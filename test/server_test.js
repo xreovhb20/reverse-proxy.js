@@ -1,9 +1,9 @@
 'use strict';
 
 const {expect} = require('chai');
-import {STATUS_CODES} = require('http');
+const {STATUS_CODES} = require('http');
 const {Observable, Subject} = require('rxjs');
-import {Server} = require('../lib');
+const {Server} = require('../lib');
 
 /**
  * @test {Server}

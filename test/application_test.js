@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-import {Application, Server} = require('../lib');
+const {Application, Server} = require('../lib');
 
 /**
  * @test {Application}
