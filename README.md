@@ -77,8 +77,8 @@ A common use-case for proxying in conjunction with HTTPS is that you have some f
 
 If you want the proxy server to use HTTPS protocol, you need to provide a `ssl` key in your configuration file.
 
-This object will be used as the first argument to [`https.createServer`](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) function when instanciating the proxy server.
-Its structure is similar to the `options` parameter of [`tls.createServer`](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) function.
+This object will be used as the first argument to [`https~createServer()`](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) function when instanciating the proxy server.
+Its structure is similar to the `options` parameter of [`tls~createServer()`](http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener) function.
 
 See the [`https_to_http.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/https_to_http.json) or [`https_to_http.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/https_to_http.yaml) file in the `example` folder. The `cert` and `key` fields are file paths: the corresponding files are loaded by the CLI script.
 
