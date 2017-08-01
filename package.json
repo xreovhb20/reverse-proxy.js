@@ -15,8 +15,8 @@
   "dependencies": {
     "commander": "^2.11.0",
     "http-proxy": "^1.16.2",
-    "morgan": "^1.8.2",
     "js-yaml": "^3.9.1",
+    "morgan": "^1.8.2",
     "rxjs": "^5.4.2"
   },
   "devDependencies": {
