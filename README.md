@@ -15,7 +15,7 @@ Let's suppose you were running multiple HTTP application servers, but you only w
 
 ## Requirements
 The latest [Node.js](https://nodejs.org) and [npm](https://www.npmjs.com) versions.
-If you plan to play with the sources, you will also need the latest [Gulp.js](http://gulpjs.com) version.
+If you plan to play with the sources, you will also need the latest [Gulp](http://gulpjs.com) version.
 
 ## Installing via [npm](https://www.npmjs.com)
 From a command prompt with administrator privileges, run:

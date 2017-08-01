@@ -1,15 +1,19 @@
 {
-  "title": "Reverse-Proxy.js",
-
   "source": "lib",
   "destination": "doc/api",
-
   "excludes": ["index\\.js$"],
-  "manual": {"changelog": ["CHANGELOG.md"]},
-  "plugins": [{"name": "esdoc-node"}],
-
-  "test": {
-    "source": "test",
-    "type": "mocha"
-  }
+  "plugins": [
+    {"name": "esdoc-node"},
+    {"name": "esdoc-standard-plugin", "option": {
+      "accessor": {"access": ["public", "protected"]},
+      "manual": {"files": ["CHANGELOG.md"]},
+      "test": {"source": "test"},
+      "brand": {
+        "description": "Observable-based reverse proxy server supporting WebSockets, implemented in JavaScript.",
+        "logo": "web/favicon.ico",
+        "repository": "https://github.com/cedx/reverse-proxy.js",
+        "title": "Reverse-Proxy.js"
+      }
+    }}
+  ]
 }
