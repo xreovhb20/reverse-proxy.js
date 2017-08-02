@@ -41,6 +41,7 @@
     "http",
     "observable",
     "proxy",
+    "reactivex",
     "reverse",
     "routing",
     "rxjs",
