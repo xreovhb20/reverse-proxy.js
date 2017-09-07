@@ -115,4 +115,4 @@ The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/examp
 - [Continuous integration](https://travis-ci.org/cedx/reverse-proxy.js)
 
 ## License
-[Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the Apache License, version 2.0.
+[Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) is distributed under the MIT License.

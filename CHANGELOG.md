@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 7.0.0
+- Added the [`#[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
+- Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
+
 ## Version 6.1.0
 - Removed the dependency on [Babel](https://babeljs.io) compiler.
 - Updated the package dependencies.

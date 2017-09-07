@@ -3,7 +3,6 @@
   "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
   "description": "Observable-based reverse proxy server supporting WebSockets.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
-  "license": "Apache-2.0",
   "main": "./lib/index",
   "name": "@cedx/reverse-proxy",
   "preferGlobal": true,
