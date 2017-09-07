@@ -7,7 +7,7 @@ const {Application} = require('../lib');
  * Application entry point.
  * @return {Promise} Completes when the program is terminated.
  */
-function main() {
+async function main() {
   process.title = 'Reverse-Proxy.js';
   return (new Application).run();
 }
