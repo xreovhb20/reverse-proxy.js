@@ -2,7 +2,6 @@
 
 const {expect} = require('chai');
 const {STATUS_CODES} = require('http');
-const {Observable, Subject} = require('rxjs');
 const {Server} = require('../lib');
 
 /**
@@ -27,59 +26,15 @@ describe('Server', () => {
    * @test {Server#listening}
    */
   describe('#listening', () => {
-    it('should return whether the server is listening', done => {
+    it('should return whether the server is listening', async () => {
       let server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
 
-      server.listen()
-        .do(() => expect(server.listening).to.be.true)
-        .mergeMap(() => server.close())
-        .do(() => expect(server.listening).to.be.false)
-        .subscribe(null, done, done);
-    });
-  });
+      await server.listen();
+      expect(server.listening).to.be.true;
 
-  /**
-   * @test {Server#onClose}
-   */
-  describe('#onClose', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Server().onClose;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onError}
-   */
-  describe('#onError', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Server().onError;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onListening}
-   */
-  describe('#onListening', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Server().onListening;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
-    });
-  });
-
-  /**
-   * @test {Server#onRequest}
-   */
-  describe('#onRequest', () => {
-    it('should return an `Observable` instead of the underlying `Subject`', () => {
-      let stream = new Server().onRequest;
-      expect(stream).to.be.instanceof(Observable);
-      expect(stream).to.not.be.instanceof(Subject);
+      await server.close();
+      expect(server.listening).to.be.false;
     });
   });
 

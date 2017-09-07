@@ -42,28 +42,25 @@ describe('Application', () => {
    * @test {Application#init}
    */
   describe('#init()', () => {
-    it('should initialize the `servers` property from the command line arguments', done => {
+    it('should initialize the `servers` property from the command line arguments', async () => {
       let app = new Application;
-      app.init({port: 80, target: 3000}).subscribe(() => {
-        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-        expect(app.servers[0].port).to.equal(80);
-      }, done, done);
+      await app.init({port: 80, target: 3000});
+      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+      expect(app.servers[0].port).to.equal(80);
     });
 
-    it('should initialize the `servers` property from the JSON configuration', done => {
+    it('should initialize the `servers` property from the JSON configuration', async () => {
       let app = new Application;
-      app.init({config: 'example/json/basic_standalone.json'}).subscribe(() => {
-        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-        expect(app.servers[0].port).to.equal(80);
-      }, done, done);
+      await app.init({config: 'example/json/basic_standalone.json'});
+      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+      expect(app.servers[0].port).to.equal(80);
     });
 
-    it('should initialize the `servers` property from the YAML configuration', done => {
+    it('should initialize the `servers` property from the YAML configuration', async () => {
       let app = new Application;
-      app.init({config: 'example/yaml/basic_standalone.yaml'}).subscribe(() => {
-        expect(app.servers).to.be.an('array').and.have.lengthOf(1);
-        expect(app.servers[0].port).to.equal(80);
-      }, done, done);
+      await app.init({config: 'example/yaml/basic_standalone.yaml'});
+      expect(app.servers).to.be.an('array').and.have.lengthOf(1);
+      expect(app.servers[0].port).to.equal(80);
     });
   });
 
@@ -71,44 +68,54 @@ describe('Application', () => {
    * @test {Application#_parseConfig}
    */
   describe('#_parseConfig()', () => {
-    it('should throw an error if the configuration has an invalid format', done => {
-      (new Application)._parseConfig('"FooBar"').subscribe({
-        complete: () => done(new Error('Error not thrown.')),
-        error: () => done()
-      });
+    it('should throw an error if the configuration has an invalid format', async () => {
+      try {
+        await (new Application)._parseConfig('"FooBar"');
+        expect(true).to.not.be.ok;
+      }
+
+      catch (err) {
+        expect(true).to.be.ok;
+      }
     });
 
-    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', done => {
-      (new Application)._parseConfig('{"port": 80}').subscribe({
-        complete: () => done(new Error('Error not thrown.')),
-        error: () => done()
-      });
+    it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', async () => {
+      try {
+        await (new Application)._parseConfig('{"port": 80}');
+        expect(true).to.not.be.ok;
+      }
+
+      catch (err) {
+        expect(true).to.be.ok;
+      }
     });
 
-    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', done => {
-      (new Application)._parseConfig('port: 80').subscribe({
-        complete: () => done(new Error('Error not thrown.')),
-        error: () => done()
-      });
+    it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', async () => {
+      try {
+        await (new Application)._parseConfig('port: 80');
+        expect(true).to.not.be.ok;
+      }
+
+      catch (err) {
+        expect(true).to.be.ok;
+      }
     });
 
-    it('should completes with an array if the parsed JSON configuration is valid', done => {
-      (new Application)._parseConfig('{"port": 80, "target": 3000}').subscribe(config => {
-        expect(config).to.be.an('array').and.have.lengthOf(1);
-        expect(config[0]).to.be.instanceof(Server);
-        expect(config[0].port).to.equal(80);
-      }, done, done);
+    it('should completes with an array if the parsed JSON configuration is valid', async () => {
+      let config = await (new Application)._parseConfig('{"port": 80, "target": 3000}');
+      expect(config).to.be.an('array').and.have.lengthOf(1);
+      expect(config[0]).to.be.instanceof(Server);
+      expect(config[0].port).to.equal(80);
     });
 
-    it('should completes with an array if the parsed YAML configuration is valid', done => {
-      (new Application)._parseConfig('port: 80\ntarget: 3000').subscribe(config => {
-        expect(config).to.be.an('array').and.have.lengthOf(1);
-        expect(config[0]).to.be.instanceof(Server);
-        expect(config[0].port).to.equal(80);
-      }, done, done);
+    it('should completes with an array if the parsed YAML configuration is valid', async () => {
+      let config = await (new Application)._parseConfig('port: 80\ntarget: 3000');
+      expect(config).to.be.an('array').and.have.lengthOf(1);
+      expect(config[0]).to.be.instanceof(Server);
+      expect(config[0].port).to.equal(80);
     });
 
-    it('should handle the loading of certificate files', done => {
+    it('should handle the loading of certificate files', async () => {
       let settings = `{
         "target": 3000,
         "ssl": {
@@ -117,18 +124,17 @@ describe('Application', () => {
         }
       }`;
 
-      (new Application)._parseConfig(settings).subscribe(config => {
-        expect(config).to.be.an('array').and.have.lengthOf(1);
-        expect(config[0]).to.be.instanceof(Server);
+      let config = await (new Application)._parseConfig(settings);
+      expect(config).to.be.an('array').and.have.lengthOf(1);
+      expect(config[0]).to.be.instanceof(Server);
 
-        let cert = config[0]._options.ssl.cert;
-        expect(cert).to.be.instanceof(Buffer);
-        expect(cert.toString()).to.contain('-----BEGIN CERTIFICATE-----');
+      let cert = config[0]._options.ssl.cert;
+      expect(cert).to.be.instanceof(Buffer);
+      expect(cert.toString()).to.contain('-----BEGIN CERTIFICATE-----');
 
-        let key = config[0]._options.ssl.key;
-        expect(key).to.be.instanceof(Buffer);
-        expect(key.toString()).to.contain('-----BEGIN ENCRYPTED PRIVATE KEY-----');
-      }, done, done);
+      let key = config[0]._options.ssl.key;
+      expect(key).to.be.instanceof(Buffer);
+      expect(key.toString()).to.contain('-----BEGIN ENCRYPTED PRIVATE KEY-----');
     });
   });
 });
