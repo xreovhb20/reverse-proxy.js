@@ -1,7 +1,7 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/reverse-proxy.js/issues",
-  "description": "Observable-based reverse proxy server supporting WebSockets.",
+  "description": "Simple reverse proxy server supporting WebSockets.",
   "homepage": "https://github.com/cedx/reverse-proxy.js",
   "license": "MIT",
   "main": "./lib/index",
