@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 7.1.0
+- Updated the package dependencies.
 
 ## Version 7.0.0
 - Breaking change: converted the [`Observable`](http://reactivex.io/intro.html)-based API to an `async/await`-based one.
