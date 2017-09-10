@@ -7,7 +7,8 @@ const {Server} = require('../lib');
 /**
  * @test {Server}
  */
-describe('Server', () => {
+describe('Server', function() {
+  this.timeout(10000);
 
   /**
    * @test {Server#address}
