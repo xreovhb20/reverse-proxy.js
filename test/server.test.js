@@ -15,7 +15,7 @@ describe('Server', function() {
    */
   describe('#address', () => {
     it('should have an "any IPv4" address as the default address', () => {
-      expect((new Server).address).to.equal(Server.DEFAULT_ADDRESS);
+      expect((new Server).address).to.equal(Server.defaultAddress);
     });
 
     it('should have the same host as the specified one', () => {
@@ -44,7 +44,7 @@ describe('Server', function() {
    */
   describe('#port', () => {
     it('should have 3000 as the default port', () => {
-      expect((new Server).port).to.equal(Server.DEFAULT_PORT);
+      expect((new Server).port).to.equal(Server.defaultPort);
     });
 
     it('should have the same port as the specified one', () => {

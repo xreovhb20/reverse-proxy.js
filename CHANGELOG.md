@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
 ## Version 8.0.0
+- Breaking change: using camel case instead of studly caps for the static properties of the `Server` class.
 
 ## Version 7.1.0
 - Improved the error handling in `Server#listen()` method.
