@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version 8.0.0
+
 ## Version 7.1.0
 - Improved the error handling in `Server#listen()` method.
 - Updated the package dependencies.
