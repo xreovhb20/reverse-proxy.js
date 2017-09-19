@@ -69,7 +69,10 @@ gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/
 /**
  * Watches for file changes.
  */
-gulp.task('watch', ['serve'], () => gulp.watch('lib/**/*.js', ['serve']));
+gulp.task('watch', ['serve'], () => {
+  gulp.watch('lib/**/*.js', ['serve']);
+  gulp.watch('test/**/*.js', ['test']);
+});
 
 /**
  * Spawns a new process using the specified command.
