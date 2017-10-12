@@ -15,7 +15,7 @@ describe('Server', function() {
    */
   describe('#address', () => {
     it('should have an "any IPv4" address as the default address', () => {
-      expect((new Server).address).to.equal(Server.defaultAddress);
+      expect(new Server().address).to.equal(Server.defaultAddress);
     });
 
     it('should have the same host as the specified one', () => {
@@ -44,7 +44,7 @@ describe('Server', function() {
    */
   describe('#port', () => {
     it('should have 3000 as the default port', () => {
-      expect((new Server).port).to.equal(Server.defaultPort);
+      expect(new Server().port).to.equal(Server.defaultPort);
     });
 
     it('should have the same port as the specified one', () => {
@@ -57,7 +57,7 @@ describe('Server', function() {
    */
   describe('#routes', () => {
     it('should be empty by default', () => {
-      expect((new Server).routes.size).to.equal(0);
+      expect(new Server().routes.size).to.equal(0);
     });
 
     it('should create a default route if a target is specified', () => {
@@ -78,11 +78,11 @@ describe('Server', function() {
    */
   describe('#_getHostname()', () => {
     it('it should return "*" if there is no "Host" header in the request', () => {
-      expect((new Server)._getHostname({headers: {}})).to.equal('*');
+      expect(new Server()._getHostname({headers: {}})).to.equal('*');
     });
 
     it('it should return the "Host" header found in the request, without the port number', () => {
-      expect((new Server)._getHostname({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
+      expect(new Server()._getHostname({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
     });
   });
 
@@ -91,28 +91,28 @@ describe('Server', function() {
    */
   describe('#_normalizeRoute()', () => {
     it('it should normalize a port on the local host', () => {
-      expect((new Server)._normalizeRoute(3000)).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
-      expect((new Server)._normalizeRoute({uri: 3000})).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
+      expect(new Server()._normalizeRoute(3000)).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
+      expect(new Server()._normalizeRoute({uri: 3000})).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
     });
 
     it('it should normalize an authority', () => {
-      expect((new Server)._normalizeRoute('domain.com:8080')).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
-      expect((new Server)._normalizeRoute({uri: 'domain.com:8080'})).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
+      expect(new Server()._normalizeRoute('domain.com:8080')).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
+      expect(new Server()._normalizeRoute({uri: 'domain.com:8080'})).to.deep.equal({headers: {}, uri: 'http://domain.com:8080'});
     });
 
     it('it should normalize an origin', () => {
-      expect((new Server)._normalizeRoute('https://domain.com:8080')).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
-      expect((new Server)._normalizeRoute({uri: 'https://domain.com:8080'})).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
+      expect(new Server()._normalizeRoute('https://domain.com:8080')).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
+      expect(new Server()._normalizeRoute({uri: 'https://domain.com:8080'})).to.deep.equal({headers: {}, uri: 'https://domain.com:8080'});
     });
 
     it('it should normalize the HTTP headers', () => {
       let headers = {'X-Header': 'X-Value'};
-      expect((new Server)._normalizeRoute({headers, uri: 'https://domain.com:8080'}))
+      expect(new Server()._normalizeRoute({headers, uri: 'https://domain.com:8080'}))
         .to.deep.equal({headers: {'x-header': 'X-Value'}, uri: 'https://domain.com:8080'});
     });
 
     it('it should throw an error if the route has an invalid format', () => {
-      expect(() => (new Server)._normalizeRoute([3000])).to.throw();
+      expect(() => new Server()._normalizeRoute([3000])).to.throw();
     });
   });
 
@@ -134,14 +134,14 @@ describe('Server', function() {
     it('it should set the response status', () => {
       let response = new Response;
       expect(response.status).to.equal(200);
-      (new Server)._sendStatus(response, 404);
+      new Server()._sendStatus(response, 404);
       expect(response.status).to.equal(404);
     });
 
     it('it should set the response body', () => {
       let response = new Response;
       expect(response.body).to.be.empty;
-      (new Server)._sendStatus(response, 404);
+      new Server()._sendStatus(response, 404);
       expect(response.body).to.equal(STATUS_CODES[404]);
     });
   });

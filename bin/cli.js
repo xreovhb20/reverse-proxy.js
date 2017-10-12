@@ -9,7 +9,7 @@ const {Application} = require('../lib');
  */
 async function main() {
   process.title = 'Reverse-Proxy.js';
-  return (new Application).run();
+  return new Application().run();
 }
 
 // Start the application.
