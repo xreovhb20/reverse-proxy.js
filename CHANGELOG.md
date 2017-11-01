@@ -1,7 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
-## Version [8.1.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v8.1.0)
+## Version [9.0.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v9.0.0)
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: renamed the `Application#env` property to `environment`.
 - Updated the package dependencies.
 
 ## Version [8.0.0](https://github.com/cedx/reverse-proxy.js/compare/v7.0.0...v8.0.0)
@@ -143,7 +145,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 - Upgraded the package dependencies.
 
 ## Version [0.4.0](https://github.com/cedx/reverse-proxy.js/compare/v0.3.0...v0.4.0)
-- Raised the required [Node.js](http://nodejs.org) version.
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Removed the dependency on [`promise`](https://www.npmjs.com/package/promise) module.
 - Upgraded the package dependencies.
 
