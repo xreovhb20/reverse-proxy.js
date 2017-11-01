@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
 
+## Version [8.1.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v8.1.0)
+
 ## Version [8.0.0](https://github.com/cedx/reverse-proxy.js/compare/v7.0.0...v8.0.0)
 - Breaking change: using camel case instead of studly caps for static properties.
 - Updated the package dependencies.
