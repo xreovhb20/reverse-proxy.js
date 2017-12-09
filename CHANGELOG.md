@@ -1,5 +1,5 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://www.npmjs.com/package/@cedx/reverse-proxy) package.
+This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
 
 ## Version [9.0.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v9.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
