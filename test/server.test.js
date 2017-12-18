@@ -2,7 +2,7 @@
 
 const {expect} = require('chai');
 const {STATUS_CODES} = require('http');
-const {Server} = require('../lib');
+const {Server} = require('../lib/index.js');
 
 /**
  * @test {Server}
