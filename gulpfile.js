@@ -58,7 +58,7 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/**/*.js', 'test/**/*.
  */
 gulp.task('serve', () => {
   if ('_server' in global) global._server.kill();
-  global._server = fork('bin/cli.js', ['--address=localhost', '--target=9000'], {stdio: 'inherit'});
+  global._server = fork('bin/reverse_proxy.js', ['--address=localhost', '--target=9000'], {stdio: 'inherit'});
 });
 
 /**

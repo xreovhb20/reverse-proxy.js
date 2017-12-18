@@ -28,42 +28,43 @@ $ npm install --global @cedx/reverse-proxy
 This application provides a command line interface:
 
 ```
-$ reverse-proxy --help
+$ reverse_proxy --help
 
-  Usage: reverse-proxy [options]
-  
-  Simple reverse proxy server supporting WebSockets.
+Usage: reverse_proxy [options]
 
-  Options:
+Simple reverse proxy server supporting WebSockets.
 
-    -h, --help               output usage information
-    -v, --version            output the version number
-    -a, --address <address>  address that the reverse proxy should run on [0.0.0.0]
-    -p, --port <port>        port that the reverse proxy should run on [3000]
-    -t, --target <target>    location of the server the proxy will target
-    -c, --config <path>      location of the configuration file for the reverse proxy
-    -u, --user <user>        user to drop privileges to once server socket is bound
-    --silent                 silence the log output from the reverse proxy
+
+Options:
+
+  -v, --version            output the version number
+  -a, --address <address>  address that the reverse proxy should run on (default: 0.0.0.0)
+  -p, --port <port>        port that the reverse proxy should run on (default: 3000)
+  -t, --target <target>    location of the server the proxy will target
+  -c, --config <path>      location of the configuration file for the reverse proxy
+  -u, --user <user>        user to drop privileges to once server socket is bound
+  --silent                 silence the log output from the reverse proxy
+  -h, --help               output usage information
 ```
 
 ### Setup a basic stand-alone proxy server
 From a command prompt:
 
 ```shell
-$ reverse-proxy --port 80 --target 3000
+$ reverse_proxy --port=80 --target=3000
 ```
 
 This will proxy all HTTP requests on port 80 on all network interfaces (e.g. `0.0.0.0`) to port 3000 on the same host (e. g. `127.0.0.1`). For a different target host:
 
 ```shell
-$ reverse-proxy --port 80 --target 192.168.0.1:3000
-$ reverse-proxy --port 8080 --target http://another.host:8080 --user www-data
+$ reverse_proxy --port=80 --target=192.168.0.1:3000
+$ reverse_proxy --port=8080 --target=http://another.host:8080 --user=www-data
 ```
 
 You can also use a configuration file for the same task. See the [`basic_standalone.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/basic_standalone.json) or [`basic_standalone.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/basic_standalone.yaml) file in the `example` folder of this package:
 
 ```shell
-$ reverse-proxy --config example/yaml/basic_standalone.yaml
+$ reverse_proxy --config=example/yaml/basic_standalone.yaml
 ```
 
 For more advanced usages, you **always** need to use configuration files.
