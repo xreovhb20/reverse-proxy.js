@@ -10,7 +10,7 @@
   "repository": "cedx/reverse-proxy.js",
   "version": "9.0.0",
   "bin": {
-    "reverse-proxy": "./bin/cli.js"
+    "reverse_proxy": "./bin/reverse_proxy.js"
   },
   "dependencies": {
     "commander": "^2.12.2",
@@ -30,7 +30,7 @@
     "gulp-eslint": "^4.0.0",
     "mocha": "^4.0.1",
     "nsp": "^3.1.0",
-    "nyc": "^11.4.0"
+    "nyc": "^11.4.1"
   },
   "engines": {
     "node": ">=8.9.0"
