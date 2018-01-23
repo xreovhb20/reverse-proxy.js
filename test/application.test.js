@@ -27,7 +27,7 @@ describe('Application', () => {
    * @test {Application#environment}
    */
   describe('#environment', () => {
-    it('should be "development" if the NODE_ENV environment variable is not set', () => {
+    it('should be "development" if the `NODE_ENV` environment variable is not set', () => {
       delete process.env.NODE_ENV;
       expect(new Application().environment).to.equal('development');
     });
@@ -65,12 +65,12 @@ describe('Application', () => {
   });
 
   /**
-   * @test {Application#_parseConfig}
+   * @test {Application.parseConfig}
    */
-  describe('#_parseConfig()', () => {
+  describe('.parseConfig()', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {
-        await new Application()._parseConfig('"FooBar"');
+        await Application.parseConfig('"FooBar"');
         expect(true).to.not.be.ok;
       }
 
@@ -81,7 +81,7 @@ describe('Application', () => {
 
     it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', async () => {
       try {
-        await new Application()._parseConfig('{"port": 80}');
+        await Application.parseConfig('{"port": 80}');
         expect(true).to.not.be.ok;
       }
 
@@ -92,7 +92,7 @@ describe('Application', () => {
 
     it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', async () => {
       try {
-        await new Application()._parseConfig('port: 80');
+        await Application.parseConfig('port: 80');
         expect(true).to.not.be.ok;
       }
 
@@ -102,14 +102,14 @@ describe('Application', () => {
     });
 
     it('should completes with an array if the parsed JSON configuration is valid', async () => {
-      let config = await new Application()._parseConfig('{"port": 80, "target": 3000}');
+      let config = await Application.parseConfig('{"port": 80, "target": 3000}');
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
       expect(config[0].port).to.equal(80);
     });
 
     it('should completes with an array if the parsed YAML configuration is valid', async () => {
-      let config = await new Application()._parseConfig('port: 80\ntarget: 3000');
+      let config = await Application.parseConfig('port: 80\ntarget: 3000');
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
       expect(config[0].port).to.equal(80);
@@ -124,7 +124,7 @@ describe('Application', () => {
         }
       }`;
 
-      let config = await new Application()._parseConfig(settings);
+      let config = await Application.parseConfig(settings);
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
 
