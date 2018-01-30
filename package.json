@@ -6,7 +6,6 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "@cedx/reverse-proxy",
-  "preferGlobal": true,
   "repository": "cedx/reverse-proxy.js",
   "version": "9.0.0",
   "bin": {
