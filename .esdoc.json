@@ -10,7 +10,7 @@
       "test": {"source": "test"},
       "brand": {
         "description": "Simple reverse proxy server supporting WebSockets, implemented in JavaScript.",
-        "logo": "www/favicon.ico",
+        "logo": "doc/img/favicon.ico",
         "repository": "https://github.com/cedx/reverse-proxy.js",
         "title": "Reverse-Proxy.js"
       }
