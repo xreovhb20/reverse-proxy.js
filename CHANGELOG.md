@@ -1,5 +1,8 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Reverse-Proxy.js](https://github.com/cedx/reverse-proxy.js) package.
+
+## Version [9.1.0](https://github.com/cedx/reverse-proxy.js/compare/v9.0.0...v9.1.0)
+- Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Updated the build system to [Gulp](https://gulpjs.com) version 4.
 
 ## Version [9.0.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v9.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
@@ -151,7 +154,7 @@ This file contains highlights of what changes on each version of the [Reverse-Pr
 
 ## Version [0.3.0](https://github.com/cedx/reverse-proxy.js/compare/v0.2.0...v0.3.0)
 - Breaking change: ported the callback-based API to [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-- Using [Gulp](http://gulpjs.com) as build system.
+- Using [Gulp](https://gulpjs.com) as build system.
 - Fixed the [issue #1](https://github.com/cedx/reverse-proxy.js/issues/1): using a Unix system for publishing the package on [npm](https://www.npmjs.com).
 - Upgraded the package dependencies.
 
