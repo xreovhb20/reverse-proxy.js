@@ -31,14 +31,18 @@ npm install --global @cedx/reverse-proxy
 ```
 
 !!! info
-    TO do
+    On Linux and MacOS systems,
+    use `sudo` to run the command with elevated privileges.
 
-Now you can use the `reverse-proxy` executable:
+Now you should be able to use the `reverse-proxy` executable:
 
 ```shell
 reverse-proxy --version
 # 9.1.0
 ```
+
+!!! tip
+    Consider adding the [`npm install --global`](https://docs.npmjs.com/files/folders) executables directory to your system path.
 
 ### Local installation
 
@@ -46,7 +50,7 @@ reverse-proxy --version
 From a command prompt, run:
 
 ```shell
-npm install --global @cedx/reverse-proxy
+npm install @cedx/reverse-proxy
 ```
 
 #### 2. Import it
