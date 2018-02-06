@@ -4,7 +4,7 @@
 Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup **Reverse-Proxy.js** on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 ## Features
-- Configuration based on simple [JSON](http://www.json.org) or [YAML](http://yaml.org) files.
+- Configuration based on simple [JSON](https://json.org) or [YAML](http://yaml.org) files.
 - Routing tables based on hostnames.
 - Multiple instances: allows to listen on several ports, with each one having its own target(s).
 - Supports HTTPS protocol.

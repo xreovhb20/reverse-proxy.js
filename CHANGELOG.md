@@ -127,7 +127,7 @@
 - The application instance is now exposed as `global.app` property.
 
 ## Version [0.5.2](https://github.com/cedx/reverse-proxy.js/compare/v0.5.1...v0.5.2)
-- Restored support for configuration files in [JSON](http://www.json.org) format.
+- Restored support for configuration files in [JSON](https://json.org) format.
 - Upgraded the package dependencies.
 
 ## Version [0.5.1](https://github.com/cedx/reverse-proxy.js/compare/v0.5.0...v0.5.1)
