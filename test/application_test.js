@@ -51,14 +51,14 @@ describe('Application', () => {
 
     it('should initialize the `servers` property from the JSON configuration', async () => {
       let app = new Application;
-      await app.init({config: 'example/json/basic_standalone.json'});
+      await app.init({config: `${__dirname}/fixtures/config.json`});
       expect(app.servers).to.be.an('array').and.have.lengthOf(1);
       expect(app.servers[0].port).to.equal(80);
     });
 
     it('should initialize the `servers` property from the YAML configuration', async () => {
       let app = new Application;
-      await app.init({config: 'example/yaml/basic_standalone.yaml'});
+      await app.init({config: `${__dirname}/fixtures/config.yaml`});
       expect(app.servers).to.be.an('array').and.have.lengthOf(1);
       expect(app.servers[0].port).to.equal(80);
     });

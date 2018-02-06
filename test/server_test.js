@@ -77,12 +77,18 @@ describe('Server', function() {
    * @test {Server#_getHostname}
    */
   describe('#_getHostname()', () => {
+    const IncomingMessage = class {
+      /* eslint-disable require-jsdoc */
+      constructor(headers = {}) { this.headers = headers; }
+      /* eslint-enable require-jsdoc */
+    };
+
     it('it should return "*" if there is no "Host" header in the request', () => {
-      expect(new Server()._getHostname({headers: {}})).to.equal('*');
+      expect(new Server()._getHostname(new IncomingMessage)).to.equal('*');
     });
 
     it('it should return the "Host" header found in the request, without the port number', () => {
-      expect(new Server()._getHostname({headers: {host: 'belin.io:8080'}})).to.equal('belin.io');
+      expect(new Server()._getHostname(new IncomingMessage({host: 'belin.io:8080'}))).to.equal('belin.io');
     });
   });
 
@@ -120,7 +126,7 @@ describe('Server', function() {
    * @test {Server#_sendStatus}
    */
   describe('#_sendStatus()', () => {
-    const Response = class {
+    const ServerResponse = class {
       /* eslint-disable require-jsdoc */
       constructor() {
         this.body = '';
@@ -132,14 +138,14 @@ describe('Server', function() {
     };
 
     it('it should set the response status', () => {
-      let response = new Response;
+      let response = new ServerResponse;
       expect(response.status).to.equal(200);
       new Server()._sendStatus(response, 404);
       expect(response.status).to.equal(404);
     });
 
     it('it should set the response body', () => {
-      let response = new Response;
+      let response = new ServerResponse;
       expect(response.body).to.be.empty;
       new Server()._sendStatus(response, 404);
       expect(response.body).to.equal(STATUS_CODES[404]);
