@@ -5,10 +5,6 @@ Before installing **Reverse-Proxy.js**, you need to make sure you have [Node.js]
 
 !!! warning
     Reverse-Proxy.js requires Node.js >= **8.9.0**.
-
-!!! info
-    If you plan to play with the library sources, you will also need
-    [Gulp](https://gulpjs.com) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
     
 You can verify if you're already good to go with the following commands:
 
@@ -19,6 +15,10 @@ node --version
 npm --version
 # 5.6.0
 ```
+
+!!! info
+    If you plan to play with the package sources, you will also need
+    [Gulp](https://gulpjs.com) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
 
 ## Installing with npm package manager
 TODO Two possible usages.

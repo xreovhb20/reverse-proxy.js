@@ -4,6 +4,7 @@
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Fixed the [issue #6](https://github.com/cedx/reverse-proxy.js/issues/6): a regression in the executable name.
 - Updated the build system to [Gulp](https://gulpjs.com) version 4.
+- Updated the package dependencies.
 
 ## Version [9.0.0](https://github.com/cedx/reverse-proxy.js/compare/v8.0.0...v9.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.

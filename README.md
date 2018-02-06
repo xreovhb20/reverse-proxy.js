@@ -21,14 +21,14 @@ If you plan to play with the sources, you will also need the latest [Gulp](https
 From a command prompt with administrator privileges, run:
 
 ```shell
-$ npm install --global @cedx/reverse-proxy
+npm install --global @cedx/reverse-proxy
 ```
 
 ## Usage
 This application provides a command line interface:
 
 ```
-$ reverse-proxy --help
+reverse-proxy --help
 
 Usage: reverse-proxy [options]
 
@@ -51,20 +51,20 @@ Options:
 From a command prompt:
 
 ```shell
-$ reverse-proxy --port=80 --target=3000
+reverse-proxy --port=80 --target=3000
 ```
 
 This will proxy all HTTP requests on port 80 on all network interfaces (e.g. `0.0.0.0`) to port 3000 on the same host (e. g. `127.0.0.1`). For a different target host:
 
 ```shell
-$ reverse-proxy --port=80 --target=192.168.0.1:3000
-$ reverse-proxy --port=8080 --target=http://another.host:8080 --user=www-data
+reverse-proxy --port=80 --target=192.168.0.1:3000
+reverse-proxy --port=8080 --target=http://another.host:8080 --user=www-data
 ```
 
 You can also use a configuration file for the same task. See the [`basic_standalone.json`](https://github.com/cedx/reverse-proxy.js/blob/master/example/json/basic_standalone.json) or [`basic_standalone.yaml`](https://github.com/cedx/reverse-proxy.js/blob/master/example/yaml/basic_standalone.yaml) file in the `example` folder of this package:
 
 ```shell
-$ reverse-proxy --config=example/yaml/basic_standalone.yaml
+reverse-proxy --config=example/yaml/basic_standalone.yaml
 ```
 
 For more advanced usages, you **always** need to use configuration files.
