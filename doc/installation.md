@@ -21,9 +21,6 @@ npm --version
     [Gulp](https://gulpjs.com) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
 
 ## Installing with npm package manager
-TODO Two possible usages.
-
-### Global installation
 From a command prompt with administrator privileges, run:
 
 ```shell
@@ -32,7 +29,7 @@ npm install --global @cedx/reverse-proxy
 
 !!! info
     On Linux and MacOS systems,
-    use `sudo` to run the command with elevated privileges.
+    use the `sudo` command to run `npm` with elevated privileges.
 
 Now you should be able to use the `reverse-proxy` executable:
 
@@ -43,19 +40,3 @@ reverse-proxy --version
 
 !!! tip
     Consider adding the [`npm install --global`](https://docs.npmjs.com/files/folders) executables directory to your system path.
-
-### Local installation
-
-#### 1. Install it
-From a command prompt, run:
-
-```shell
-npm install @cedx/reverse-proxy
-```
-
-#### 2. Import it
-Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
-
-```js
-const reverseProxy = require('@cedx/reverse-proxy');
-```

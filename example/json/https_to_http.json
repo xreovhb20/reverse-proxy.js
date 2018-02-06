@@ -1,8 +1,0 @@
-{
-  "port": 443,
-  "target": 3000,
-  "ssl": {
-    "cert": "/path/to/ssl/cert.file",
-    "key": "/path/to/ssl/key.file"
-  }
-}

@@ -2,7 +2,7 @@
 
 ## Version [9.1.0](https://github.com/cedx/reverse-proxy.js/compare/v9.0.0...v9.1.0)
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
-- Fixed the [issue #6](https://github.com/cedx/reverse-proxy.js/issues/6): a regression in the executable name.
+- Fixed the [issue #6](https://github.com/cedx/reverse-proxy.js/issues/6): wrong executable name in the documentation.
 - Updated the build system to [Gulp](https://gulpjs.com) version 4.
 - Updated the package dependencies.
 

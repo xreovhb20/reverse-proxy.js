@@ -29,6 +29,14 @@ markdown_extensions:
 pages:
 - Overview: index.md
 - Installation: installation.md
+- Usage:
+  - Command line interface: usage/cli.md
+  - Configuration: usage/configuration.md
+  - Stand-alone proxy server: usage/standalone_server.md
+  - Using HTTPS: usage/using_https.md
+  - Hostname routing: usage/hostname_routing.md
+  - Listening on multiple ports: usage/multiple_ports.md
+  - Custom HTTP headers: usage/http_headers.md
 - About:
   - Changelog: about/changelog.md
   - License: about/license.md
