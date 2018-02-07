@@ -10,13 +10,13 @@ To add an header to all the proxied requests of a target, you must use the **obj
     The HTTP headers defined in this way will replace **any** existing headers with the same name.
 
 ## Example
-Adding the `Authorization` and `X-Custom-Header` HTTP headers to the requests received on port 80 and forwarded to port 3000: 
+Adding the `Authorization` and `X-Custom-Header` HTTP headers to the requests received on port `8080` and forwarded to `http://127.0.0.1:3000`: 
 
 ### JSON configuration
 
 ```json
 {
-  "port": 80,
+  "port": 8080,
   "target": {
     "uri": 3000,
     "headers": {
@@ -30,7 +30,7 @@ Adding the `Authorization` and `X-Custom-Header` HTTP headers to the requests re
 ### YAML configuration
 
 ```yaml
-port: 80
+port: 8080
 target:
   uri: 3000
   headers:

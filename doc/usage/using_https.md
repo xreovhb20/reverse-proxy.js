@@ -11,7 +11,7 @@ Its structure is similar to the `options` parameter of [`tls~createServer()`](ht
     the corresponding files are loaded by the [CLI script](cli.md).
 
 ## Example
-Proxying HTTPS requests on port 443 to an HTTP server listening on port 3000:
+Proxying HTTPS requests on port `443` to an HTTP server listening at `http://127.0.0.1:3000` :
 
 ### JSON configuration
 
