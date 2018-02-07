@@ -50,9 +50,10 @@ gulp.task('lint', () => gulp.src(['*.js', 'bin/*.js', 'lib/**/*.js', 'test/**/*.
 /**
  * Starts the proxy server.
  */
-gulp.task('serve', () => {
+gulp.task('serve', done => {
   if ('_server' in global) global._server.kill();
   global._server = fork('bin/reverse_proxy.js', ['--address=localhost', '--target=9000'], {stdio: 'inherit'});
+  done();
 });
 
 /**
@@ -63,7 +64,7 @@ gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/
 /**
  * Watches for file changes.
  */
-gulp.task('watch', () => { // TODO not working!!!!
+gulp.task('watch', () => {
   gulp.watch(['bin/*.js', 'lib/**/*.js'], {ignoreInitial: false}, gulp.task('serve'));
   gulp.watch('test/**/*.js', gulp.task('test'));
 });

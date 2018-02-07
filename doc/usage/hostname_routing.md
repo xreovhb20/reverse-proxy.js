@@ -7,7 +7,7 @@ To use hostname routing, you need to provide a `routes` key in your [configurati
 
 !!! tip
     Unhandled hostnames result in a `404` HTTP error.
-    To override this behavior, use an asterisk (`*`) as hostname
+    To override this behavior, use a wildcard character (`*`) as hostname
     to define the route matched by default when a hostname is not found.
 
 ## Example
