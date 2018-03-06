@@ -4,7 +4,7 @@
 Let's suppose you were running multiple HTTP application servers, but you only wanted to expose one machine to the Internet. You could setup **Reverse-Proxy.js** on that one machine and then reverse-proxy the incoming HTTP requests to locally running services which were not exposed to the outside network.
 
 !!! info
-    Reverse-Proxy.js is based on the [`node-http-proxy`](https://github.com/nodejitsu/node-http-proxy) project.
+    Reverse-Proxy.js is based on the [Nodejitsu HTTP proxy](https://github.com/nodejitsu/node-http-proxy) project.
     If you need advanced features not provided by the application, you should consider using the [`http-proxy`](https://www.npmjs.com/package/http-proxy) package directly.
 
 ## Features
