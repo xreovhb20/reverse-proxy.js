@@ -71,7 +71,7 @@ describe('Application', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {
         await Application.parseConfig('"FooBar"');
-        expect(true).to.not.be.ok;
+        expect.fail('Error not thrown');
       }
 
       catch (err) {
@@ -82,7 +82,7 @@ describe('Application', () => {
     it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', async () => {
       try {
         await Application.parseConfig('{"port": 80}');
-        expect(true).to.not.be.ok;
+        expect.fail('Error not thrown');
       }
 
       catch (err) {
@@ -93,7 +93,7 @@ describe('Application', () => {
     it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', async () => {
       try {
         await Application.parseConfig('port: 80');
-        expect(true).to.not.be.ok;
+        expect.fail('Error not thrown');
       }
 
       catch (err) {
