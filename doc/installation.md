@@ -10,7 +10,7 @@ You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v9.5.0
+# v9.7.0
 
 npm --version
 # 5.6.0
@@ -21,15 +21,14 @@ npm --version
     [Gulp](https://gulpjs.com) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
 
 ## Installing with npm package manager
-From a command prompt with administrator privileges, run:
+From a command prompt, run:
 
 ```shell
 npm install --global @cedx/reverse-proxy
 ```
 
-!!! info
-    On Linux and MacOS systems,
-    use the `sudo` command to run `npm` with elevated privileges.
+!!! tip
+    Consider adding the [`npm install --global`](https://docs.npmjs.com/files/folders) executables directory to your system path.
 
 Now you should be able to use the `reverse-proxy` executable:
 
@@ -37,6 +36,3 @@ Now you should be able to use the `reverse-proxy` executable:
 reverse-proxy --version
 # 9.1.0
 ```
-
-!!! tip
-    Consider adding the [`npm install --global`](https://docs.npmjs.com/files/folders) executables directory to your system path.
