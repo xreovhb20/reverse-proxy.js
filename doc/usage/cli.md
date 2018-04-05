@@ -13,7 +13,7 @@ Options:
 
   -v, --version            output the version number
   -a, --address <address>  address that the reverse proxy should run on (default: 0.0.0.0)
-  -p, --port <port>        port that the reverse proxy should run on (default: 3000)
+  -p, --port <port>        port that the reverse proxy should run on (default: 8080)
   -t, --target <target>    location of the server the proxy will target
   -c, --config <path>      location of the configuration file for the reverse proxy
   -u, --user <user>        user to drop privileges to once server socket is bound

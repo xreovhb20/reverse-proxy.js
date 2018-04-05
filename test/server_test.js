@@ -43,7 +43,7 @@ describe('Server', function() {
    * @test {Server#port}
    */
   describe('#port', () => {
-    it('should have 3000 as the default port', () => {
+    it('should have 8080 as the default port', () => {
       expect(new Server().port).to.equal(Server.defaultPort);
     });
 
@@ -97,8 +97,8 @@ describe('Server', function() {
    */
   describe('#_normalizeRoute()', () => {
     it('it should normalize a port on the local host', () => {
-      expect(new Server()._normalizeRoute(3000)).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
-      expect(new Server()._normalizeRoute({uri: 3000})).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:3000'});
+      expect(new Server()._normalizeRoute(8080)).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:8080'});
+      expect(new Server()._normalizeRoute({uri: 8080})).to.deep.equal({headers: {}, uri: 'http://127.0.0.1:8080'});
     });
 
     it('it should normalize an authority', () => {
@@ -118,7 +118,7 @@ describe('Server', function() {
     });
 
     it('it should throw an error if the route has an invalid format', () => {
-      expect(() => new Server()._normalizeRoute([3000])).to.throw();
+      expect(() => new Server()._normalizeRoute([8080])).to.throw();
     });
   });
 

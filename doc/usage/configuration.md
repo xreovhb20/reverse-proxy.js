@@ -12,7 +12,7 @@ The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/examp
 ```json
 {
   "address": "0.0.0.0",
-  "port": 3000,
+  "port": 8080,
   "routes": {},
   "target": null,
 
@@ -49,7 +49,7 @@ The [`defaults.json`](https://github.com/cedx/reverse-proxy.js/blob/master/examp
 
 ```yaml
 address: 0.0.0.0
-port: 3000
+port: 8080
 routes: {}
 target: null
 
