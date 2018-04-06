@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+const cluster = require('cluster');
 const {Application} = require('../lib/index.js');
 
 /**
@@ -8,7 +9,8 @@ const {Application} = require('../lib/index.js');
  * @return {Promise} Completes when the program is terminated.
  */
 async function main() {
-  process.title = 'Reverse-Proxy.js';
+  let id = cluster.isMaster ? 'master' : `worker:${cluster.worker.id}`;
+  process.title = `reverse-proxy/${id}`;
   return new Application().run();
 }
 

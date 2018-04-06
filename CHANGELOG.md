@@ -1,8 +1,10 @@
 # Changelog
 
 ## Version [10.0.0](https://github.com/cedx/reverse-proxy.js/compare/v9.0.0...v10.0.0)
+- Breaking change: dropped the TODO `--user` CLI argument.
 - Breaking change: the `Server` class and CLI now uses port 8080 as default.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Added support for multithreading: implements the [feature request #7](https://github.com/cedx/reverse-proxy.js/issues/7).
 - Fixed the [issue #6](https://github.com/cedx/reverse-proxy.js/issues/6): wrong executable name in the documentation.
 - Updated the build system to [Gulp](https://gulpjs.com) version 4.
 - Updated the package dependencies.
