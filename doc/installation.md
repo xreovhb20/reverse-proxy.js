@@ -10,7 +10,7 @@ You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v9.7.0
+# v9.11.0
 
 npm --version
 # 5.6.0
@@ -34,5 +34,5 @@ Now you should be able to use the `reverse-proxy` executable:
 
 ```shell
 reverse-proxy --version
-# 9.1.0
+# 10.0.0
 ```
