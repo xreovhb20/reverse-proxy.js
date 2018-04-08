@@ -65,12 +65,12 @@ describe('Application', () => {
   });
 
   /**
-   * @test {Application.parseConfig}
+   * @test {Application._parseConfiguration}
    */
-  describe('.parseConfig()', () => {
+  describe('._parseConfiguration()', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {
-        await Application.parseConfig('"FooBar"');
+        await Application._parseConfig('"FooBar"');
         expect.fail('Error not thrown');
       }
 
@@ -81,7 +81,7 @@ describe('Application', () => {
 
     it('should throw an error if the parsed JSON configuration has no `routes` and no `target` properties', async () => {
       try {
-        await Application.parseConfig('{"port": 80}');
+        await Application._parseConfig('{"port": 80}');
         expect.fail('Error not thrown');
       }
 
@@ -92,7 +92,7 @@ describe('Application', () => {
 
     it('should throw an error if the parsed YAML configuration has no `routes` and no `target` properties', async () => {
       try {
-        await Application.parseConfig('port: 80');
+        await Application._parseConfig('port: 80');
         expect.fail('Error not thrown');
       }
 
@@ -102,14 +102,14 @@ describe('Application', () => {
     });
 
     it('should completes with an array if the parsed JSON configuration is valid', async () => {
-      let config = await Application.parseConfig('{"port": 80, "target": 3000}');
+      let config = await Application._parseConfig('{"port": 80, "target": 3000}');
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
       expect(config[0].port).to.equal(80);
     });
 
     it('should completes with an array if the parsed YAML configuration is valid', async () => {
-      let config = await Application.parseConfig('port: 80\ntarget: 3000');
+      let config = await Application._parseConfig('port: 80\ntarget: 3000');
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
       expect(config[0].port).to.equal(80);
@@ -124,7 +124,7 @@ describe('Application', () => {
         }
       }`;
 
-      let config = await Application.parseConfig(settings);
+      let config = await Application._parseConfig(settings);
       expect(config).to.be.an('array').and.have.lengthOf(1);
       expect(config[0]).to.be.instanceof(Server);
 
