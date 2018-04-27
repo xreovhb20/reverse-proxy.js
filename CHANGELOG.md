@@ -2,6 +2,7 @@
 
 ## Version [10.0.0](https://github.com/cedx/reverse-proxy.js/compare/v9.0.0...v10.0.0)
 - Breaking change: dropped the TODO `--user` CLI argument.
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: the `Server` class and CLI now uses port 8080 as default.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added support for multithreading: implements the [feature request #7](https://github.com/cedx/reverse-proxy.js/issues/7).
