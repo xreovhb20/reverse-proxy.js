@@ -4,10 +4,10 @@
 Simple reverse proxy server supporting WebSockets, implemented in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 ## Resources
-- [Documentation](https://cedx.github.io/reverse-proxy.js)
-- [API reference](https://cedx.github.io/reverse-proxy.js/api)
+- [Documentation](https://dev.belin.io/reverse-proxy.js)
+- [API reference](https://dev.belin.io/reverse-proxy.js/api)
 - [npm package](https://www.npmjs.com/package/@cedx/reverse-proxy)
 - [GitHub repository](https://github.com/cedx/reverse-proxy.js)
 
 ## License
-[Reverse-Proxy.js](https://cedx.github.io/reverse-proxy.js) is distributed under the MIT License.
+[Reverse-Proxy.js](https://dev.belin.io/reverse-proxy.js) is distributed under the MIT License.

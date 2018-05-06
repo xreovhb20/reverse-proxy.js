@@ -138,7 +138,7 @@
 - The `port` parameter of the `Server#listen` method is now optional.
 - Added unit tests.
 - Added support for code coverage.
-- Added support for [Travis CI](https://travis-ci.org) continuous integration.
+- Added support for [Travis CI](https://travis-ci.com) continuous integration.
 
 ## Version [0.5.0](https://github.com/cedx/reverse-proxy.js/compare/v0.4.1...v0.5.0)
 - Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
