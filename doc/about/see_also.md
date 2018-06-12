@@ -6,5 +6,5 @@
 - [Nodejitsu HTTP Proxy](https://github.com/nodejitsu/node-http-proxy)
 
 ## Testing
-- [Continuous integration](https://travis-ci.org/cedx/reverse-proxy.js)
+- [Continuous integration](https://travis-ci.com/cedx/reverse-proxy.js)
 - [Code coverage](https://coveralls.io/github/cedx/reverse-proxy.js)
