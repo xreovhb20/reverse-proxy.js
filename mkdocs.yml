@@ -1,5 +1,5 @@
 site_name: Reverse-Proxy.js
-site_description: Simple reverse proxy server supporting WebSockets, implemented in JavaScript.
+site_description: Simple reverse proxy server supporting WebSockets, implemented in TypeScript.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://dev.belin.io/reverse-proxy.js
 
