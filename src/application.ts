@@ -167,13 +167,10 @@ export class Application {
     const isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
 
     let servers: JsonMap[];
-    if (isJson) {
+    if (!isJson) servers = yaml.safeLoadAll(data);
+    else {
       servers = JSON.parse(data);
       if (!Array.isArray(servers)) servers = [servers];
-    }
-    else {
-      servers = [];
-      yaml.safeLoadAll(data, options => servers.push(options));
     }
 
     if (!servers.every(value => typeof value == 'object' && Boolean(value))) throw new TypeError('Invalid configuration format');
