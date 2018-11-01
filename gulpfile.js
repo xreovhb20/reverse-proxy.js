@@ -1,4 +1,6 @@
-import {fork, spawn, SpawnOptions} from 'child_process';
+'use strict';
+
+const {fork, spawn} = require('child_process');
 const del = require('del');
 const {promises} = require('fs');
 const gulp = require('gulp');
