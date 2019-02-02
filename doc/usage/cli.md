@@ -6,7 +6,7 @@ reverse-proxy --help
 
 Usage: reverse-proxy [options]
 
-Simple reverse proxy server supporting WebSockets.
+Personal reverse proxy server supporting WebSockets.
 
 
 Options:

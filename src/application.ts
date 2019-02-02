@@ -142,7 +142,7 @@ export class Application {
     };
 
     program.name('reverse-proxy')
-      .description('Simple reverse proxy server supporting WebSockets.')
+      .description('Personal reverse proxy server supporting WebSockets.')
       .version(Application.version, '-v, --version')
       .option('-a, --address <address>', 'address that the reverse proxy should run on', Server.defaultAddress)
       .option('-p, --port <port>', 'port that the reverse proxy should run on', format.asInteger, Server.defaultPort)
