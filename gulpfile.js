@@ -1,9 +1,9 @@
 'use strict';
-
 const {fork, spawn} = require('child_process');
 const del = require('del');
 const {promises} = require('fs');
 const gulp = require('gulp');
+const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const {delimiter, normalize, resolve} = require('path');
 const pkg = require('./package.json');
@@ -22,7 +22,10 @@ const sources = ['*.js', 'bin/*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.t
 /**
  * Builds the project.
  */
-gulp.task('build', () => _exec('tsc'));
+gulp.task('build:cjs', () => _exec('tsc'));
+gulp.task('build:esm', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
+gulp.task('build:rename', () => gulp.src('lib/**/*.js').pipe(rename({extname: '.mjs'})).pipe(gulp.dest('lib')));
+gulp.task('build', gulp.series('build:esm', 'build:rename', 'build:cjs'));
 
 /**
  * Deletes all generated files and reset any saved state.
@@ -58,8 +61,7 @@ gulp.task('lint', () => _exec('tslint', sources));
  * Starts the proxy server.
  */
 gulp.task('serve', done => {
-  if ('_server' in global) global._server.kill();
-  global._server = fork('bin/reverse_proxy.js', ['--address=localhost', '--target=80'], {stdio: 'inherit'});
+  fork('bin/main.js', ['--address=localhost', '--target=80'], {stdio: 'inherit'});
   done();
 });
 
