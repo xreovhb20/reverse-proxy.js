@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+/* tslint:disable: no-console */
 const cluster = require('cluster');
 const {Application} = require('../lib');
 
