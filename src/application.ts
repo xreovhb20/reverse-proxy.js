@@ -2,7 +2,7 @@ import * as cluster from 'cluster';
 import * as program from 'commander';
 import {Console} from 'console';
 import {promises} from 'fs';
-import * as yaml from 'js-yaml';
+import {safeLoadAll} from 'js-yaml';
 import {cpus} from 'os';
 import {Writable} from 'stream';
 
@@ -167,7 +167,7 @@ export class Application {
     const isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
 
     let servers: JsonMap[];
-    if (!isJson) servers = yaml.safeLoadAll(data);
+    if (!isJson) servers = safeLoadAll(data);
     else {
       servers = JSON.parse(data);
       if (!Array.isArray(servers)) servers = [servers];
