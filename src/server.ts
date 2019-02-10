@@ -252,7 +252,7 @@ export class Server extends EventEmitter {
 }
 
 /**
- * Defines the options of a `Server` instance.
+ * Defines the options of a [[Server]] instance.
  */
 export interface ServerOptions {
 

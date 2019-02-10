@@ -5,7 +5,7 @@ import {suite, test, timeout} from 'mocha-typescript';
 import {Route, Server} from '../src';
 
 /**
- * Tests the features of the `Server` class.
+ * Tests the features of the [[Server]] class.
  */
 @suite(timeout(15000))
 class ServerTest {

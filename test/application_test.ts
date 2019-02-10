@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {Application, Server} from '../src';
 
 /**
- * Tests the features of the `Application` class.
+ * Tests the features of the [[Application]] class.
  */
 @suite class ApplicationTest {
 
@@ -35,7 +35,7 @@ import {Application, Server} from '../src';
   }
 
   /**
-   * Tests the `Application#init}
+   * Tests the `Application#init` method.
    */
   @test async testInit(): Promise<void> {
     // It should initialize the `servers` property from the command line arguments.
@@ -58,7 +58,7 @@ import {Application, Server} from '../src';
   }
 
   /**
-   * Tests the `Application._parseConfiguration}
+   * Tests the `Application#_parseConfiguration` method.
    */
   @test async test_parseConfiguration(): Promise<void> {
     // It should throw an error if the configuration has an invalid format.

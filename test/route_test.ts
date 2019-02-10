@@ -4,7 +4,7 @@ import {suite, test} from 'mocha-typescript';
 import {Route} from '../src';
 
 /**
- * Tests the features of the `Route` class.
+ * Tests the features of the [[Route]] class.
  */
 @suite class RouteTest {
 
