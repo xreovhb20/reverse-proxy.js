@@ -175,7 +175,7 @@ export class Server extends EventEmitter {
     if (!host) return '*';
 
     const index = host.indexOf(':');
-    return index < 0 ? host : host.substr(0, index);
+    return index < 0 ? host : host.substring(0, index);
   }
 
   /**
