@@ -24,9 +24,9 @@
   "devDependencies": {
     "@cedx/coveralls": "^8.4.0",
     "@types/chai": "^4.1.7",
-    "@types/http-proxy": "^1.16.2",
+    "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.0",
-    "@types/node": "^11.10.4",
+    "@types/node": "^11.11.0",
     "chai": "^4.2.0",
     "del": "^4.0.0",
     "gulp": "^4.0.0",
@@ -36,7 +36,7 @@
     "mocha-typescript": "^1.1.17",
     "nyc": "^13.3.0",
     "source-map-support": "^0.5.10",
-    "ts-node": "^8.0.2",
+    "ts-node": "^8.0.3",
     "tslint": "^5.13.1",
     "typedoc": "^0.14.2",
     "typescript": "^3.3.3333"
