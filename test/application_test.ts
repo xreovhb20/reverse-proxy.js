@@ -94,13 +94,13 @@ import {Application, Server} from '../src';
     // It should completes with an array if the parsed JSON configuration is valid.
     let config = await Application._parseConfig('{"port": 80, "target": 3000}');
     expect(config).to.be.an('array').and.have.lengthOf(1);
-    expect(config[0]).to.be.instanceof(Server);
+    expect(config[0]).to.be.an.instanceof(Server);
     expect(config[0].port).to.equal(80);
 
     // It should completes with an array if the parsed YAML configuration is valid.
     config = await Application._parseConfig('port: 80\ntarget: 3000');
     expect(config).to.be.an('array').and.have.lengthOf(1);
-    expect(config[0]).to.be.instanceof(Server);
+    expect(config[0]).to.be.an.instanceof(Server);
     expect(config[0].port).to.equal(80);
 
     // It should handle the loading of certificate files.
@@ -114,14 +114,14 @@ import {Application, Server} from '../src';
 
     config = await Application._parseConfig(settings);
     expect(config).to.be.an('array').and.have.lengthOf(1);
-    expect(config[0]).to.be.instanceof(Server);
+    expect(config[0]).to.be.an.instanceof(Server);
 
     const cert = config[0]._options.ssl.cert;
-    expect(cert).to.be.instanceof(Buffer);
+    expect(cert).to.be.an.instanceof(Buffer);
     expect(cert.toString()).to.contain('-----BEGIN CERTIFICATE-----');
 
     const key = config[0]._options.ssl.key;
-    expect(key).to.be.instanceof(Buffer);
+    expect(key).to.be.an.instanceof(Buffer);
     expect(key.toString()).to.contain('-----BEGIN ENCRYPTED PRIVATE KEY-----');
   }
 }
