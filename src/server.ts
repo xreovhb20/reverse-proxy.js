@@ -47,6 +47,11 @@ export class Server extends EventEmitter {
   static readonly eventRequest: string = 'request';
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Server';
+
+  /**
    * The routing table.
    */
   readonly routes = new Map<string, Route>();
@@ -96,13 +101,6 @@ export class Server extends EventEmitter {
 
     for (const [host, route] of Object.entries(routes)) this.routes.set(host.toLowerCase(), Route.from(route));
     if (target != undefined) this.routes.set('*', Route.from(target));
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Server';
   }
 
   /**

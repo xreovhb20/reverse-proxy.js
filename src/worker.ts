@@ -15,9 +15,7 @@ export class Worker {
   /**
    * The class name.
    */
-  get [Symbol.toStringTag](): string {
-    return 'Worker';
-  }
+  readonly [Symbol.toStringTag]: string = 'Worker';
 
   /**
    * Stops the worker from accepting new connections.

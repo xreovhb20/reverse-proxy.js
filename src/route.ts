@@ -6,6 +6,11 @@ import {StringMap} from './map';
 export class Route {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Route';
+
+  /**
    * Creates a new route.
    * @param uri The URL of the target server.
    * @param headers The HTTP headers to add to incoming requests.
@@ -25,13 +30,6 @@ export class Route {
 
     const uri = typeof definition.uri == 'number' ? `http://127.0.0.1:${definition.uri}` : definition.uri;
     return new this(new URL(/^https?:/i.test(uri) ? uri : `http://${uri}`), headers);
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Route';
   }
 }
 
