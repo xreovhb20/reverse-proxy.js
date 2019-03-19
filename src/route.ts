@@ -6,11 +6,6 @@ import {StringMap} from './map';
 export class Route {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Route';
-
-  /**
    * Creates a new route.
    * @param uri The URL of the target server.
    * @param headers The HTTP headers to add to incoming requests.

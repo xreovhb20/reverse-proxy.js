@@ -13,11 +13,6 @@ export class Worker {
   private _servers: Server[] = [];
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Worker';
-
-  /**
    * Stops the worker from accepting new connections.
    * @return Completes when all the servers managed by this worker are finally closed.
    */

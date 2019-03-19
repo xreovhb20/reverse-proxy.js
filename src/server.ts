@@ -47,11 +47,6 @@ export class Server extends EventEmitter {
   static readonly eventRequest: string = 'request';
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Server';
-
-  /**
    * The routing table.
    */
   readonly routes = new Map<string, Route>();

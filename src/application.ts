@@ -44,11 +44,6 @@ export class Application {
   static readonly version: string = '10.0.0';
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Application';
-
-  /**
    * The message logger.
    */
   logger: Console = console;
