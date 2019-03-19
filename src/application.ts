@@ -153,8 +153,8 @@ export class Application {
 
   /**
    * Parses the specified configuration data.
-   * @param {string} configuration A string specifying the application configuration.
-   * @return {Promise<Server[]>} The server instances corresponding to the parsed configuration.
+   * @param configuration A string specifying the application configuration.
+   * @return The server instances corresponding to the parsed configuration.
    */
   private async _parseConfiguration(configuration: string): Promise<Server[]> {
     const data = configuration.trim();
