@@ -54,7 +54,7 @@ export class Server extends EventEmitter {
   /**
    * The address that the server is listening on.
    */
-  private readonly _address: string;
+  private _address: string;
 
   /**
    * The underlying HTTP(S) service listening for requests.
@@ -64,12 +64,12 @@ export class Server extends EventEmitter {
   /**
    * The port that the server is listening on.
    */
-  private readonly _port: number;
+  private _port: number;
 
   /**
    * The settings of the underlying proxy module.
    */
-  private readonly _proxyOptions?: httpProxy.ServerOptions;
+  private _proxyOptions?: httpProxy.ServerOptions;
 
   /**
    * The underlying proxy service providing custom application logic.
@@ -79,7 +79,7 @@ export class Server extends EventEmitter {
   /**
    * The settings of the underlying SSL module.
    */
-  private readonly _sslOptions?: https.ServerOptions;
+  private _sslOptions?: https.ServerOptions;
 
   /**
    * Creates a new reverse proxy.
