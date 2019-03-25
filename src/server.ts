@@ -90,7 +90,7 @@ export class Server extends EventEmitter {
     const {address = '', port = -1, routes = {}, proxy, ssl, target} = options;
 
     this._address = address.length ? address : Server.defaultAddress;
-    this._port = port >= 0 && Number.isInteger(port) ? port : Server.defaultPort;
+    this._port = Number.isInteger(port) && port >= 0 ? port : Server.defaultPort;
     this._proxyOptions = proxy;
     this._sslOptions = ssl;
 
