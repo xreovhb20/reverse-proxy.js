@@ -19,7 +19,7 @@
   "dependencies": {
     "commander": "^2.20.0",
     "http-proxy": "^1.17.0",
-    "js-yaml": "^3.13.0"
+    "js-yaml": "^3.13.1"
   },
   "devDependencies": {
     "@cedx/coveralls": "^8.5.0",
