@@ -22,7 +22,7 @@
     "js-yaml": "^3.13.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^8.4.0",
+    "@cedx/coveralls": "^8.5.0",
     "@types/chai": "^4.1.7",
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
