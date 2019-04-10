@@ -28,7 +28,7 @@ import {Route} from '../src';
 
     // It should handle `Target` instances.
     route = Route.from({
-      headers: {Authorization: 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ='},
+      headers: {authorization: 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ='},
       uri: 1234
     });
 
@@ -37,7 +37,7 @@ import {Route} from '../src';
     expect(route.headers.get('authorization')).to.equal('Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=');
 
     route = Route.from({
-      headers: {'Authorization': 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=', 'X-Custom-Header': 'X-Value'},
+      headers: {'authorization': 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=', 'x-custom-header': 'X-Value'},
       uri: 'belin.io:5678'
     });
 
