@@ -1,8 +1,6 @@
 import {StringMap} from './map';
 
-/**
- * A user defined route for a server.
- */
+/** A user defined route for a server. */
 export class Route {
 
   /**
@@ -28,18 +26,12 @@ export class Route {
   }
 }
 
-/**
- * Defines the properties of a target server.
- */
+/** Defines the properties of a target server. */
 export interface Target {
 
-  /**
-   * The HTTP headers to add to incoming requests.
-   */
+  /** The HTTP headers to add to incoming requests. */
   headers?: StringMap<string>;
 
-  /**
-   * The URL of the target server.
-   */
+  /** The URL of the target server. */
   uri: number | string;
 }

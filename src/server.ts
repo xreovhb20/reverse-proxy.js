@@ -7,78 +7,46 @@ import {AddressInfo, Socket} from 'net';
 import {StringMap} from './map';
 import {Route, Target} from './route';
 
-/**
- * Acts as an intermediary for requests from clients seeking resources from other servers.
- */
+/** Acts as an intermediary for requests from clients seeking resources from other servers. */
 export class Server extends EventEmitter {
 
-  /**
-   * The default address that the server is listening on.
-   */
+  /** The default address that the server is listening on. */
   static readonly defaultAddress: string = '0.0.0.0';
 
-  /**
-   * The default port that the server is listening on.
-   */
+  /** The default port that the server is listening on. */
   static readonly defaultPort: number = 8080;
 
-  /**
-   * An event that is emitted when the server closes.
-   * @event close
-   */
+  /** @event close An event that is emitted when the server closes. */
   static readonly eventClose: string = 'close';
 
-  /**
-   * An event that is emitted when an error occurs.
-   * @event error
-   */
+  /** @event error An event that is emitted when an error occurs. */
   static readonly eventError: string = 'error';
 
-  /**
-   * An event that is emitted when the server has been bound.
-   * @event listening
-   */
+  /** @event listening An event that is emitted when the server has been bound. */
   static readonly eventListening: string = 'listening';
 
-  /**
-   * An event that is emitted each time there is an HTTP request.
-   * @event request
-   */
+  /** @event request An event that is emitted each time there is an HTTP request. */
   static readonly eventRequest: string = 'request';
 
-  /**
-   * The routing table.
-   */
+  /** The routing table. */
   readonly routes = new Map<string, Route>();
 
-  /**
-   * The address that the server is listening on.
-   */
+  /** The address that the server is listening on. */
   private _address: string;
 
-  /**
-   * The underlying HTTP(S) service listening for requests.
-   */
+  /** The underlying HTTP(S) service listening for requests. */
   private _httpService: http.Server | https.Server | null = null;
 
-  /**
-   * The port that the server is listening on.
-   */
+  /** The port that the server is listening on. */
   private _port: number;
 
-  /**
-   * The settings of the underlying proxy module.
-   */
+  /** The settings of the underlying proxy module. */
   private _proxyOptions?: httpProxy.ServerOptions;
 
-  /**
-   * The underlying proxy service providing custom application logic.
-   */
+  /** The underlying proxy service providing custom application logic. */
   private _proxyService: httpProxy | null = null;
 
-  /**
-   * The settings of the underlying SSL module.
-   */
+  /** The settings of the underlying SSL module. */
   private _sslOptions?: https.ServerOptions;
 
   /**
@@ -98,23 +66,17 @@ export class Server extends EventEmitter {
     if (target != undefined) this.routes.set('*', Route.from(target));
   }
 
-  /**
-   * The address that the server is listening on.
-   */
+  /** The address that the server is listening on. */
   get address(): string {
     return this.listening ? (this._httpService!.address() as AddressInfo).address : this._address;
   }
 
-  /**
-   * Value indicating whether the server is currently listening.
-   */
+  /** Value indicating whether the server is currently listening. */
   get listening(): boolean {
     return this._httpService != null && this._httpService.listening;
   }
 
-  /**
-   * The port that the server is listening on.
-   */
+  /** The port that the server is listening on. */
   get port(): number {
     return this.listening ? (this._httpService!.address() as AddressInfo).port : this._port;
   }
@@ -244,38 +206,24 @@ export class Server extends EventEmitter {
   }
 }
 
-/**
- * Defines the options of a [[Server]] instance.
- */
+/** Defines the options of a [[Server]] instance. */
 export interface ServerOptions {
 
-  /**
-   * The address that the server is listening on.
-   */
+  /** The address that the server is listening on. */
   address: string;
 
-  /**
-   * The port that the server is listening on.
-   */
+  /** The port that the server is listening on. */
   port: number;
 
-  /**
-   * The settings of the underlying proxy module.
-   */
+  /** The settings of the underlying proxy module. */
   proxy: httpProxy.ServerOptions;
 
-  /**
-   * The route table.
-   */
+  /** The route table. */
   routes: StringMap<number | string | Target>;
 
-  /**
-   * The settings of the underlying SSL module.
-   */
+  /** The settings of the underlying SSL module. */
   ssl: https.ServerOptions;
 
-  /**
-   * The default target server.
-   */
+  /** The default target server. */
   target: number | string | Target;
 }

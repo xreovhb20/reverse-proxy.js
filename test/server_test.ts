@@ -1,18 +1,13 @@
 /* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {IncomingMessage, STATUS_CODES} from 'http';
 import {suite, test, timeout} from 'mocha-typescript';
-import {Route, Server} from '../src';
+import {Server} from '../src';
 
-/**
- * Tests the features of the [[Server]] class.
- */
+/** Tests the features of the [[Server]] class. */
 @suite(timeout(15000))
 class ServerTest {
 
-  /**
-   * Tests the `Server#address` property.
-   */
+  /** Tests the `Server#address` property. */
   @test testAddress(): void {
     // It should have an "any IPv4" address as the default address.
     expect(new Server().address).to.equal(Server.defaultAddress);
@@ -21,9 +16,7 @@ class ServerTest {
     expect(new Server({address: 'localhost'}).address).to.equal('localhost');
   }
 
-  /**
-   * Tests the `Server#listening` property.
-   */
+  /** Tests the `Server#listening` property. */
   @test async testListening(): Promise<void> {
     // It should return whether the server is listening.
     const server = new Server({address: '127.0.0.1', port: 0});
@@ -36,9 +29,7 @@ class ServerTest {
     expect(server.listening).to.be.false;
   }
 
-  /**
-   * Tests the `Server#port` property.
-   */
+  /** Tests the `Server#port` property. */
   @test testPort(): void {
     // It should have 8080 as the default port.
     expect(new Server().port).to.equal(Server.defaultPort);
@@ -47,9 +38,7 @@ class ServerTest {
     expect(new Server({port: 3000}).port).to.equal(3000);
   }
 
-  /**
-   * Tests the `Server#routes` property.
-   */
+  /** Tests the `Server#routes` property. */
   @test async testRoutes(): Promise<void> {
     // It should be empty by default.
     expect(new Server().routes.size).to.equal(0);

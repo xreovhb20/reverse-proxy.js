@@ -10,61 +10,41 @@ import {JsonMap} from './map';
 import {Server} from './server';
 import {Worker} from './worker';
 
-/**
- * The application singleton.
- */
+/** The application singleton. */
 let _app: Application;
 
-/**
- * Represents an application providing functionalities specific to console requests.
- */
+/** Represents an application providing functionalities specific to console requests. */
 export class Application {
 
-  /**
-   * The application singleton.
-   */
+  /** The application singleton. */
   static get instance(): Application {
     return _app;
   }
 
-  /**
-   * The default number of workers.
-   */
+  /** The default number of workers. */
   static readonly defaultWorkerCount: number = Math.ceil(cpus().length / 2);
 
-  /**
-   * The format used for logging the requests.
-   */
+  /** The format used for logging the requests. */
   static readonly logFormat: string =
     ':req[host] :remote-addr - :remote-user [:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
 
-  /**
-   * The version number of the package.
-   */
+  /** The version number of the package. */
   static readonly version: string = '10.0.0';
 
-  /**
-   * The message logger.
-   */
+  /** The message logger. */
   logger: Console = console;
 
-  /**
-   * Creates a new application.
-   */
+  /** Creates a new application. */
   constructor() {
     _app = this;
   }
 
-  /**
-   * Value indicating whether the application runs in debug mode.
-   */
+  /** Value indicating whether the application runs in debug mode. */
   get debug(): boolean {
     return ['development', 'test'].includes(this.environment);
   }
 
-  /**
-   * The application environment.
-   */
+  /** The application environment. */
   get environment(): string {
     return 'NODE_ENV' in process.env ? process.env.NODE_ENV! : 'development';
   }
@@ -182,9 +162,7 @@ export class Application {
     return servers.map(options => new Server(options));
   }
 
-  /**
-   * Starts the request workers.
-   */
+  /** Starts the request workers. */
   private async _startWorkers(): Promise<void> {
     const servers = [];
     if (program.target) servers.push({

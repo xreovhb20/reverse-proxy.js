@@ -3,40 +3,32 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {Application, Server} from '../src';
 
-/**
- * Tests the features of the [[Application]] class.
- */
+/** Tests the features of the [[Application]] class. */
 @suite class ApplicationTest {
 
-  /**
-   * Tests the `Application#debug` property.
-   */
+  /** Tests the `Application#debug` property. */
   @test testDebug(): void {
-    // It should be `false` in production environment', () => {
+    // It should be `false` in production environment.
     process.env.NODE_ENV = 'production';
     expect(new Application().debug).to.be.false;
 
-    // It should be `true` in development environment', () => {
+    // It should be `true` in development environment.
     process.env.NODE_ENV = 'development';
     expect(new Application().debug).to.be.true;
   }
 
-  /**
-   * Tests the `Application#environment` property.
-   */
+  /** Tests the `Application#environment` property. */
   @test testEnvironment(): void {
-    // It should be "development" if the `NODE_ENV` environment variable is not set', () => {
+    // It should be "development" if the `NODE_ENV` environment variable is not set.
     delete process.env.NODE_ENV;
     expect(new Application().environment).to.equal('development');
 
-    // It should equal the value of `NODE_ENV` environment variable when it is set', () => {
+    // It should equal the value of `NODE_ENV` environment variable when it is set.
     process.env.NODE_ENV = 'production';
     expect(new Application().environment).to.equal('production');
   }
 
-  /**
-   * Tests the `Application#init` method.
-   */
+  /** Tests the `Application#init` method. */
   @test async testInit(): Promise<void> {
     // It should initialize the `servers` property from the command line arguments.
     let app = new Application;
@@ -57,9 +49,7 @@ import {Application, Server} from '../src';
     expect(app.servers[0].port).to.equal(80);
   }
 
-  /**
-   * Tests the `Application#_parseConfiguration` method.
-   */
+  /** Tests the `Application#_parseConfiguration` method. */
   @test async test_parseConfiguration(): Promise<void> {
     // It should throw an error if the configuration has an invalid format.
     try {

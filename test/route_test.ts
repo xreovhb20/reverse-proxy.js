@@ -3,14 +3,10 @@ import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import {Route} from '../src';
 
-/**
- * Tests the features of the [[Route]] class.
- */
+/** Tests the features of the [[Route]] class. */
 @suite class RouteTest {
 
-  /**
-   * Tests the `Route.from()` method.
-   */
+  /** Tests the `Route.from()` method. */
   @test testFrom() {
     // It should handle numbers.
     let route = Route.from(1234);

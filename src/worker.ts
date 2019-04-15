@@ -2,14 +2,10 @@ import * as cluster from 'cluster';
 import {Application} from './application';
 import {Server, ServerOptions} from './server';
 
-/**
- * Contains all public information and methods about a request worker.
- */
+/** Contains all public information and methods about a request worker. */
 export class Worker {
 
-  /**
-   * The proxy servers managed by this worker.
-   */
+  /** The proxy servers managed by this worker. */
   private _servers: Server[] = [];
 
   /**
