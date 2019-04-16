@@ -16,16 +16,28 @@ export class Server extends EventEmitter {
   /** The default port that the server is listening on. */
   static readonly defaultPort: number = 8080;
 
-  /** @event close An event that is emitted when the server closes. */
+  /**
+   * An event that is emitted when the server closes.
+   * @event close
+   */
   static readonly eventClose: string = 'close';
 
-  /** @event error An event that is emitted when an error occurs. */
+  /**
+   * An event that is emitted when an error occurs.
+   * @event error
+   */
   static readonly eventError: string = 'error';
 
-  /** @event listening An event that is emitted when the server has been bound. */
+  /**
+   * An event that is emitted when the server has been bound.
+   * @event listening
+   */
   static readonly eventListening: string = 'listening';
 
-  /** @event request An event that is emitted each time there is an HTTP request. */
+  /**
+   * An event that is emitted each time there is an HTTP request.
+   * @event request
+   */
   static readonly eventRequest: string = 'request';
 
   /** The routing table. */
