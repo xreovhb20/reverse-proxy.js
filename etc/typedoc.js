@@ -6,5 +6,5 @@ module.exports = {
   gitRevision: 'master',
   mode: 'modules',
   name: 'Reverse-Proxy.js',
-  out: join(__dirname, 'api')
+  out: join(__dirname, '../doc/api')
 };
