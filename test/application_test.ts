@@ -6,7 +6,7 @@ import {Application, Server} from '../src';
 describe('Application', () => {
 
   /** Tests the `Application#debug` property. */
-  describe('Debug()', () => {
+  describe('#debug', () => {
     it('should be `false` in production environment', () => {
       process.env.NODE_ENV = 'production';
       expect(new Application().debug).to.be.false;
@@ -19,7 +19,7 @@ describe('Application', () => {
   });
 
   /** Tests the `Application#environment` property. */
-  describe('Environment()', () => {
+  describe('#environment', () => {
     it('should be "development" if the `NODE_ENV` environment variable is not set', () => {
       delete process.env.NODE_ENV;
       expect(new Application().environment).to.equal('development');
@@ -32,7 +32,7 @@ describe('Application', () => {
   });
 
   /** Tests the `Application#init` method. */
-  describe('Init()', () => {
+  describe('#init()', () => {
     it('should initialize the `servers` property from the command line arguments', async () => {
       const app = new Application;
       await app.init({port: 80, target: 3000});
@@ -56,7 +56,7 @@ describe('Application', () => {
   });
 
   /** Tests the `Application#_parseConfiguration` method. */
-  describe('_parseConfiguration()', () => {
+  describe('#_parseConfiguration()', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {
         await Application._parseConfig('"FooBar"');

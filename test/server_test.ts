@@ -7,7 +7,7 @@ describe('Server', function() {
   this.timeout(15000);
 
   /** Tests the `Server#address` property. */
-  describe('Address()', () => {
+  describe('#address', () => {
     it('should have an "any IPv4" address as the default address', () => {
       expect(new Server().address).to.equal(Server.defaultAddress);
     });
@@ -18,7 +18,7 @@ describe('Server', function() {
   });
 
   /** Tests the `Server#listening` property. */
-  describe('Listening()', async () => {
+  describe('#listening', async () => {
     it('should return whether the server is listening', async () => {
       const server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
@@ -32,7 +32,7 @@ describe('Server', function() {
   });
 
   /** Tests the `Server#port` property. */
-  describe('Port()', () => {
+  describe('#port', () => {
     it('should have 8080 as the default port', () => {
       expect(new Server().port).to.equal(Server.defaultPort);
     });
@@ -43,7 +43,7 @@ describe('Server', function() {
   });
 
   /** Tests the `Server#routes` property. */
-  describe('Routes()', () => {
+  describe('#routes', () => {
     it('should be empty by default', () => {
       expect(new Server().routes.size).to.equal(0);
     });

@@ -6,7 +6,7 @@ import {Route} from '../src';
 describe('Route', () => {
 
   /** Tests the `Route.from()` method. */
-  describe('From()', () => {
+  describe('.from()', () => {
     it('should handle numbers', () => {
       const route = Route.from(1234);
       expect(route.uri.href).to.equal('http://127.0.0.1:1234');
