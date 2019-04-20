@@ -18,7 +18,7 @@ describe('Server', function() {
   });
 
   /** Tests the `Server#listening` property. */
-  describe('#listening', async () => {
+  describe('#listening', () => {
     it('should return whether the server is listening', async () => {
       const server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
