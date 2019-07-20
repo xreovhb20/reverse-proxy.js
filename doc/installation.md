@@ -37,6 +37,3 @@ Now you should be able to use the `reverse-proxy` executable:
 reverse-proxy --version
 # 10.0.0
 ```
-
-!!! info
-    This library is packaged as [CommonJS modules](https://nodejs.org/api/modules.html) (`.js` files) and [ECMAScript modules](https://nodejs.org/api/esm.html) (`.mjs` files).

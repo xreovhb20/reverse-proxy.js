@@ -1,11 +1,8 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import {Route} from '../src';
+import chai from 'chai';
+import {Route} from '../lib/index.js';
 
-/** Tests the features of the [[Route]] class. */
+/** Tests the features of the {@link Route} class. */
 describe('Route', () => {
-
-  /** Tests the `Route.from()` method. */
   describe('.from()', () => {
     it('should handle numbers', () => {
       const route = Route.from(1234);

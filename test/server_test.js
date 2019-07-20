@@ -1,12 +1,10 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import {Server} from '../src';
+import chai from 'chai';
+import {Server} from '../lib/index.js';
 
-/** Tests the features of the [[Server]] class. */
+/** Tests the features of the {@link Server} class. */
 describe('Server', function() {
   this.timeout(15000);
 
-  /** Tests the `Server#address` property. */
   describe('#address', () => {
     it('should have an "any IPv4" address as the default address', () => {
       expect(new Server().address).to.equal(Server.defaultAddress);
@@ -17,7 +15,6 @@ describe('Server', function() {
     });
   });
 
-  /** Tests the `Server#listening` property. */
   describe('#listening', () => {
     it('should return whether the server is listening', async () => {
       const server = new Server({address: '127.0.0.1', port: 0});
@@ -31,7 +28,6 @@ describe('Server', function() {
     });
   });
 
-  /** Tests the `Server#port` property. */
   describe('#port', () => {
     it('should have 8080 as the default port', () => {
       expect(new Server().port).to.equal(Server.defaultPort);
@@ -42,7 +38,6 @@ describe('Server', function() {
     });
   });
 
-  /** Tests the `Server#routes` property. */
   describe('#routes', () => {
     it('should be empty by default', () => {
       expect(new Server().routes.size).to.equal(0);
@@ -54,14 +49,14 @@ describe('Server', function() {
 
       const route = routes.get('*');
       expect(route).to.not.be.undefined;
-      expect(route!.uri.href).to.equal('http://127.0.0.1:9000');
+      expect(route.uri.href).to.equal('http://127.0.0.1:9000');
     });
 
     it('should normalize the specified targets', () => {
       const routes = new Server({routes: {'belin.io': 'belin.io:1234'}}).routes;
       const route = routes.get('belin.io');
       expect(route).to.not.be.undefined;
-      expect(route!.uri.href).to.equal('http://belin.io:1234');
+      expect(route.uri.href).to.equal('http://belin.io:1234');
     });
   });
 });

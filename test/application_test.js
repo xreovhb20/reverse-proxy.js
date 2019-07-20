@@ -1,11 +1,8 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import {Application, Server} from '../src';
+import chai from 'chai';
+import {Application, Server} from '../lib/index.js';
 
-/** Tests the features of the [[Application]] class. */
+/** Tests the features of the {@link Application} class. */
 describe('Application', () => {
-
-  /** Tests the `Application#debug` property. */
   describe('#debug', () => {
     it('should be `false` in production environment', () => {
       process.env.NODE_ENV = 'production';
@@ -18,7 +15,6 @@ describe('Application', () => {
     });
   });
 
-  /** Tests the `Application#environment` property. */
   describe('#environment', () => {
     it('should be "development" if the `NODE_ENV` environment variable is not set', () => {
       delete process.env.NODE_ENV;
@@ -31,7 +27,6 @@ describe('Application', () => {
     });
   });
 
-  /** Tests the `Application#init` method. */
   describe('#init()', () => {
     it('should initialize the `servers` property from the command line arguments', async () => {
       const app = new Application;
@@ -55,7 +50,6 @@ describe('Application', () => {
     });
   });
 
-  /** Tests the `Application#_parseConfiguration` method. */
   describe('#_parseConfiguration()', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {

@@ -23,4 +23,7 @@ Install the latest version of **Reverse-Proxy.js** with [npm](https://www.npmjs.
 npm install --global @cedx/reverse-proxy
 ```
 
+!!! info
+    This application is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
+
 For detailed instructions, see the [installation guide](installation.md).
