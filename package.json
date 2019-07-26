@@ -7,6 +7,7 @@
   "name": "@cedx/reverse-proxy",
   "repository": "github:cedx/reverse-proxy.js",
   "type": "module",
+  "types": "lib/index.d.ts",
   "version": "10.0.0",
   "author": {
     "email": "cedric@belin.io",
@@ -22,29 +23,28 @@
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
     "@cedx/coveralls": "^9.0.0",
     "@types/chai": "^4.1.7",
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^11.13.15",
+    "@types/node": "^12.6.8",
     "chai": "^4.2.0",
     "del": "^5.0.0",
     "gulp": "^4.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.0",
     "nyc": "^14.1.0",
     "source-map-support": "^0.5.12",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "engines": {
-    "node": ">=12.6.0",
-    "npm": ">=6.9.0"
+    "node": ">=12.7.0",
+    "npm": ">=6.10.0"
   },
   "keywords": [
     "esm",
