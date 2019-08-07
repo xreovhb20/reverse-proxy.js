@@ -28,7 +28,7 @@
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.6.8",
+    "@types/node": "^12.7.0",
     "chai": "^4.2.0",
     "del": "^5.0.0",
     "gulp": "^4.0.2",
