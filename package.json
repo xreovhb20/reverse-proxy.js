@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@cedx/coveralls": "^9.0.0",
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.0",
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
