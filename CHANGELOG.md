@@ -109,8 +109,8 @@
 - Breaking change: the `Server` class is not anymore an [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter).
 - Added a build task for fixing the coding standards issues.
 - Added the `onClose`, `onError`, `onListen` and `onRequest` event streams to the `Server` class.
-- Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
-- Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
+- Replaced the [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
+- Replaced the [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
 
 ## Version [0.7.0](https://github.com/cedx/reverse-proxy.js/compare/v0.6.0...v0.7.0)
@@ -124,7 +124,7 @@
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Turned the package into a [scoped one](https://docs.npmjs.com/getting-started/scoped-packages).
 - Added the `DEFAULT_HOST` and `DEFAULT_PORT` constants to the `Server` class.
-- Replaced [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
+- Replaced the [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
 
 ## Version [0.5.4](https://github.com/cedx/reverse-proxy.js/compare/v0.5.3...v0.5.4)
 - Fixed some bugs.
