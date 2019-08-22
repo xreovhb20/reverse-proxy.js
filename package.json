@@ -18,32 +18,35 @@
     "reverse-proxy": "bin/reverse-proxy.js"
   },
   "dependencies": {
-    "commander": "^2.20.0",
+    "commander": "^3.0.0",
     "http-proxy": "^1.17.0",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^9.0.0",
-    "@types/chai": "^4.1.7",
+    "@cedx/coveralls": "^9.1.0",
+    "@types/chai": "^4.2.0",
+    "@types/gulp": "^4.0.6",
+    "@types/gulp-replace": "^0.0.31",
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.6.8",
+    "@types/node": "^12.7.2",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "chai": "^4.2.0",
     "del": "^5.0.0",
+    "eslint": "^6.2.1",
     "gulp": "^4.0.2",
-    "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "mocha": "^6.2.0",
-    "nyc": "^14.1.0",
-    "source-map-support": "^0.5.12",
+    "nyc": "^14.1.1",
+    "source-map-support": "^0.5.13",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
   },
   "engines": {
-    "node": ">=12.7.0",
+    "node": ">=12.8.0",
     "npm": ">=6.10.0"
   },
   "keywords": [
@@ -57,7 +60,7 @@
   ],
   "scripts": {
     "coverage": "gulp coverage",
-    "prepack": "gulp build",
+    "prepack": "gulp",
     "start": "gulp watch",
     "test": "gulp test"
   }
