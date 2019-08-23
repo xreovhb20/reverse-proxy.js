@@ -1,0 +1,8 @@
+{
+  "excludePrivate": true,
+  "gaSite": "auto",
+  "gitRevision": "master",
+  "mode": "file",
+  "name": "Reverse-Proxy.js",
+  "out": "doc/api"
+}
