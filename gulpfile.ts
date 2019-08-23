@@ -1,4 +1,4 @@
-import {spawn, SpawnOptions} from 'child_process';
+import {fork, spawn, SpawnOptions} from 'child_process';
 import * as del from 'del';
 import {promises} from 'fs';
 import * as gulp from 'gulp';
@@ -46,7 +46,7 @@ task('lint', () => _exec('eslint', ['--config=etc/eslint.json', ...sources]));
 
 /** TODO Starts the development server. */
 task('serve', done => {
-  fork('bin/reverse-proxy.js', ['--address=localhost', '--target=80'], {stdio: 'inherit'});
+  fork('bin/reverse-proxy.js', ['--address=localhost', '--target=8080'], {stdio: 'inherit'});
   done();
 });
 
