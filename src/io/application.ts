@@ -140,7 +140,7 @@ export class Application {
     const lastChar = data[data.length - 1];
     const isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
 
-    let servers: JsonMap[];
+    let servers: JsonObject[];
     if (!isJson) servers = safeLoadAll(data);
     else {
       servers = JSON.parse(data);
