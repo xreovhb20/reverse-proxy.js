@@ -106,9 +106,8 @@ export class Application {
   /**
    * Parses the command line arguments.
    * @param args The command line arguments.
-   * @private
    */
-  _parseCommandLineArguments(args: string[]) {
+  private _parseCommandLineArguments(args: string[]) {
     const format = {
       asInteger: (value: string) => Number.parseInt(value, 10),
       asIntegerIfNumeric: (value: string) => /^\d+$/.test(value) ? Number.parseInt(value, 10) : value
@@ -130,16 +129,12 @@ export class Application {
    * Parses the specified configuration data.
    * @param configuration A string specifying the application configuration.
    * @return The server instances corresponding to the parsed configuration.
-   * @private
    */
-  async _parseConfiguration(configuration: string): Promise<Server[]> {
+  private async _parseConfiguration(configuration: string): Promise<Server[]> {
     const data = configuration.trim();
     if (!data.length) throw new TypeError('Invalid configuration data');
 
-    const firstChar = data[0];
-    const lastChar = data[data.length - 1];
-    const isJson = (firstChar == '[' && lastChar == ']') || (firstChar == '{' && lastChar == '}');
-
+    const isJson = (data.startsWith('[') && data.endsWith(']')) || (data.startsWith('{') && data.endsWith('}'));
     let servers: JsonObject[];
     if (!isJson) servers = safeLoadAll(data);
     else {
@@ -163,11 +158,8 @@ export class Application {
     return servers.map(options => new Server(options));
   }
 
-  /**
-   * Starts the request workers.
-   * @private
-   */
-  async _startWorkers(): Promise {
+  /** Starts the request workers. */
+  private async _startWorkers(): Promise {
     const servers = [];
     if (program.target) servers.push({
       address: program.address,

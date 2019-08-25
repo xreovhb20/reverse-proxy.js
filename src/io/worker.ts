@@ -8,9 +8,8 @@ export class Worker {
   /**
    * The proxy servers managed by this worker.
    * @type {Server[]}
-   * @private
    */
-  _servers: Server[] = [];
+  private _servers: Server[] = [];
 
   /**
    * Stops the worker from accepting new connections.
@@ -56,9 +55,8 @@ export class Worker {
    * Extracts the user name provided in the specified `Authorization` header.
    * @param authorization The value of the `Authorization` header.
    * @return The user name found, otherwise the string `"-"`.
-   * @private
    */
-  _extractUserFromRequest(authorization?: string): string {
+  private _extractUserFromRequest(authorization?: string): string {
     if (typeof authorization != 'string' || !authorization.length) return '-';
 
     try {
