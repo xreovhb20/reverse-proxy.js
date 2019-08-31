@@ -18,7 +18,7 @@
     "reverse-proxy": "bin/reverse-proxy.js"
   },
   "dependencies": {
-    "commander": "^3.0.0",
+    "commander": "^3.0.1",
     "http-proxy": "^1.17.0",
     "js-yaml": "^3.13.1"
   },
@@ -30,7 +30,7 @@
     "@types/http-proxy": "^1.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.2",
+    "@types/node": "^12.7.3",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "chai": "^4.2.0",
