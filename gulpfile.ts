@@ -44,6 +44,11 @@ task('fix', () => _exec('eslint', ['--config=etc/eslint.json', '--fix', ...sourc
 /** Performs the static analysis of source code. */
 task('lint', () => _exec('eslint', ['--config=etc/eslint.json', ...sources]));
 
+/** Publishes the package to the registry. */
+task('publish:github', () => _exec('npm', ['publish', '--registry=https://npm.pkg.github.com/@cedx']));
+task('publish:npm', () => _exec('npm', ['publish', '--registry=https://registry.npmjs.org']));
+task('publish', () => series('clean', 'publish:github', 'publish:npm'));
+
 /** TODO Starts the development server. */
 task('serve', done => {
   fork('bin/reverse-proxy.js', ['--address=localhost', '--target=8080'], {stdio: 'inherit'});
