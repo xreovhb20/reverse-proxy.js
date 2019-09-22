@@ -7,5 +7,5 @@
 - [Submit an issue](https://github.com/cedx/reverse-proxy.js/issues)
 
 ## Testing
-- [Continuous integration](https://travis-ci.com/cedx/reverse-proxy.js)
+- [Continuous integration](https://github.com/cedx/reverse-proxy.js/actions)
 - [Code coverage](https://coveralls.io/github/cedx/reverse-proxy.js)

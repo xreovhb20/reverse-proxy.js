@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "commander": "^3.0.1",
-    "http-proxy": "^1.17.0",
+    "http-proxy": "^1.18.0",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^9.1.0",
+    "@cedx/coveralls": "^9.2.0",
     "@types/chai": "^4.2.3",
     "@types/gulp": "^4.0.6",
     "@types/gulp-replace": "^0.0.31",
