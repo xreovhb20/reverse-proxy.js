@@ -2,6 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "group": {"isDefault": true, "kind": "build"},
+      "problemMatcher": [],
+      "task": "default",
+      "type": "gulp"
+    },
+    {
       "problemMatcher": [],
       "task": "build",
       "type": "gulp"
@@ -27,7 +33,11 @@
       "type": "gulp"
     },
     {
-      "group": {"isDefault": true, "kind": "build"},
+      "problemMatcher": [],
+      "task": "publish",
+      "type": "gulp"
+    },
+    {
       "problemMatcher": [],
       "task": "test",
       "type": "gulp"
