@@ -57,7 +57,7 @@ export class Worker {
    * @return The user name found, otherwise the string `"-"`.
    */
   private _extractUserFromRequest(authorization?: string): string {
-    if (typeof authorization != 'string' || !authorization.length) return '-';
+    if (authorization == undefined || !authorization.length) return '-';
 
     try {
       const credentials = Buffer.from(authorization, 'base64').toString().split(':');
