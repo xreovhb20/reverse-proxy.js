@@ -1,6 +1,6 @@
 import cluster from 'cluster';
-import {Application} from './application.js';
-import {Server, ServerOptions} from './server.js';
+import {Application} from './application';
+import {Server, ServerOptions} from './server';
 
 /** Contains all public information and methods about a request worker. */
 export class Worker {

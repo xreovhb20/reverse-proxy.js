@@ -6,8 +6,8 @@ import {safeLoadAll} from 'js-yaml';
 import {cpus} from 'os';
 import {Writable} from 'stream';
 
-import {Server} from './server.js';
-import {Worker} from './worker.js';
+import {Server} from './server';
+import {Worker} from './worker';
 
 /** The application singleton. */
 let _app: Application;
@@ -45,7 +45,7 @@ export class Application {
 
   /** The application environment. */
   get environment(): string {
-    return 'NODE_ENV' in process.env ? process.env.NODE_ENV : 'development';
+    return 'NODE_ENV' in process.env ? process.env.NODE_ENV! : 'development';
   }
 
   /**

@@ -3,7 +3,7 @@ import http from 'http';
 import httpProxy from 'http-proxy';
 import https from 'https';
 import {AddressInfo, Socket} from 'net';
-import {Route, Target} from './route.js';
+import {Route, Target} from './route';
 
 /** Acts as an intermediary for requests from clients seeking resources from other servers. */
 export class Server extends EventEmitter {
