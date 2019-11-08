@@ -17,7 +17,7 @@ export class Route {
     if (typeof definition == 'string') return new Route(new URL(/^https?:/i.test(definition) ? definition : `http://${definition}`));
 
     const headers = new Map<string, string>();
-    for (const [key, value] of Object.entries(definition.headers ? definition.headers : {})) headers.set(key.toLowerCase(), value);
+    for (const [key, value] of Object.entries(definition.headers ?? {})) headers.set(key.toLowerCase(), value);
 
     const uri = typeof definition.uri == 'number' ? `http://127.0.0.1:${definition.uri}` : definition.uri;
     return new Route(new URL(/^https?:/i.test(uri) ? uri : `http://${uri}`), headers);

@@ -45,7 +45,7 @@ export class Application {
 
   /** The application environment. */
   get environment(): string {
-    return 'NODE_ENV' in process.env ? process.env.NODE_ENV! : 'development';
+    return process.env.NODE_ENV ?? 'development';
   }
 
   /**
@@ -158,8 +158,11 @@ export class Application {
     return servers.map(options => new Server(options));
   }
 
-  /** Starts the request workers. */
-  private async _startWorkers(): Promise {
+  /**
+   * Starts the request workers.
+   * @return Completes when the workers have been started.
+   */
+  private async _startWorkers(): Promise<void> {
     const servers = [];
     if (program.target) servers.push({
       address: program.address,
