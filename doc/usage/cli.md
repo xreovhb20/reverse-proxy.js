@@ -2,9 +2,9 @@
 The **Reverse-Proxy.js** application provides a command line interface:
 
 ```shell
-reverse-proxy --help
+reverse_proxy --help
 
-Usage: reverse-proxy [options]
+Usage: reverse_proxy [options]
 
 Personal reverse proxy server supporting WebSockets.
 

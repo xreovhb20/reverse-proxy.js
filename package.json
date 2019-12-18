@@ -15,7 +15,7 @@
     "url": "https://belin.io"
   },
   "bin": {
-    "reverse-proxy": "bin/reverse-proxy.js"
+    "reverse-proxy": "bin/reverse_proxy.js"
   },
   "dependencies": {
     "commander": "^4.0.1",

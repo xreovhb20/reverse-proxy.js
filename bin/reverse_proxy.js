@@ -9,7 +9,7 @@ const {Application} = require('../lib');
  */
 async function main() {
   const id = cluster.isMaster ? 'master' : `worker:${cluster.worker.id}`;
-  process.title = `reverse-proxy/${id}`;
+  process.title = `reverse_proxy/${id}`;
   return new Application().run();
 }
 

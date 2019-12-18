@@ -113,7 +113,7 @@ export class Application {
       asIntegerIfNumeric: (value: string) => /^\d+$/.test(value) ? Number.parseInt(value, 10) : value
     };
 
-    program.name('reverse-proxy')
+    program.name('reverse_proxy')
       .description('Personal reverse proxy server supporting WebSockets.')
       .version(Application.version, '-v, --version')
       .option('-a, --address <address>', 'address that the reverse proxy should run on', Server.defaultAddress)

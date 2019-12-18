@@ -50,7 +50,7 @@ task('publish', series('clean', 'publish:github', 'publish:npm'));
 
 /** TODO Starts the development server. */
 task('serve', done => {
-  fork('bin/reverse-proxy.js', ['--address=127.0.0.1', '--target=8080'], {stdio: 'inherit'});
+  fork('bin/reverse_proxy.js', ['--address=127.0.0.1', '--target=8080'], {stdio: 'inherit'});
   done();
 });
 
