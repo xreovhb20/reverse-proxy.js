@@ -8,7 +8,6 @@ Usage: reverse_proxy [options]
 
 Personal reverse proxy server supporting WebSockets.
 
-
 Options:
 
   -v, --version            output the version number
