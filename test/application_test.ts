@@ -85,17 +85,17 @@ describe('Application', () => {
     });
 
     it('should completes with an array if the parsed JSON configuration is valid', async () => {
-      const config = await Application._parseConfig('{"port": 80, "target": 3000}');
-      expect(config).to.be.an('array').and.have.lengthOf(1);
-      expect(config[0]).to.be.an.instanceof(Server);
-      expect(config[0].port).to.equal(80);
+      const configuration = await Application._parseConfig('{"port": 80, "target": 3000}');
+      expect(configuration).to.be.an('array').and.have.lengthOf(1);
+      expect(configuration[0]).to.be.an.instanceof(Server);
+      expect(configuration[0].port).to.equal(80);
     });
 
     it('should completes with an array if the parsed YAML configuration is valid', async () => {
-      const config = await Application._parseConfig('port: 80\ntarget: 3000');
-      expect(config).to.be.an('array').and.have.lengthOf(1);
-      expect(config[0]).to.be.an.instanceof(Server);
-      expect(config[0].port).to.equal(80);
+      const configuration = await Application._parseConfig('port: 80\ntarget: 3000');
+      expect(configuration).to.be.an('array').and.have.lengthOf(1);
+      expect(configuration[0]).to.be.an.instanceof(Server);
+      expect(configuration[0].port).to.equal(80);
     });
 
     it('should handle the loading of certificate files', async () => {
@@ -107,15 +107,15 @@ describe('Application', () => {
         }
       }`;
 
-      const config = await Application._parseConfig(settings);
-      expect(config).to.be.an('array').and.have.lengthOf(1);
-      expect(config[0]).to.be.an.instanceof(Server);
+      const configuration = await Application._parseConfig(settings);
+      expect(configuration).to.be.an('array').and.have.lengthOf(1);
+      expect(configuration[0]).to.be.an.instanceof(Server);
 
-      const cert = config[0]._options.ssl.cert;
+      const cert = configuration[0]._options.ssl.cert;
       expect(cert).to.be.an.instanceof(Buffer);
       expect(cert.toString()).to.contain('-----BEGIN CERTIFICATE-----');
 
-      const key = config[0]._options.ssl.key;
+      const key = configuration[0]._options.ssl.key;
       expect(key).to.be.an.instanceof(Buffer);
       expect(key.toString()).to.contain('-----BEGIN ENCRYPTED PRIVATE KEY-----');
     });
