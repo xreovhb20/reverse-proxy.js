@@ -27,7 +27,7 @@
     "@types/chai": "^4.2.7",
     "@types/gulp": "^4.0.6",
     "@types/gulp-replace": "^0.0.31",
-    "@types/http-proxy": "^1.17.2",
+    "@types/http-proxy": "^1.17.3",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.6",
@@ -41,8 +41,8 @@
     "mocha": "^6.2.2",
     "nyc": "^15.0.0",
     "source-map-support": "^0.5.16",
-    "ts-node": "^8.5.4",
-    "typedoc": "^0.15.7",
+    "ts-node": "^8.6.1",
+    "typedoc": "^0.15.8",
     "typescript": "^3.7.4"
   },
   "engines": {
