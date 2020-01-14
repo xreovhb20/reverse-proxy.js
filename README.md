@@ -11,6 +11,7 @@ Personal reverse proxy server supporting WebSockets, implemented in [TypeScript]
 
 ## Development
 - [Git repository](https://github.com/cedx/reverse-proxy.js)
+- [GitHub package](https://github.com/cedx/reverse-proxy.js/packages)
 - [npm package](https://www.npmjs.com/package/@cedx/reverse-proxy)
 - [Submit an issue](https://github.com/cedx/reverse-proxy.js/issues)
 
