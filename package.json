@@ -23,12 +23,12 @@
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^9.3.0",
+    "@cedx/coveralls": "^9.4.0",
     "@types/chai": "^4.2.7",
     "@types/http-proxy": "^1.17.3",
     "@types/js-yaml": "^3.12.1",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^13.1.6",
+    "@types/node": "^13.1.7",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "chai": "^4.2.0",
@@ -40,7 +40,7 @@
     "nyc": "^15.0.0",
     "source-map-support": "^0.5.16",
     "ts-node": "^8.6.2",
-    "typedoc": "^0.16.2",
+    "typedoc": "^0.16.4",
     "typescript": "^3.7.4"
   },
   "engines": {
