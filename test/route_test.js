@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import {Route} from '../src/index';
+import chai from 'chai';
+import {Route} from '../lib/index.js';
 
-/** Tests the features of the [[Route]] class. */
+/** Tests the features of the {@link Route} class. */
 describe('Route', () => {
   describe('.from()', () => {
     it('should handle numbers', () => {

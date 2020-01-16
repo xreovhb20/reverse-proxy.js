@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import {Server} from '../src/index';
+import chai from 'chai';
+import {Server} from '../lib/index.js';
 
-/** Tests the features of the [[Server]] class. */
+/** Tests the features of the {@link Server} class. */
 describe('Server', function() {
   this.timeout(15000);
 

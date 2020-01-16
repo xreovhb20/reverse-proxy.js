@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import {Application, Server} from '../src/index';
+import chai from 'chai';
+import {Application, Server} from '../lib/index.js';
 
-/** Tests the features of the [[Application]] class. */
+/** Tests the features of the {@link Application} class. */
 describe('Application', () => {
   describe('#debug', () => {
     it('should be `false` in production environment', () => {
