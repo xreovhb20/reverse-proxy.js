@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const cluster = require('cluster');
-const {Application} = require('../lib');
+const {Application} = require('../lib/cli/main.js');
 
 /**
  * Application entry point.
