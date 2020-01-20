@@ -22,22 +22,22 @@ describe('Route', () => {
 
     it('should handle `Target` instances', () => {
       let route = Route.from({
-        headers: {authorization: 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ='},
+        headers: {Authorization: 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ='},
         uri: 1234
       });
 
       expect(route.uri.href).to.equal('http://127.0.0.1:1234');
       expect(route.headers.size).to.equal(1);
-      expect(route.headers.get('authorization')).to.equal('Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=');
+      expect(route.headers.get('Authorization')).to.equal('Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=');
 
       route = Route.from({
-        headers: {'authorization': 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=', 'x-custom-header': 'X-Value'},
+        headers: {Authorization: 'Basic Z29vZHVzZXI6c2VjcmV0cGFzc3dvcmQ=', 'X-Custom-Header': 'X-Value'},
         uri: 'belin.io:5678'
       });
 
       expect(route.uri.href).to.equal('http://belin.io:5678');
       expect(route.headers.size).to.equal(2);
-      expect(route.headers.get('x-custom-header')).to.equal('X-Value');
+      expect(route.headers.get('X-Custom-Header')).to.equal('X-Value');
     });
   });
 });
