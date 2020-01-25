@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import {EventEmitter} from 'events';
 import http from 'http';
 import httpProxy from 'http-proxy';
 import https from 'https';
