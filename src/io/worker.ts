@@ -9,14 +9,14 @@ export class Worker {
    * The proxy servers managed by this worker.
    * @type {Server[]}
    */
-  private _servers: Server[] = [];
+  #servers: Server[] = [];
 
   /**
    * Stops the worker from accepting new connections.
    * @return Completes when all the servers managed by this worker are finally closed.
    */
-  stop(): Promise {
-    return Promise.all(this._servers.map(server => server.close()));
+  stop(): Promise<void> {
+    return Promise.all(this.#servers.map(server => server.close()));
   }
 
   /**
@@ -25,12 +25,12 @@ export class Worker {
    * @return The ports that the servers managed by this worker are running on.
    */
   start(servers: ServerOptions[] = []): Promise<number[]> {
-    this._servers = servers.map(options => new Server(options));
+    this.#servers = servers.map(options => new Server(options));
 
     const id = cluster.worker.id;
     const logger = Application.instance.logger;
 
-    return Promise.all(this._servers.map(server => server
+    return Promise.all(this.#servers.map(server => server
       .on('close', () => logger.log(`#${id}: ${server.address}:${server.port} closed`))
       .on('error', err => logger.error(`#${id}: ${Application.instance.debug ? err : err.message}`))
       .on('listening', () => logger.log(`#${id}: listening on ${server.address}:${server.port}`))
