@@ -5,7 +5,7 @@ import {Server} from '../lib/index.js';
 describe('Server', function() {
   this.timeout(15000);
 
-  describe('#address', () => {
+  describe('.address', () => {
     it('should have an "any IPv4" address as the default address', () => {
       expect(new Server().address).to.equal(Server.defaultAddress);
     });
@@ -15,7 +15,7 @@ describe('Server', function() {
     });
   });
 
-  describe('#listening', () => {
+  describe('.listening', () => {
     it('should return whether the server is listening', async () => {
       const server = new Server({address: '127.0.0.1', port: 0});
       expect(server.listening).to.be.false;
@@ -28,7 +28,7 @@ describe('Server', function() {
     });
   });
 
-  describe('#port', () => {
+  describe('.port', () => {
     it('should have 8080 as the default port', () => {
       expect(new Server().port).to.equal(Server.defaultPort);
     });
@@ -38,7 +38,7 @@ describe('Server', function() {
     });
   });
 
-  describe('#routes', () => {
+  describe('.routes', () => {
     it('should be empty by default', () => {
       expect(new Server().routes.size).to.equal(0);
     });

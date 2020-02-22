@@ -3,7 +3,7 @@ import {Application, Server} from '../lib/index.js';
 
 /** Tests the features of the {@link Application} class. */
 describe('Application', () => {
-  describe('#debug', () => {
+  describe('.debug', () => {
     it('should be `false` in production environment', () => {
       process.env.NODE_ENV = 'production';
       expect(new Application().debug).to.be.false;
@@ -15,7 +15,7 @@ describe('Application', () => {
     });
   });
 
-  describe('#environment', () => {
+  describe('.environment', () => {
     it('should be "development" if the `NODE_ENV` environment variable is not set', () => {
       delete process.env.NODE_ENV;
       expect(new Application().environment).to.equal('development');
@@ -27,7 +27,7 @@ describe('Application', () => {
     });
   });
 
-  describe('#init()', () => {
+  describe('.init()', () => {
     it('should initialize the `servers` property from the command line arguments', async () => {
       const app = new Application;
       await app.init({port: 80, target: 3000});
@@ -50,7 +50,7 @@ describe('Application', () => {
     });
   });
 
-  describe('#_parseConfiguration()', () => {
+  describe('._parseConfiguration()', () => {
     it('should throw an error if the configuration has an invalid format', async () => {
       try {
         await Application._parseConfig('"FooBar"');
