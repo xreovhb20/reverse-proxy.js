@@ -127,11 +127,11 @@ export class Application {
 
   /**
    * Parses the specified configuration data.
-   * @param configuration A string specifying the application configuration.
+   * @param config A string specifying the application configuration.
    * @return The server instances corresponding to the parsed configuration.
    */
-  private async _parseConfiguration(configuration: string): Promise<Server[]> {
-    const data = configuration.trim();
+  private async _parseConfiguration(config: string): Promise<Server[]> {
+    const data = config.trim();
     if (!data.length) throw new TypeError('Invalid configuration data');
 
     const isJson = (data.startsWith('[') && data.endsWith(']')) || (data.startsWith('{') && data.endsWith('}'));
